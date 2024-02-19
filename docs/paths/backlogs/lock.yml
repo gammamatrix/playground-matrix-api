@@ -1,0 +1,42 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The backlog id.'
+    schema:
+      type: string
+      format: uuid
+delete:
+  tags:
+    - Backlog
+  summary: 'Unlock a backlog by id.'
+  operationId: lock_backlog
+  responses:
+    204:
+      description: 'The backlog has been unlocked.'
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+put:
+  tags:
+    - Backlog
+  summary: 'Lock a backlog by id.'
+  operationId: unlock_backlog
+  responses:
+    200:
+      description: 'The unlocked backlog.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/backlog.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

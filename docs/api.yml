@@ -1,0 +1,220 @@
+openapi: 3.0.3
+servers:
+  -
+    url: 'https://api.example.com'
+    description: 'Production server'
+  -
+    url: 'https://api.staging.example.com'
+    description: 'Staging server'
+  -
+    url: 'https://api.dev.example.com'
+    description: 'Dev server'
+info:
+  title: Playground Matrix API
+  description: ''
+  termsOfService: ''
+  contact:
+    email: support@example.com
+  version: 73.0.0
+externalDocs:
+  description: ''
+  url: ''
+tags:
+  -
+    name: Board
+    description: 'Manage boards in storage.'
+  -
+    name: Epic
+    description: 'Manage epics in storage.'
+  -
+    name: Backlog
+    description: 'Manage backlogs in storage.'
+  -
+    name: Flow
+    description: 'Manage flows in storage.'
+  -
+    name: Milestone
+    description: 'Manage milestones in storage.'
+  -
+    name: Note
+    description: 'Manage notes in storage.'
+  -
+    name: Project
+    description: 'Manage projects in storage.'
+  -
+    name: Release
+    description: 'Manage releases in storage.'
+  -
+    name: Roadmap
+    description: 'Manage roadmaps in storage.'
+  -
+    name: Source
+    description: 'Manage sources in storage.'
+  -
+    name: Sprint
+    description: 'Manage sprints in storage.'
+  -
+    name: Tag
+    description: 'Manage tags in storage.'
+  -
+    name: Team
+    description: 'Manage teams in storage.'
+  -
+    name: Ticket
+    description: 'Manage tickets in storage.'
+  -
+    name: Version
+    description: 'Manage versions in storage.'
+paths:
+  '/api/boards/{id}':
+    $ref: paths/boards/id.yml
+  /api/boards:
+    $ref: paths/boards/index.yml
+  '/api/boards/lock/{id}':
+    $ref: paths/boards/lock.yml
+  '/api/boards/restore/{id}':
+    $ref: paths/boards/restore.yml
+  '/api/epics/{id}':
+    $ref: paths/epics/id.yml
+  /api/epics:
+    $ref: paths/epics/index.yml
+  '/api/epics/lock/{id}':
+    $ref: paths/epics/lock.yml
+  '/api/epics/restore/{id}':
+    $ref: paths/epics/restore.yml
+  '/api/backlogs/{id}':
+    $ref: paths/backlogs/id.yml
+  /api/backlogs:
+    $ref: paths/backlogs/index.yml
+  '/api/backlogs/lock/{id}':
+    $ref: paths/backlogs/lock.yml
+  '/api/backlogs/restore/{id}':
+    $ref: paths/backlogs/restore.yml
+  '/api/flows/{id}':
+    $ref: paths/flows/id.yml
+  /api/flows:
+    $ref: paths/flows/index.yml
+  '/api/flows/lock/{id}':
+    $ref: paths/flows/lock.yml
+  '/api/flows/restore/{id}':
+    $ref: paths/flows/restore.yml
+  '/api/milestones/{id}':
+    $ref: paths/milestones/id.yml
+  /api/milestones:
+    $ref: paths/milestones/index.yml
+  '/api/milestones/lock/{id}':
+    $ref: paths/milestones/lock.yml
+  '/api/milestones/restore/{id}':
+    $ref: paths/milestones/restore.yml
+  '/api/notes/{id}':
+    $ref: paths/notes/id.yml
+  /api/notes:
+    $ref: paths/notes/index.yml
+  '/api/notes/lock/{id}':
+    $ref: paths/notes/lock.yml
+  '/api/notes/restore/{id}':
+    $ref: paths/notes/restore.yml
+  '/api/projects/{id}':
+    $ref: paths/projects/id.yml
+  /api/projects:
+    $ref: paths/projects/index.yml
+  '/api/projects/lock/{id}':
+    $ref: paths/projects/lock.yml
+  '/api/projects/restore/{id}':
+    $ref: paths/projects/restore.yml
+  '/api/releases/{id}':
+    $ref: paths/releases/id.yml
+  /api/releases:
+    $ref: paths/releases/index.yml
+  '/api/releases/lock/{id}':
+    $ref: paths/releases/lock.yml
+  '/api/releases/restore/{id}':
+    $ref: paths/releases/restore.yml
+  '/api/roadmaps/{id}':
+    $ref: paths/roadmaps/id.yml
+  /api/roadmaps:
+    $ref: paths/roadmaps/index.yml
+  '/api/roadmaps/lock/{id}':
+    $ref: paths/roadmaps/lock.yml
+  '/api/roadmaps/restore/{id}':
+    $ref: paths/roadmaps/restore.yml
+  '/api/sources/{id}':
+    $ref: paths/sources/id.yml
+  /api/sources:
+    $ref: paths/sources/index.yml
+  '/api/sources/lock/{id}':
+    $ref: paths/sources/lock.yml
+  '/api/sources/restore/{id}':
+    $ref: paths/sources/restore.yml
+  '/api/sprints/{id}':
+    $ref: paths/sprints/id.yml
+  /api/sprints:
+    $ref: paths/sprints/index.yml
+  '/api/sprints/lock/{id}':
+    $ref: paths/sprints/lock.yml
+  '/api/sprints/restore/{id}':
+    $ref: paths/sprints/restore.yml
+  '/api/tags/{id}':
+    $ref: paths/tags/id.yml
+  /api/tags:
+    $ref: paths/tags/index.yml
+  '/api/tags/lock/{id}':
+    $ref: paths/tags/lock.yml
+  '/api/tags/restore/{id}':
+    $ref: paths/tags/restore.yml
+  '/api/teams/{id}':
+    $ref: paths/teams/id.yml
+  /api/teams:
+    $ref: paths/teams/index.yml
+  '/api/teams/lock/{id}':
+    $ref: paths/teams/lock.yml
+  '/api/teams/restore/{id}':
+    $ref: paths/teams/restore.yml
+  '/api/tickets/{id}':
+    $ref: paths/tickets/id.yml
+  /api/tickets:
+    $ref: paths/tickets/index.yml
+  '/api/tickets/lock/{id}':
+    $ref: paths/tickets/lock.yml
+  '/api/tickets/restore/{id}':
+    $ref: paths/tickets/restore.yml
+  '/api/versions/{id}':
+    $ref: paths/versions/id.yml
+  /api/versions:
+    $ref: paths/versions/index.yml
+  '/api/versions/lock/{id}':
+    $ref: paths/versions/lock.yml
+  '/api/versions/restore/{id}':
+    $ref: paths/versions/restore.yml
+components:
+  schemas:
+    Board:
+      $ref: models/board.yml
+    Epic:
+      $ref: models/epic.yml
+    Backlog:
+      $ref: models/backlog.yml
+    Flow:
+      $ref: models/flow.yml
+    Milestone:
+      $ref: models/milestone.yml
+    Note:
+      $ref: models/note.yml
+    Project:
+      $ref: models/project.yml
+    Release:
+      $ref: models/release.yml
+    Roadmap:
+      $ref: models/roadmap.yml
+    Source:
+      $ref: models/source.yml
+    Sprint:
+      $ref: models/sprint.yml
+    Tag:
+      $ref: models/tag.yml
+    Team:
+      $ref: models/team.yml
+    Ticket:
+      $ref: models/ticket.yml
+    Version:
+      $ref: models/version.yml

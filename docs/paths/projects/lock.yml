@@ -1,0 +1,42 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The project id.'
+    schema:
+      type: string
+      format: uuid
+delete:
+  tags:
+    - Project
+  summary: 'Unlock a project by id.'
+  operationId: lock_project
+  responses:
+    204:
+      description: 'The project has been unlocked.'
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+put:
+  tags:
+    - Project
+  summary: 'Lock a project by id.'
+  operationId: unlock_project
+  responses:
+    200:
+      description: 'The unlocked project.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/project.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

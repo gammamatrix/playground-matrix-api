@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The ticket id.'
+    schema:
+      type: string
+      format: uuid
+put:
+  tags:
+    - Ticket
+  summary: 'Restore a ticket by id.'
+  operationId: restore_ticket
+  responses:
+    200:
+      description: 'The restored ticket.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/ticket.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

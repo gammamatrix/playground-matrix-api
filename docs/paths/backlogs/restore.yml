@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The backlog id.'
+    schema:
+      type: string
+      format: uuid
+put:
+  tags:
+    - Backlog
+  summary: 'Restore a backlog by id.'
+  operationId: restore_backlog
+  responses:
+    200:
+      description: 'The restored backlog.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/backlog.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

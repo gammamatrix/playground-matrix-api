@@ -1,0 +1,311 @@
+description: 'The Matrix Source fillable properties.'
+type: object
+properties:
+  owned_by_id:
+    description: 'Foreign key: links an owned by user to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  parent_id:
+    description: 'Foreign key: links a parent to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  source_type:
+    description: 'The source type of this source.'
+    type: string
+    nullable: true
+  backlog_id:
+    description: 'Foreign key: links a backlog to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  board_id:
+    description: 'Foreign key: links a board to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  epic_id:
+    description: 'Foreign key: links an epic to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  flow_id:
+    description: 'Foreign key: links a flow to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  milestone_id:
+    description: 'Foreign key: links a milestone to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  note_id:
+    description: 'Foreign key: links a note to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  project_id:
+    description: 'Foreign key: links a project to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  release_id:
+    description: 'Foreign key: links a release to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  roadmap_id:
+    description: 'Foreign key: links a roadmap to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  sprint_id:
+    description: 'Foreign key: links a sprint to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  tag_id:
+    description: 'Foreign key: links a tag to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  team_id:
+    description: 'Foreign key: links a team to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  ticket_id:
+    description: 'Foreign key: links a ticket to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  version_id:
+    description: 'Foreign key: links a version to this source.'
+    type: string
+    format: uuid
+    nullable: true
+  start_at:
+    description: 'The start at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_start_at:
+    description: 'The planned start at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  end_at:
+    description: 'The end at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_end_at:
+    description: 'The planned end at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  canceled_at:
+    description: 'The canceled at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  closed_at:
+    description: 'The closed at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  embargo_at:
+    description: 'The embargo at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  fixed_at:
+    description: 'The fixed at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  postponed_at:
+    description: 'The postponed at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  published_at:
+    description: 'The published at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  released_at:
+    description: 'The released at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  resumed_at:
+    description: 'The resumed at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  resolved_at:
+    description: 'The resolved at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  suspended_at:
+    description: 'The suspended at date for this source.'
+    type: string
+    format: date-time
+    nullable: true
+  gids:
+    description: 'Permissions: gids'
+    type: integer
+    format: int64
+  po:
+    description: 'Permissions: po'
+    type: integer
+    format: int32
+  pg:
+    description: 'Permissions: pg'
+    type: integer
+    format: int32
+  pw:
+    description: 'Permissions: pw'
+    type: integer
+    format: int32
+  only_admin:
+    description: 'Permissions: only admin'
+    type: boolean
+  only_user:
+    description: 'Permissions: only user'
+    type: boolean
+  only_guest:
+    description: 'Permissions: only guest'
+    type: boolean
+  allow_public:
+    description: 'Permissions: allow public'
+    type: boolean
+  status:
+    description: 'The status of the source.'
+    type: integer
+    format: int64
+  rank:
+    description: 'Status: rank'
+    type: integer
+    format: int64
+  size:
+    description: 'Status: size'
+    type: integer
+    format: int64
+  icon:
+    description: 'Ui: icon'
+    type: string
+    maxLength: 128
+  image:
+    description: 'Ui: image'
+    type: string
+    maxLength: 512
+  avatar:
+    description: 'Ui: avatar'
+    type: string
+    maxLength: 512
+  ui:
+    description: 'The ui of the source.'
+    type: object
+    nullable: true
+  active:
+    description: 'Flags: active'
+    type: boolean
+  flagged:
+    description: 'Flags: flagged'
+    type: boolean
+  internal:
+    description: 'Flags: internal'
+    type: boolean
+  locked:
+    description: 'Flags: locked'
+    type: boolean
+  pending:
+    description: 'Flags: pending'
+    type: boolean
+  planned:
+    description: 'Flags: planned'
+    type: boolean
+  problem:
+    description: 'Flags: problem'
+    type: boolean
+  published:
+    description: 'Flags: published'
+    type: boolean
+  retired:
+    description: 'Flags: retired'
+    type: boolean
+  suspended:
+    description: 'Flags: suspended'
+    type: boolean
+  unknown:
+    description: 'Flags: unknown'
+    type: boolean
+  label:
+    description: 'The label of the source.'
+    type: string
+    maxLength: 128
+  byline:
+    description: 'The byline of the source.'
+    type: string
+    maxLength: 255
+  slug:
+    description: 'The slug of the source.'
+    type: string
+    maxLength: 128
+    nullable: true
+  url:
+    description: 'The url of the source.'
+    type: string
+    maxLength: 512
+  description:
+    description: 'The description of the source.'
+    type: string
+    maxLength: 512
+  introduction:
+    description: 'The introduction of the source.'
+    type: string
+    maxLength: 512
+  content:
+    description: 'The content of the source. Allows HTML.'
+    type: string
+    nullable: true
+  summary:
+    description: 'The summary of the source. Allows HTML.'
+    type: string
+    nullable: true
+  assets:
+    description: 'JSON: assets'
+    type: object
+    nullable: true
+  backlog:
+    description: 'JSON: backlog'
+    type: object
+    nullable: true
+  board:
+    description: 'JSON: board'
+    type: object
+    nullable: true
+  flow:
+    description: 'JSON: flow'
+    type: object
+    nullable: true
+  meta:
+    description: 'JSON: meta'
+    type: object
+    nullable: true
+  options:
+    description: 'JSON: options'
+    type: object
+    nullable: true
+  roadmap:
+    description: 'JSON: roadmap'
+    type: object
+    nullable: true
+  sources:
+    description: 'JSON: sources'
+    type: object
+    nullable: true

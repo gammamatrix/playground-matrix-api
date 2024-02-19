@@ -1,0 +1,42 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The sprint id.'
+    schema:
+      type: string
+      format: uuid
+delete:
+  tags:
+    - Sprint
+  summary: 'Unlock a sprint by id.'
+  operationId: lock_sprint
+  responses:
+    204:
+      description: 'The sprint has been unlocked.'
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+put:
+  tags:
+    - Sprint
+  summary: 'Lock a sprint by id.'
+  operationId: unlock_sprint
+  responses:
+    200:
+      description: 'The unlocked sprint.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/sprint.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

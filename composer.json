@@ -1,0 +1,68 @@
+{
+    "name": "gammamatrix/playground-matrix-api",
+    "description": "Playground: Provide the Matrix API for a Laravel application.",
+    "keywords": [
+        "matrix",
+        "agile",
+        "sprints",
+        "projects",
+        "tickets",
+        "gammamatrix",
+        "laravel",
+        "playground"
+    ],
+    "homepage": "https://github.com/gammamatrix/playground-matrix-api",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeremy Postlethwaite",
+            "email": "jeremy.postlethwaite@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "gammamatrix/playground-auth": "dev-develop|dev-master|dev-feature/*|^73.0",
+        "gammamatrix/playground-http": "dev-develop|dev-master|dev-feature/*|^73.0",
+        "gammamatrix/playground-matrix": "dev-develop|dev-master|dev-feature/*|^73.0"
+    },
+    "require-dev": {
+        "gammamatrix/playground-test": "dev-develop|dev-master|dev-feature/*|^73.0"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Playground\\Matrix\\Api\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Feature\\Playground\\Matrix\\Api\\": "tests/Feature/",
+            "Tests\\Unit\\Playground\\Matrix\\Api\\": "tests/Unit/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": {
+            "gammamatrix/*": "source",
+            "*": "dist"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "73.x-dev",
+            "dev-master": "73.x-dev"
+        },
+        "laravel": {
+            "providers": [
+                "Playground\\Matrix\\Api\\ServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "format": "vendor/bin/php-cs-fixer fix",
+        "analyse": "vendor/bin/phpstan analyse --verbose --debug --level max"
+    }
+}

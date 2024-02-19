@@ -1,0 +1,85 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The project id.'
+    schema:
+      type: string
+      format: uuid
+get:
+  tags:
+    - Project
+  summary: 'Get a project by id.'
+  operationId: get_project
+  responses:
+    200:
+      description: 'The project data.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/project.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+delete:
+  tags:
+    - Project
+  summary: 'Delete a project by id.'
+  operationId: delete_project
+  responses:
+    204:
+      description: 'The project has been deleted.'
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+    423:
+      description: 'The project is locked. Unlock to delete.'
+patch:
+  tags:
+    - Project
+  summary: 'Update a project by id.'
+  operationId: patch_project
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../requests/project/patch.yml
+  responses:
+    200:
+      description: 'The updated project.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/project.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+    422:
+      description: 'Validation error'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  label:
+                    type: array
+                    items:
+                      type: string
+                      example: 'The label field is required.'

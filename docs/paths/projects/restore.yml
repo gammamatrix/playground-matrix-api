@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The project id.'
+    schema:
+      type: string
+      format: uuid
+put:
+  tags:
+    - Project
+  summary: 'Restore a project by id.'
+  operationId: restore_project
+  responses:
+    200:
+      description: 'The restored project.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/project.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

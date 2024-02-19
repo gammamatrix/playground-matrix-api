@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The epic id.'
+    schema:
+      type: string
+      format: uuid
+put:
+  tags:
+    - Epic
+  summary: 'Restore a epic by id.'
+  operationId: restore_epic
+  responses:
+    200:
+      description: 'The restored epic.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/epic.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

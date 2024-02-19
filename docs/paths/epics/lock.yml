@@ -1,0 +1,42 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The epic id.'
+    schema:
+      type: string
+      format: uuid
+delete:
+  tags:
+    - Epic
+  summary: 'Unlock a epic by id.'
+  operationId: lock_epic
+  responses:
+    204:
+      description: 'The epic has been unlocked.'
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+put:
+  tags:
+    - Epic
+  summary: 'Lock a epic by id.'
+  operationId: unlock_epic
+  responses:
+    200:
+      description: 'The unlocked epic.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/epic.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

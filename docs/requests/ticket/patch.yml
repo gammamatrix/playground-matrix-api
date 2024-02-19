@@ -1,0 +1,416 @@
+description: 'The Matrix Ticket fillable properties.'
+type: object
+properties:
+  owned_by_id:
+    description: 'Foreign key: links an owned by user to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  parent_id:
+    description: 'Foreign key: links a parent to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  ticket_type:
+    description: 'The ticket type of this ticket.'
+    type: string
+    nullable: true
+  duplicate_id:
+    description: 'Foreign key: links a duplicate to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  backlog_id:
+    description: 'Foreign key: links a backlog to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  board_id:
+    description: 'Foreign key: links a board to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  completed_by_id:
+    description: 'Foreign key: links a completed by user to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  epic_id:
+    description: 'Foreign key: links an epic to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  flow_id:
+    description: 'Foreign key: links a flow to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  milestone_id:
+    description: 'Foreign key: links a milestone to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  note_id:
+    description: 'Foreign key: links a note to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  project_id:
+    description: 'Foreign key: links a project to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  release_id:
+    description: 'Foreign key: links a release to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  reported_by_id:
+    description: 'Foreign key: links a reported by user to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  roadmap_id:
+    description: 'Foreign key: links a roadmap to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  source_id:
+    description: 'Foreign key: links a source to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  sprint_id:
+    description: 'Foreign key: links a sprint to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  tag_id:
+    description: 'Foreign key: links a tag to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  team_id:
+    description: 'Foreign key: links a team to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  version_id:
+    description: 'Foreign key: links a version to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  version_fixed_id:
+    description: 'Foreign key: links a version fixed to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  start_at:
+    description: 'The start at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_start_at:
+    description: 'The planned start at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  end_at:
+    description: 'The end at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_end_at:
+    description: 'The planned end at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  canceled_at:
+    description: 'The canceled at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  closed_at:
+    description: 'The closed at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  embargo_at:
+    description: 'The embargo at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  fixed_at:
+    description: 'The fixed at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  postponed_at:
+    description: 'The postponed at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  published_at:
+    description: 'The published at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  released_at:
+    description: 'The released at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  resumed_at:
+    description: 'The resumed at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  resolved_at:
+    description: 'The resolved at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  suspended_at:
+    description: 'The suspended at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  gids:
+    description: 'Permissions: gids'
+    type: integer
+    format: int64
+  po:
+    description: 'Permissions: po'
+    type: integer
+    format: int32
+  pg:
+    description: 'Permissions: pg'
+    type: integer
+    format: int32
+  pw:
+    description: 'Permissions: pw'
+    type: integer
+    format: int32
+  only_admin:
+    description: 'Permissions: only admin'
+    type: boolean
+  only_user:
+    description: 'Permissions: only user'
+    type: boolean
+  only_guest:
+    description: 'Permissions: only guest'
+    type: boolean
+  allow_public:
+    description: 'Permissions: allow public'
+    type: boolean
+  status:
+    description: 'The status of the ticket.'
+    type: integer
+    format: int64
+  rank:
+    description: 'Status: rank'
+    type: integer
+    format: int64
+  size:
+    description: 'Status: size'
+    type: integer
+    format: int64
+  icon:
+    description: 'Ui: icon'
+    type: string
+    maxLength: 128
+  image:
+    description: 'Ui: image'
+    type: string
+    maxLength: 512
+  avatar:
+    description: 'Ui: avatar'
+    type: string
+    maxLength: 512
+  ui:
+    description: 'The ui of the ticket.'
+    type: object
+    nullable: true
+  active:
+    description: 'Flags: active'
+    type: boolean
+  canceled:
+    description: 'Flags: canceled'
+    type: boolean
+  closed:
+    description: 'Flags: closed'
+    type: boolean
+  completed:
+    description: 'Flags: completed'
+    type: boolean
+  duplicate:
+    description: 'Flags: duplicate'
+    type: boolean
+  fixed:
+    description: 'Flags: fixed'
+    type: boolean
+  flagged:
+    description: 'Flags: flagged'
+    type: boolean
+  internal:
+    description: 'Flags: internal'
+    type: boolean
+  locked:
+    description: 'Flags: locked'
+    type: boolean
+  pending:
+    description: 'Flags: pending'
+    type: boolean
+  planned:
+    description: 'Flags: planned'
+    type: boolean
+  problem:
+    description: 'Flags: problem'
+    type: boolean
+  published:
+    description: 'Flags: published'
+    type: boolean
+  released:
+    description: 'Flags: released'
+    type: boolean
+  retired:
+    description: 'Flags: retired'
+    type: boolean
+  resolved:
+    description: 'Flags: resolved'
+    type: boolean
+  suspended:
+    description: 'Flags: suspended'
+    type: boolean
+  unknown:
+    description: 'Flags: unknown'
+    type: boolean
+  label:
+    description: 'The label of the ticket.'
+    type: string
+    maxLength: 128
+  title:
+    description: 'The title of the ticket.'
+    type: string
+    maxLength: 255
+  byline:
+    description: 'The byline of the ticket.'
+    type: string
+    maxLength: 255
+  slug:
+    description: 'The slug of the ticket.'
+    type: string
+    maxLength: 128
+    nullable: true
+  url:
+    description: 'The url of the ticket.'
+    type: string
+    maxLength: 512
+  description:
+    description: 'The description of the ticket.'
+    type: string
+    maxLength: 512
+  introduction:
+    description: 'The introduction of the ticket.'
+    type: string
+    maxLength: 512
+  content:
+    description: 'The content of the ticket. Allows HTML.'
+    type: string
+    nullable: true
+  summary:
+    description: 'The summary of the ticket. Allows HTML.'
+    type: string
+    nullable: true
+  key:
+    description: 'The key of the ticket.'
+    type: string
+    maxLength: 64
+  handler:
+    description: 'The handler of the ticket.'
+    type: string
+    maxLength: 32
+  code:
+    description: 'The code of the ticket.'
+    type: integer
+    format: int64
+  key_code_hash:
+    description: 'The key code hash of the ticket.'
+    type: string
+    maxLength: 32
+  priority:
+    description: 'The priority of the ticket.'
+    type: string
+    maxLength: 32
+  severity:
+    description: 'The severity of the ticket.'
+    type: string
+    maxLength: 32
+  resolution:
+    description: 'The resolution of the ticket.'
+    type: string
+    maxLength: 32
+  step:
+    description: 'The step of the ticket.'
+    type: string
+    maxLength: 32
+  state:
+    description: 'The state of the ticket.'
+    type: string
+    maxLength: 32
+  workflow_type:
+    description: 'The workflow type of the ticket.'
+    type: string
+    maxLength: 128
+  points:
+    description: 'The points of the ticket.'
+    type: integer
+    format: int32
+  story:
+    description: 'The story of the ticket. Allows HTML.'
+    type: string
+    nullable: true
+  criteria:
+    description: 'The criteria of the ticket. Allows HTML.'
+    type: string
+    nullable: true
+  reproducibility:
+    description: 'The reproducibility of the ticket.'
+    type: number
+    nullable: true
+  assets:
+    description: 'JSON: assets'
+    type: object
+    nullable: true
+  backlog:
+    description: 'JSON: backlog'
+    type: object
+    nullable: true
+  board:
+    description: 'JSON: board'
+    type: object
+    nullable: true
+  flow:
+    description: 'JSON: flow'
+    type: object
+    nullable: true
+  history:
+    description: 'JSON: history'
+    type: object
+    nullable: true
+  meta:
+    description: 'JSON: meta'
+    type: object
+    nullable: true
+  options:
+    description: 'JSON: options'
+    type: object
+    nullable: true
+  roadmap:
+    description: 'JSON: roadmap'
+    type: object
+    nullable: true
+  sources:
+    description: 'JSON: sources'
+    type: object
+    nullable: true

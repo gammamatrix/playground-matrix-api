@@ -1,0 +1,42 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The roadmap id.'
+    schema:
+      type: string
+      format: uuid
+delete:
+  tags:
+    - Roadmap
+  summary: 'Unlock a roadmap by id.'
+  operationId: lock_roadmap
+  responses:
+    204:
+      description: 'The roadmap has been unlocked.'
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+put:
+  tags:
+    - Roadmap
+  summary: 'Lock a roadmap by id.'
+  operationId: unlock_roadmap
+  responses:
+    200:
+      description: 'The unlocked roadmap.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/roadmap.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

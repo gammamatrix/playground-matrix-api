@@ -1,0 +1,85 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The backlog id.'
+    schema:
+      type: string
+      format: uuid
+get:
+  tags:
+    - Backlog
+  summary: 'Get a backlog by id.'
+  operationId: get_backlog
+  responses:
+    200:
+      description: 'The backlog data.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/backlog.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+delete:
+  tags:
+    - Backlog
+  summary: 'Delete a backlog by id.'
+  operationId: delete_backlog
+  responses:
+    204:
+      description: 'The backlog has been deleted.'
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+    423:
+      description: 'The backlog is locked. Unlock to delete.'
+patch:
+  tags:
+    - Backlog
+  summary: 'Update a backlog by id.'
+  operationId: patch_backlog
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../requests/backlog/patch.yml
+  responses:
+    200:
+      description: 'The updated backlog.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/backlog.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+    422:
+      description: 'Validation error'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  label:
+                    type: array
+                    items:
+                      type: string
+                      example: 'The label field is required.'

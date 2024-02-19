@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The flow id.'
+    schema:
+      type: string
+      format: uuid
+put:
+  tags:
+    - Flow
+  summary: 'Restore a flow by id.'
+  operationId: restore_flow
+  responses:
+    200:
+      description: 'The restored flow.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/flow.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

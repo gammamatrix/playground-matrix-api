@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The version id.'
+    schema:
+      type: string
+      format: uuid
+put:
+  tags:
+    - Version
+  summary: 'Restore a version by id.'
+  operationId: restore_version
+  responses:
+    200:
+      description: 'The restored version.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/version.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

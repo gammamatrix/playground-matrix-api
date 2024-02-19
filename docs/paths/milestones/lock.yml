@@ -1,0 +1,42 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The milestone id.'
+    schema:
+      type: string
+      format: uuid
+delete:
+  tags:
+    - Milestone
+  summary: 'Unlock a milestone by id.'
+  operationId: lock_milestone
+  responses:
+    204:
+      description: 'The milestone has been unlocked.'
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+put:
+  tags:
+    - Milestone
+  summary: 'Lock a milestone by id.'
+  operationId: unlock_milestone
+  responses:
+    200:
+      description: 'The unlocked milestone.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/milestone.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
