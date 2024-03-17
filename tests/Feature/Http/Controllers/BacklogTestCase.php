@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Playground
  */
@@ -9,9 +11,6 @@ namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers;
  */
 class BacklogTestCase extends TestCase
 {
-    // protected bool $load_migrations_playground = true;
-    // protected bool $load_migrations_matrix = true;
-
     public string $fqdn = \Playground\Matrix\Models\Backlog::class;
 
     /**

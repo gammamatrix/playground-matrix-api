@@ -1,25 +1,18 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Playground
  */
 namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground;
 
-use Playground\Test\Feature\Http\Controllers\Resource;
-use Tests\Feature\Playground\Matrix\Api\Http\Controllers\BacklogTestCase;
+use Tests\Feature\Playground\Matrix\Api\Http\Controllers\BoardTestCase;
 
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\BoardRouteTest
  */
-class BoardRouteTest extends BacklogTestCase
+class BoardRouteTest extends BoardTestCase
 {
-    use Resource\Playground\CreateJsonTrait;
-    use Resource\Playground\DestroyJsonTrait;
-    use Resource\Playground\EditJsonTrait;
-    use Resource\Playground\IndexJsonTrait;
-    use Resource\Playground\LockJsonTrait;
-    use Resource\Playground\RestoreJsonTrait;
-    use Resource\Playground\ShowJsonTrait;
-    use Resource\Playground\UnlockJsonTrait;
     use TestTrait;
 
     protected bool $load_migrations_playground = true;

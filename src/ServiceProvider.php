@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Playground
  */
@@ -188,7 +190,7 @@ class ServiceProvider extends AuthServiceProvider
 
         $version = $this->version();
 
-        AboutCommand::add('Playground Matrix Api', fn () => [
+        AboutCommand::add('Playground: Matrix Api', fn () => [
             '<fg=yellow;options=bold>Load</> Policies' => ! empty($load['policies']) ? '<fg=green;options=bold>ENABLED</>' : '<fg=yellow;options=bold>DISABLED</>',
             '<fg=yellow;options=bold>Load</> Routes' => ! empty($load['routes']) ? '<fg=green;options=bold>ENABLED</>' : '<fg=yellow;options=bold>DISABLED</>',
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 return [
     'middleware' => [
         'default' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_DEFAULT', ['web']),

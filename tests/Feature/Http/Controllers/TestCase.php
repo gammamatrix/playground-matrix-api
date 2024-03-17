@@ -1,9 +1,13 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Playground
  */
 namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
+use Playground\Test\Feature\Http\Controllers\Resource;
 use Tests\Feature\Playground\Matrix\Api\TestCase as BaseTestCase;
 
 /**
@@ -11,6 +15,16 @@ use Tests\Feature\Playground\Matrix\Api\TestCase as BaseTestCase;
  */
 class TestCase extends BaseTestCase
 {
+    use Resource\Playground\CreateJsonTrait;
+    use Resource\Playground\DestroyJsonTrait;
+    use Resource\Playground\EditJsonTrait;
+    use Resource\Playground\IndexJsonTrait;
+    use Resource\Playground\LockJsonTrait;
+    use Resource\Playground\RestoreJsonTrait;
+    use Resource\Playground\ShowJsonTrait;
+    use Resource\Playground\UnlockJsonTrait;
+    // use Resource\Playground\UpdateJsonTrait;
+
     /**
      * @var array<string, string>
      */
@@ -30,53 +44,24 @@ class TestCase extends BaseTestCase
     ];
 
     /**
+     * @var class-string<Model>
+     */
+    public string $fqdn = Model::class;
+
+    /**
      * @var array<int, string>
      */
     protected $structure_model = [
         'id',
-        'created_by_id',
-        'modified_by_id',
-        'owned_by_id',
-        'parent_id',
-
-        'created_at',
-        'deleted_at',
-        'updated_at',
-
-        'gids',
-        'po',
-        'pg',
-        'pw',
-        'only_admin',
-        'only_user',
-        'only_guest',
-        'allow_public',
-        'status',
-        'rank',
-        'size',
-
-        'active',
-        'flagged',
-        'internal',
-        'locked',
-
-        'label',
-        'title',
-        'byline',
-        'slug',
-        'url',
-        'description',
-        'introduction',
-        'content',
-        'summary',
-        'icon',
-        'image',
-        'avatar',
-        'ui',
-        'assets',
-        'meta',
-        'options',
     ];
+
+    /**
+     * @return class-string<Model>
+     */
+    public function getGetFqdn(): string
+    {
+        return $this->fqdn;
+    }
 
     /**
      * @return array<string, string>

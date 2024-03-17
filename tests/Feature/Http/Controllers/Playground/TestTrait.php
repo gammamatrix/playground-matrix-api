@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Playground
  */
@@ -16,7 +18,9 @@ trait TestTrait
      */
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('auth.providers.users.model', '\\Playground\\Test\\Models\\PlaygroundUser');
+        $app['config']->set('auth.providers.users.model', '\\Playground\\Models\\Playground');
+        $app['config']->set('auth.testing.password', 'password');
+        $app['config']->set('auth.testing.hashed', false);
 
         $app['config']->set('playground-matrix.load.migrations', true);
 

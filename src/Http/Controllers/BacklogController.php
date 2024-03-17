@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * Playground
  */
@@ -6,7 +8,6 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\Backlog\CreateRequest;
 use Playground\Matrix\Api\Http\Requests\Backlog\DestroyRequest;
 use Playground\Matrix\Api\Http\Requests\Backlog\EditRequest;
@@ -103,19 +104,9 @@ class BacklogController extends Controller
     ): JsonResponse|BacklogResource {
         $validated = $request->validated();
 
-        $user = $request->user();
-
         $backlog->setAttribute('locked', true);
 
         $backlog->save();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $backlog->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'info' => $this->packageInfo,
-        ];
-        // dump($request);
 
         return (new BacklogResource($backlog))->response($request);
     }

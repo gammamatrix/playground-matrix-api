@@ -22,12 +22,12 @@
     ],
     "require": {
         "php": "^8.1",
-        "gammamatrix/playground-auth": "dev-develop|dev-master|dev-feature/*|^73.0",
-        "gammamatrix/playground-http": "dev-develop|dev-master|dev-feature/*|^73.0",
-        "gammamatrix/playground-matrix": "dev-develop|dev-master|dev-feature/*|^73.0"
+        "gammamatrix/playground-auth": "dev-develop|dev-master|dev-feature/*|^73.0@dev|^73.0",
+        "gammamatrix/playground-http": "dev-develop|dev-master|dev-feature/*|^73.0@dev|^73.0",
+        "gammamatrix/playground-matrix": "dev-develop|dev-master|dev-feature/*|^73.0@dev|^73.0"
     },
     "require-dev": {
-        "gammamatrix/playground-test": "dev-develop|dev-master|dev-feature/*|^73.0"
+        "gammamatrix/playground-test": "dev-develop|dev-master|dev-feature/*|^73.0@dev|^73.0"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
