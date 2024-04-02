@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/epic',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{epic:slug}', [
+        'as' => 'playground.matrix.api.epics.slug',
+        'uses' => 'EpicController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/epics',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'EpicController@show',
     ])->whereUuid('epic')
         ->can('detail', 'epic');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.epics.slug',
-    //     'uses' => 'EpicController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.epics.store',
-    //     'uses' => 'EpicController@store',
-    // ])->can('store', \Playground\Matrix\Models\Epic::class);
 
     // API
 

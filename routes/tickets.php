@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/ticket',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{ticket:slug}', [
+        'as' => 'playground.matrix.api.tickets.slug',
+        'uses' => 'TicketController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/tickets',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'TicketController@show',
     ])->whereUuid('ticket')
         ->can('detail', 'ticket');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.tickets.slug',
-    //     'uses' => 'TicketController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.tickets.store',
-    //     'uses' => 'TicketController@store',
-    // ])->can('store', \Playground\Matrix\Models\Ticket::class);
 
     // API
 

@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/source',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{source:slug}', [
+        'as' => 'playground.matrix.api.sources.slug',
+        'uses' => 'SourceController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/sources',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'SourceController@show',
     ])->whereUuid('source')
         ->can('detail', 'source');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.sources.slug',
-    //     'uses' => 'SourceController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.sources.store',
-    //     'uses' => 'SourceController@store',
-    // ])->can('store', \Playground\Matrix\Models\Source::class);
 
     // API
 

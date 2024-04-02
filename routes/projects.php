@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/project',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{project:slug}', [
+        'as' => 'playground.matrix.api.projects.slug',
+        'uses' => 'ProjectController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/projects',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'ProjectController@show',
     ])->whereUuid('project')
         ->can('detail', 'project');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.projects.slug',
-    //     'uses' => 'ProjectController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.projects.store',
-    //     'uses' => 'ProjectController@store',
-    // ])->can('store', \Playground\Matrix\Models\Project::class);
 
     // API
 

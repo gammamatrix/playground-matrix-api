@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/version',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{version:slug}', [
+        'as' => 'playground.matrix.api.versions.slug',
+        'uses' => 'VersionController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/versions',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'VersionController@show',
     ])->whereUuid('version')
         ->can('detail', 'version');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.versions.slug',
-    //     'uses' => 'VersionController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.versions.store',
-    //     'uses' => 'VersionController@store',
-    // ])->can('store', \Playground\Matrix\Models\Version::class);
 
     // API
 

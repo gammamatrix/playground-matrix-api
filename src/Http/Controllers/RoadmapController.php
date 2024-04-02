@@ -8,7 +8,6 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\Roadmap\CreateRequest;
 use Playground\Matrix\Api\Http\Requests\Roadmap\DestroyRequest;
 use Playground\Matrix\Api\Http\Requests\Roadmap\EditRequest;
@@ -47,76 +46,42 @@ class RoadmapController extends Controller
     ];
 
     /**
-     * CREATE the Roadmap resource in storage.
+     * Create information for the Roadmap resource in storage.
      *
      * @route GET /api/matrix/roadmaps/create playground.matrix.api.roadmaps.create
      */
     public function create(
         CreateRequest $request
-    ): JsonResponse {
+    ): JsonResponse|RoadmapResource {
         $validated = $request->validated();
 
         $user = $request->user();
 
         $roadmap = new Roadmap($validated);
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => null,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new RoadmapResource($roadmap))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $roadmap,
-            'meta' => $meta,
-            '_method' => 'post',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
-     * Edit the Roadmap resource in storage.
+     * Edit information for the Roadmap resource in storage.
      *
      * @route GET /api/matrix/roadmaps/edit playground.matrix.api.roadmaps.edit
      */
     public function edit(
         Roadmap $roadmap,
         EditRequest $request
-    ): JsonResponse {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $roadmap->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+    ): JsonResponse|RoadmapResource {
+        return (new RoadmapResource($roadmap))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $roadmap,
-            'meta' => $meta,
-            '_method' => 'patch',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
      * Remove the Roadmap resource from storage.
      *
-     * @route DELETE /api/matrix/{roadmap} playground.matrix.api.roadmaps.destroy
+     * @route DELETE /api/matrix/roadmaps/{roadmap} playground.matrix.api.roadmaps.destroy
      */
     public function destroy(
         Roadmap $roadmap,
@@ -136,7 +101,7 @@ class RoadmapController extends Controller
     /**
      * Lock the Roadmap resource in storage.
      *
-     * @route PUT /api/matrix/{roadmap} playground.matrix.api.roadmaps.lock
+     * @route PUT /api/matrix/roadmaps/{roadmap} playground.matrix.api.roadmaps.lock
      */
     public function lock(
         Roadmap $roadmap,
@@ -150,20 +115,15 @@ class RoadmapController extends Controller
 
         $roadmap->save();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $roadmap->id,
-            'timestamp' => Carbon::now()->toJson(),
+        return (new RoadmapResource($roadmap))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new RoadmapResource($roadmap))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Display a listing of Roadmap resources.
      *
-     * @route GET /api/matrix playground.matrix.api.roadmaps
+     * @route GET /api/matrix/roadmaps playground.matrix.api.roadmaps
      */
     public function index(
         IndexRequest $request
@@ -205,13 +165,15 @@ class RoadmapController extends Controller
 
         $paginator->appends($validated);
 
-        return (new RoadmapCollection($paginator))->response($request);
+        return (new RoadmapCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Restore the Roadmap resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{roadmap} playground.matrix.api.roadmaps.restore
+     * @route PUT /api/matrix/roadmaps/restore/{roadmap} playground.matrix.api.roadmaps.restore
      */
     public function restore(
         Roadmap $roadmap,
@@ -223,13 +185,15 @@ class RoadmapController extends Controller
 
         $roadmap->restore();
 
-        return (new RoadmapResource($roadmap))->response($request);
+        return (new RoadmapResource($roadmap))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display the Roadmap resource.
      *
-     * @route GET /api/matrix/{roadmap} playground.matrix.api.roadmaps.show
+     * @route GET /api/matrix/roadmaps/{roadmap} playground.matrix.api.roadmaps.show
      */
     public function show(
         Roadmap $roadmap,
@@ -239,21 +203,15 @@ class RoadmapController extends Controller
 
         $user = $request->user();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $roadmap->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new RoadmapResource($roadmap))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new RoadmapResource($roadmap))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Store a newly created API Roadmap resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.roadmaps.post
+     * @route POST /api/matrix/roadmaps playground.matrix.api.roadmaps.post
      */
     public function store(
         StoreRequest $request
@@ -264,15 +222,19 @@ class RoadmapController extends Controller
 
         $roadmap = new Roadmap($validated);
 
+        $roadmap->created_by_id = $user?->id;
+
         $roadmap->save();
 
-        return (new RoadmapResource($roadmap))->response($request);
+        return (new RoadmapResource($roadmap))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Unlock the Roadmap resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{roadmap} playground.matrix.api.roadmaps.unlock
+     * @route DELETE /api/matrix/roadmaps/lock/{roadmap} playground.matrix.api.roadmaps.unlock
      */
     public function unlock(
         Roadmap $roadmap,
@@ -286,13 +248,15 @@ class RoadmapController extends Controller
 
         $roadmap->save();
 
-        return (new RoadmapResource($roadmap))->response($request);
+        return (new RoadmapResource($roadmap))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Update the Roadmap resource in storage.
      *
-     * @route PATCH /api/matrix/{roadmap} playground.matrix.api.roadmaps.patch
+     * @route PATCH /api/matrix/roadmaps/{roadmap} playground.matrix.api.roadmaps.patch
      */
     public function update(
         Roadmap $roadmap,
@@ -302,8 +266,12 @@ class RoadmapController extends Controller
 
         $user = $request->user();
 
+        $roadmap->modified_by_id = $user?->id;
+
         $roadmap->update($validated);
 
-        return (new RoadmapResource($roadmap))->response($request);
+        return (new RoadmapResource($roadmap))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }

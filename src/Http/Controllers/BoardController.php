@@ -8,7 +8,6 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\Board\CreateRequest;
 use Playground\Matrix\Api\Http\Requests\Board\DestroyRequest;
 use Playground\Matrix\Api\Http\Requests\Board\EditRequest;
@@ -47,7 +46,7 @@ class BoardController extends Controller
     ];
 
     /**
-     * CREATE the Board resource in storage.
+     * Create information for the Board resource in storage.
      *
      * @route GET /api/matrix/boards/create playground.matrix.api.boards.create
      */
@@ -64,7 +63,7 @@ class BoardController extends Controller
     }
 
     /**
-     * Edit the Board resource in storage.
+     * Edit information for the Board resource in storage.
      *
      * @route GET /api/matrix/boards/edit playground.matrix.api.boards.edit
      */
@@ -113,13 +112,6 @@ class BoardController extends Controller
         $board->setAttribute('locked', true);
 
         $board->save();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $board->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'info' => $this->packageInfo,
-        ];
 
         return (new BoardResource($board))->additional(['meta' => [
             'info' => $this->packageInfo,
@@ -208,14 +200,6 @@ class BoardController extends Controller
         $validated = $request->validated();
 
         $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $board->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
-            'info' => $this->packageInfo,
-        ];
 
         return (new BoardResource($board))->additional(['meta' => [
             'info' => $this->packageInfo,

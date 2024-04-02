@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/release',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{release:slug}', [
+        'as' => 'playground.matrix.api.releases.slug',
+        'uses' => 'ReleaseController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/releases',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'ReleaseController@show',
     ])->whereUuid('release')
         ->can('detail', 'release');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.releases.slug',
-    //     'uses' => 'ReleaseController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.releases.store',
-    //     'uses' => 'ReleaseController@store',
-    // ])->can('store', \Playground\Matrix\Models\Release::class);
 
     // API
 

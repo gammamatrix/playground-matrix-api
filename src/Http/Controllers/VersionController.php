@@ -8,7 +8,6 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\Version\CreateRequest;
 use Playground\Matrix\Api\Http\Requests\Version\DestroyRequest;
 use Playground\Matrix\Api\Http\Requests\Version\EditRequest;
@@ -47,76 +46,42 @@ class VersionController extends Controller
     ];
 
     /**
-     * CREATE the Version resource in storage.
+     * Create information for the Version resource in storage.
      *
      * @route GET /api/matrix/versions/create playground.matrix.api.versions.create
      */
     public function create(
         CreateRequest $request
-    ): JsonResponse {
+    ): JsonResponse|VersionResource {
         $validated = $request->validated();
 
         $user = $request->user();
 
         $version = new Version($validated);
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => null,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new VersionResource($version))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $version,
-            'meta' => $meta,
-            '_method' => 'post',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
-     * Edit the Version resource in storage.
+     * Edit information for the Version resource in storage.
      *
      * @route GET /api/matrix/versions/edit playground.matrix.api.versions.edit
      */
     public function edit(
         Version $version,
         EditRequest $request
-    ): JsonResponse {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $version->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+    ): JsonResponse|VersionResource {
+        return (new VersionResource($version))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $version,
-            'meta' => $meta,
-            '_method' => 'patch',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
      * Remove the Version resource from storage.
      *
-     * @route DELETE /api/matrix/{version} playground.matrix.api.versions.destroy
+     * @route DELETE /api/matrix/versions/{version} playground.matrix.api.versions.destroy
      */
     public function destroy(
         Version $version,
@@ -136,7 +101,7 @@ class VersionController extends Controller
     /**
      * Lock the Version resource in storage.
      *
-     * @route PUT /api/matrix/{version} playground.matrix.api.versions.lock
+     * @route PUT /api/matrix/versions/{version} playground.matrix.api.versions.lock
      */
     public function lock(
         Version $version,
@@ -150,20 +115,15 @@ class VersionController extends Controller
 
         $version->save();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $version->id,
-            'timestamp' => Carbon::now()->toJson(),
+        return (new VersionResource($version))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new VersionResource($version))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Display a listing of Version resources.
      *
-     * @route GET /api/matrix playground.matrix.api.versions
+     * @route GET /api/matrix/versions playground.matrix.api.versions
      */
     public function index(
         IndexRequest $request
@@ -205,13 +165,15 @@ class VersionController extends Controller
 
         $paginator->appends($validated);
 
-        return (new VersionCollection($paginator))->response($request);
+        return (new VersionCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Restore the Version resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{version} playground.matrix.api.versions.restore
+     * @route PUT /api/matrix/versions/restore/{version} playground.matrix.api.versions.restore
      */
     public function restore(
         Version $version,
@@ -223,13 +185,15 @@ class VersionController extends Controller
 
         $version->restore();
 
-        return (new VersionResource($version))->response($request);
+        return (new VersionResource($version))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display the Version resource.
      *
-     * @route GET /api/matrix/{version} playground.matrix.api.versions.show
+     * @route GET /api/matrix/versions/{version} playground.matrix.api.versions.show
      */
     public function show(
         Version $version,
@@ -239,21 +203,15 @@ class VersionController extends Controller
 
         $user = $request->user();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $version->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new VersionResource($version))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new VersionResource($version))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Store a newly created API Version resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.versions.post
+     * @route POST /api/matrix/versions playground.matrix.api.versions.post
      */
     public function store(
         StoreRequest $request
@@ -264,15 +222,19 @@ class VersionController extends Controller
 
         $version = new Version($validated);
 
+        $version->created_by_id = $user?->id;
+
         $version->save();
 
-        return (new VersionResource($version))->response($request);
+        return (new VersionResource($version))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Unlock the Version resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{version} playground.matrix.api.versions.unlock
+     * @route DELETE /api/matrix/versions/lock/{version} playground.matrix.api.versions.unlock
      */
     public function unlock(
         Version $version,
@@ -286,13 +248,15 @@ class VersionController extends Controller
 
         $version->save();
 
-        return (new VersionResource($version))->response($request);
+        return (new VersionResource($version))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Update the Version resource in storage.
      *
-     * @route PATCH /api/matrix/{version} playground.matrix.api.versions.patch
+     * @route PATCH /api/matrix/versions/{version} playground.matrix.api.versions.patch
      */
     public function update(
         Version $version,
@@ -302,8 +266,12 @@ class VersionController extends Controller
 
         $user = $request->user();
 
+        $version->modified_by_id = $user?->id;
+
         $version->update($validated);
 
-        return (new VersionResource($version))->response($request);
+        return (new VersionResource($version))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }

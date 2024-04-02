@@ -46,7 +46,7 @@ class BacklogController extends Controller
     ];
 
     /**
-     * CREATE the Backlog resource in storage.
+     * Create information for the Backlog resource in storage.
      *
      * @route GET /api/matrix/backlogs/create playground.matrix.api.backlogs.create
      */
@@ -64,7 +64,7 @@ class BacklogController extends Controller
     }
 
     /**
-     * Edit the Backlog resource in storage.
+     * Edit information for the Backlog resource in storage.
      *
      * @route GET /api/matrix/backlogs/edit playground.matrix.api.backlogs.edit
      */

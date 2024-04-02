@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/milestone',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{milestone:slug}', [
+        'as' => 'playground.matrix.api.milestones.slug',
+        'uses' => 'MilestoneController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/milestones',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'MilestoneController@show',
     ])->whereUuid('milestone')
         ->can('detail', 'milestone');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.milestones.slug',
-    //     'uses' => 'MilestoneController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.milestones.store',
-    //     'uses' => 'MilestoneController@store',
-    // ])->can('store', \Playground\Matrix\Models\Milestone::class);
 
     // API
 

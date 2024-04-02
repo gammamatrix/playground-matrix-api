@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/note',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{note:slug}', [
+        'as' => 'playground.matrix.api.notes.slug',
+        'uses' => 'NoteController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/notes',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'NoteController@show',
     ])->whereUuid('note')
         ->can('detail', 'note');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.notes.slug',
-    //     'uses' => 'NoteController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.notes.store',
-    //     'uses' => 'NoteController@store',
-    // ])->can('store', \Playground\Matrix\Models\Note::class);
 
     // API
 

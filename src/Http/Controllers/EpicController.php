@@ -8,7 +8,6 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\Epic\CreateRequest;
 use Playground\Matrix\Api\Http\Requests\Epic\DestroyRequest;
 use Playground\Matrix\Api\Http\Requests\Epic\EditRequest;
@@ -47,7 +46,7 @@ class EpicController extends Controller
     ];
 
     /**
-     * CREATE the Epic resource in storage.
+     * Create information for the Epic resource in storage.
      *
      * @route GET /api/matrix/epics/create playground.matrix.api.epics.create
      */
@@ -66,7 +65,7 @@ class EpicController extends Controller
     }
 
     /**
-     * Edit the Epic resource in storage.
+     * Edit information for the Epic resource in storage.
      *
      * @route GET /api/matrix/epics/edit playground.matrix.api.epics.edit
      */
@@ -203,14 +202,6 @@ class EpicController extends Controller
         $validated = $request->validated();
 
         $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $epic->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
-            'info' => $this->packageInfo,
-        ];
 
         return (new EpicResource($epic))->additional(['meta' => [
             'info' => $this->packageInfo,

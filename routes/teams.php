@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/team',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{team:slug}', [
+        'as' => 'playground.matrix.api.teams.slug',
+        'uses' => 'TeamController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/teams',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'TeamController@show',
     ])->whereUuid('team')
         ->can('detail', 'team');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.teams.slug',
-    //     'uses' => 'TeamController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.teams.store',
-    //     'uses' => 'TeamController@store',
-    // ])->can('store', \Playground\Matrix\Models\Team::class);
 
     // API
 
