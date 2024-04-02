@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <crap_result>
   <project/>
-  <timestamp>2024-03-17 08:19:04</timestamp>
+  <timestamp>2024-04-02 17:30:16</timestamp>
   <stats>
     <name>Method Crap Stats</name>
     <methodCount>265</methodCount>
@@ -125,8 +125,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\BoardController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Board\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Board\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Board\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Board</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Board\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Board</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -235,8 +235,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\EpicController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Epic\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Epic\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Epic\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Epic</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Epic\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Epic</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -246,8 +246,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\EpicController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Epic $epic, Playground\Matrix\Api\Http\Requests\Epic\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Epic $epic, Playground\Matrix\Api\Http\Requests\Epic\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Epic $epic, Playground\Matrix\Api\Http\Requests\Epic\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Epic</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Epic $epic, Playground\Matrix\Api\Http\Requests\Epic\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Epic</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -345,8 +345,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\FlowController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Flow\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Flow\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Flow\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Flow</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Flow\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Flow</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -356,8 +356,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\FlowController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Flow $flow, Playground\Matrix\Api\Http\Requests\Flow\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Flow $flow, Playground\Matrix\Api\Http\Requests\Flow\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Flow $flow, Playground\Matrix\Api\Http\Requests\Flow\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Flow</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Flow $flow, Playground\Matrix\Api\Http\Requests\Flow\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Flow</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -455,8 +455,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\MilestoneController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Milestone\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Milestone\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Milestone\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Milestone</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Milestone\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Milestone</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -466,8 +466,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\MilestoneController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Milestone $milestone, Playground\Matrix\Api\Http\Requests\Milestone\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Milestone $milestone, Playground\Matrix\Api\Http\Requests\Milestone\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Milestone $milestone, Playground\Matrix\Api\Http\Requests\Milestone\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Milestone</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Milestone $milestone, Playground\Matrix\Api\Http\Requests\Milestone\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Milestone</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -565,8 +565,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\NoteController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Note\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Note\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Note\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Note</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Note\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Note</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -576,8 +576,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\NoteController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Note $note, Playground\Matrix\Api\Http\Requests\Note\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Note $note, Playground\Matrix\Api\Http\Requests\Note\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Note $note, Playground\Matrix\Api\Http\Requests\Note\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Note</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Note $note, Playground\Matrix\Api\Http\Requests\Note\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Note</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -675,8 +675,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\ProjectController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Project\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Project\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Project\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Project</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Project\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Project</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -686,8 +686,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\ProjectController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Project $project, Playground\Matrix\Api\Http\Requests\Project\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Project $project, Playground\Matrix\Api\Http\Requests\Project\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Project $project, Playground\Matrix\Api\Http\Requests\Project\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Project</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Project $project, Playground\Matrix\Api\Http\Requests\Project\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Project</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -785,8 +785,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\ReleaseController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Release\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Release\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Release\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Release</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Release\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Release</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -796,8 +796,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\ReleaseController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Release $release, Playground\Matrix\Api\Http\Requests\Release\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Release $release, Playground\Matrix\Api\Http\Requests\Release\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Release $release, Playground\Matrix\Api\Http\Requests\Release\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Release</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Release $release, Playground\Matrix\Api\Http\Requests\Release\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Release</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -895,8 +895,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\RoadmapController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Roadmap\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Roadmap\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Roadmap\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Roadmap</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Roadmap\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Roadmap</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -906,8 +906,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\RoadmapController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Roadmap $roadmap, Playground\Matrix\Api\Http\Requests\Roadmap\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Roadmap $roadmap, Playground\Matrix\Api\Http\Requests\Roadmap\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Roadmap $roadmap, Playground\Matrix\Api\Http\Requests\Roadmap\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Roadmap</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Roadmap $roadmap, Playground\Matrix\Api\Http\Requests\Roadmap\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Roadmap</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1005,8 +1005,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\SourceController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Source\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Source\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Source\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Source</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Source\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Source</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1016,8 +1016,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\SourceController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Source $source, Playground\Matrix\Api\Http\Requests\Source\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Source $source, Playground\Matrix\Api\Http\Requests\Source\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Source $source, Playground\Matrix\Api\Http\Requests\Source\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Source</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Source $source, Playground\Matrix\Api\Http\Requests\Source\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Source</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1115,8 +1115,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\SprintController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Sprint\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Sprint\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Sprint\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Sprint</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Sprint\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Sprint</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1126,8 +1126,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\SprintController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Sprint $sprint, Playground\Matrix\Api\Http\Requests\Sprint\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Sprint $sprint, Playground\Matrix\Api\Http\Requests\Sprint\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Sprint $sprint, Playground\Matrix\Api\Http\Requests\Sprint\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Sprint</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Sprint $sprint, Playground\Matrix\Api\Http\Requests\Sprint\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Sprint</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1225,8 +1225,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\TagController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Tag\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Tag\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Tag\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Tag</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Tag\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Tag</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1236,8 +1236,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\TagController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Tag $tag, Playground\Matrix\Api\Http\Requests\Tag\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Tag $tag, Playground\Matrix\Api\Http\Requests\Tag\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Tag $tag, Playground\Matrix\Api\Http\Requests\Tag\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Tag</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Tag $tag, Playground\Matrix\Api\Http\Requests\Tag\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Tag</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1335,8 +1335,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\TeamController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Team\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Team\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Team\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Team</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Team\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Team</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1346,8 +1346,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\TeamController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Team $team, Playground\Matrix\Api\Http\Requests\Team\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Team $team, Playground\Matrix\Api\Http\Requests\Team\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Team $team, Playground\Matrix\Api\Http\Requests\Team\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Team</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Team $team, Playground\Matrix\Api\Http\Requests\Team\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Team</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1445,8 +1445,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\TicketController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Ticket\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Ticket\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Ticket\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Ticket</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Ticket\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Ticket</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1555,8 +1555,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\VersionController</className>
       <methodName>create</methodName>
-      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Version\CreateRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Version\CreateRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>create(Playground\Matrix\Api\Http\Requests\Version\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Version</methodSignature>
+      <fullMethod>create(Playground\Matrix\Api\Http\Requests\Version\CreateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Version</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
@@ -1566,8 +1566,8 @@
       <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\VersionController</className>
       <methodName>edit</methodName>
-      <methodSignature>edit(Playground\Matrix\Models\Version $version, Playground\Matrix\Api\Http\Requests\Version\EditRequest $request): Illuminate\Http\JsonResponse</methodSignature>
-      <fullMethod>edit(Playground\Matrix\Models\Version $version, Playground\Matrix\Api\Http\Requests\Version\EditRequest $request): Illuminate\Http\JsonResponse</fullMethod>
+      <methodSignature>edit(Playground\Matrix\Models\Version $version, Playground\Matrix\Api\Http\Requests\Version\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Version</methodSignature>
+      <fullMethod>edit(Playground\Matrix\Models\Version $version, Playground\Matrix\Api\Http\Requests\Version\EditRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Version</fullMethod>
       <crap>1</crap>
       <complexity>1</complexity>
       <coverage>100</coverage>
