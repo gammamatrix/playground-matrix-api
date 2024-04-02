@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 return [
+    'about' => (bool) env('PLAYGROUND_MATRIX_API_ABOUT', true),
     'middleware' => [
         'default' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_DEFAULT', [
             'web',
