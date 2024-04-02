@@ -6,6 +6,7 @@ declare(strict_types=1);
  */
 namespace Tests\Unit\Playground\Matrix\Api;
 
+use Laravel\Sanctum\SanctumServiceProvider;
 use Playground\Auth\ServiceProvider as PlaygroundAuthServiceProvider;
 use Playground\Http\ServiceProvider as PlaygroundHttpServiceProvider;
 use Playground\Matrix\Api\ServiceProvider;
@@ -20,11 +21,12 @@ trait TestTrait
     protected function getPackageProviders($app)
     {
         return [
-            ServiceProvider::class,
             PlaygroundAuthServiceProvider::class,
             PlaygroundHttpServiceProvider::class,
             PlaygroundMatrixServiceProvider::class,
             PlaygroundServiceProvider::class,
+            ServiceProvider::class,
+            SanctumServiceProvider::class,
         ];
     }
 
@@ -35,7 +37,7 @@ trait TestTrait
      */
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('auth.providers.users.model', '\\Playground\\Models\\Playground');
+        $app['config']->set('auth.providers.users.model', 'Playground\\Test\\Models\\User');
         $app['config']->set('playground-auth.verify', 'user');
         $app['config']->set('auth.testing.password', 'password');
         $app['config']->set('auth.testing.hashed', false);
