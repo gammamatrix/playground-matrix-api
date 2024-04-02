@@ -70,7 +70,7 @@ class EditRequest extends FormRequest
         'resumed_at' => ['nullable', 'string'],
         'suspended_at' => ['nullable', 'string'],
         'assets' => ['nullable', 'array'],
-        'flow' => ['nullable', 'string'],
+        'flow' => ['nullable', 'array'],
         'meta' => ['nullable', 'array'],
         'notes' => ['nullable', 'array'],
         'options' => ['nullable', 'array'],

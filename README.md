@@ -10,10 +10,41 @@ This package provides an API for interacting with the [Playground Matrix](https:
 
 If you need a UI, then use [Playground Matrix Resource](https://github.com/gammamatrix/playground-matrix-resource), which provides a Blade UI.
 
+## Documentation
+
+Read more on using [Playground Matrix API at Read the Docs: Playground Documentation.](https://gammamatrix-playground.readthedocs.io/en/develop/components/matrix.html)
+
+### Postman
+
+A postman collection is provided in the repository: [postman-playground-matrix-api.json.](postman-playground-matrix-api.json)
+- This same collection is viewable on the [Postman: GammaMatrix Playground workspace.](https://www.postman.com/gammamatrix/workspace/playground/collection/1185343-d8d03c95-fca9-4edc-8ec1-4a1a3546b4b5)
+
+### Swagger
+
 This application provides Swagger documentation: [swagger.json](swagger.json).
-- See the [Playground Matrix Api swagger.json on the Swagger Editor.](https://editor.swagger.io/?url=https://raw.githubusercontent.com/gammamatrix/playground-matrix-api/develop/swagger.json)
-- The endpoint models support locks, trash with force delete, restoring and more.
+- The endpoint models support locks, trash with force delete, restoring, revisions and more.
 - Index endpoints support advanced query filtering.
+
+Swagger API Documentation is built with npm.
+- npm is only needed to generate documentation and is not needed to operate the MATRIX API.
+
+See [package.json](package.json) requirements.
+
+Install npm.
+
+```sh
+npm install
+```
+
+Build the documentation to generate the [swagger.json](swagger.json) configuration.
+
+```sh
+npm run docs
+```
+
+Documentation
+- Preview [swagger.json on the Swagger Editor UI.](https://editor.swagger.io/?url=https://raw.githubusercontent.com/gammamatrix/playground-matrix-api/develop/swagger.json)
+- Preview [swagger.json on the Redocly Editor UI.](https://redocly.github.io/redoc/?url=https://raw.githubusercontent.com/gammamatrix/playground-matrix-api/develop/swagger.json)
 
 ## Installation
 
