@@ -58,7 +58,9 @@ class BacklogController extends Controller
 
         $backlog = new Backlog($validated);
 
-        return (new BacklogResource($backlog))->response($request);
+        return (new BacklogResource($backlog))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
@@ -70,13 +72,15 @@ class BacklogController extends Controller
         Backlog $backlog,
         EditRequest $request
     ): JsonResponse|BacklogResource {
-        return (new BacklogResource($backlog))->response($request);
+        return (new BacklogResource($backlog))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Remove the Backlog resource from storage.
      *
-     * @route DELETE /api/matrix/{backlog} playground.matrix.api.backlogs.destroy
+     * @route DELETE /api/matrix/backlogs/{backlog} playground.matrix.api.backlogs.destroy
      */
     public function destroy(
         Backlog $backlog,
@@ -96,7 +100,7 @@ class BacklogController extends Controller
     /**
      * Lock the Backlog resource in storage.
      *
-     * @route PUT /api/matrix/{backlog} playground.matrix.api.backlogs.lock
+     * @route PUT /api/matrix/backlogs/{backlog} playground.matrix.api.backlogs.lock
      */
     public function lock(
         Backlog $backlog,
@@ -108,13 +112,15 @@ class BacklogController extends Controller
 
         $backlog->save();
 
-        return (new BacklogResource($backlog))->response($request);
+        return (new BacklogResource($backlog))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display a listing of Backlog resources.
      *
-     * @route GET /api/matrix playground.matrix.api.backlogs
+     * @route GET /api/matrix/backlogs playground.matrix.api.backlogs
      */
     public function index(
         IndexRequest $request
@@ -156,13 +162,15 @@ class BacklogController extends Controller
 
         $paginator->appends($validated);
 
-        return (new BacklogCollection($paginator))->response($request);
+        return (new BacklogCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Restore the Backlog resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{backlog} playground.matrix.api.backlogs.restore
+     * @route PUT /api/matrix/backlogs/restore/{backlog} playground.matrix.api.backlogs.restore
      */
     public function restore(
         Backlog $backlog,
@@ -174,42 +182,52 @@ class BacklogController extends Controller
 
         $backlog->restore();
 
-        return (new BacklogResource($backlog))->response($request);
+        return (new BacklogResource($backlog))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display the Backlog resource.
      *
-     * @route GET /api/matrix/{backlog} playground.matrix.api.backlogs.show
+     * @route GET /api/matrix/backlogs/{backlog} playground.matrix.api.backlogs.show
      */
     public function show(
         Backlog $backlog,
         ShowRequest $request
     ): JsonResponse|BacklogResource {
-        return (new BacklogResource($backlog))->response($request);
+        return (new BacklogResource($backlog))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Store a newly created API Backlog resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.backlogs.post
+     * @route POST /api/matrix/backlogs playground.matrix.api.backlogs.post
      */
     public function store(
         StoreRequest $request
     ): Response|JsonResponse|BacklogResource {
         $validated = $request->validated();
 
+        $user = $request->user();
+
         $backlog = new Backlog($validated);
+
+        $backlog->created_by_id = $user?->id;
 
         $backlog->save();
 
-        return (new BacklogResource($backlog))->response($request);
+        return (new BacklogResource($backlog))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Unlock the Backlog resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{backlog} playground.matrix.api.backlogs.unlock
+     * @route DELETE /api/matrix/backlogs/lock/{backlog} playground.matrix.api.backlogs.unlock
      */
     public function unlock(
         Backlog $backlog,
@@ -221,13 +239,15 @@ class BacklogController extends Controller
 
         $backlog->save();
 
-        return (new BacklogResource($backlog))->response($request);
+        return (new BacklogResource($backlog))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Update the Backlog resource in storage.
      *
-     * @route PATCH /api/matrix/{backlog} playground.matrix.api.backlogs.patch
+     * @route PATCH /api/matrix/backlogs/{backlog} playground.matrix.api.backlogs.patch
      */
     public function update(
         Backlog $backlog,
@@ -235,8 +255,14 @@ class BacklogController extends Controller
     ): JsonResponse|BacklogResource {
         $validated = $request->validated();
 
+        $user = $request->user();
+
+        $backlog->modified_by_id = $user?->id;
+
         $backlog->update($validated);
 
-        return (new BacklogResource($backlog))->response($request);
+        return (new BacklogResource($backlog))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }

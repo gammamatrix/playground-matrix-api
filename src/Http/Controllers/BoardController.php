@@ -53,33 +53,14 @@ class BoardController extends Controller
      */
     public function create(
         CreateRequest $request
-    ): JsonResponse {
+    ): JsonResponse|BoardResource {
         $validated = $request->validated();
-
-        // $user = $request->user();
 
         $board = new Board($validated);
 
-        return (new BoardResource($board))->response($request);
-
-        // $meta = [
-        //     'session_user_id' => $user?->id,
-        //     'id' => null,
-        //     'timestamp' => Carbon::now()->toJson(),
-        //     'validated' => $validated,
-        //     'info' => $this->packageInfo,
-        // ];
-
-        // $meta['input'] = $request->input();
-        // $meta['validated'] = $request->validated();
-
-        // $data = [
-        //     'data' => $board,
-        //     'meta' => $meta,
-        //     '_method' => 'post',
-        // ];
-
-        // return response()->json($data);
+        return (new BoardResource($board))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
@@ -91,35 +72,15 @@ class BoardController extends Controller
         Board $board,
         EditRequest $request
     ): JsonResponse|BoardResource {
-        $validated = $request->validated();
-
-        return (new BoardResource($board))->response($request);
-        // $user = $request->user();
-
-        // $meta = [
-        //     'session_user_id' => $user?->id,
-        //     'id' => $board->id,
-        //     'timestamp' => Carbon::now()->toJson(),
-        //     'validated' => $validated,
-        //     'info' => $this->packageInfo,
-        // ];
-
-        // $meta['input'] = $request->input();
-        // $meta['validated'] = $request->validated();
-
-        // $data = [
-        //     'data' => $board,
-        //     'meta' => $meta,
-        //     '_method' => 'patch',
-        // ];
-
-        // return response()->json($data);
+        return (new BoardResource($board))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Remove the Board resource from storage.
      *
-     * @route DELETE /api/matrix/{board} playground.matrix.api.boards.destroy
+     * @route DELETE /api/matrix/boards/{board} playground.matrix.api.boards.destroy
      */
     public function destroy(
         Board $board,
@@ -139,7 +100,7 @@ class BoardController extends Controller
     /**
      * Lock the Board resource in storage.
      *
-     * @route PUT /api/matrix/{board} playground.matrix.api.boards.lock
+     * @route PUT /api/matrix/boards/{board} playground.matrix.api.boards.lock
      */
     public function lock(
         Board $board,
@@ -160,13 +121,15 @@ class BoardController extends Controller
             'info' => $this->packageInfo,
         ];
 
-        return (new BoardResource($board))->response($request);
+        return (new BoardResource($board))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display a listing of Board resources.
      *
-     * @route GET /api/matrix playground.matrix.api.boards
+     * @route GET /api/matrix/boards playground.matrix.api.boards
      */
     public function index(
         IndexRequest $request
@@ -208,13 +171,15 @@ class BoardController extends Controller
 
         $paginator->appends($validated);
 
-        return (new BoardCollection($paginator))->response($request);
+        return (new BoardCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Restore the Board resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{board} playground.matrix.api.boards.restore
+     * @route PUT /api/matrix/boards/restore/{board} playground.matrix.api.boards.restore
      */
     public function restore(
         Board $board,
@@ -226,13 +191,15 @@ class BoardController extends Controller
 
         $board->restore();
 
-        return (new BoardResource($board))->response($request);
+        return (new BoardResource($board))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display the Board resource.
      *
-     * @route GET /api/matrix/{board} playground.matrix.api.boards.show
+     * @route GET /api/matrix/boards/{board} playground.matrix.api.boards.show
      */
     public function show(
         Board $board,
@@ -250,13 +217,15 @@ class BoardController extends Controller
             'info' => $this->packageInfo,
         ];
 
-        return (new BoardResource($board))->response($request);
+        return (new BoardResource($board))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Store a newly created API Board resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.boards.post
+     * @route POST /api/matrix/boards playground.matrix.api.boards.post
      */
     public function store(
         StoreRequest $request
@@ -267,15 +236,19 @@ class BoardController extends Controller
 
         $board = new Board($validated);
 
+        $board->created_by_id = $user?->id;
+
         $board->save();
 
-        return (new BoardResource($board))->response($request);
+        return (new BoardResource($board))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Unlock the Board resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{board} playground.matrix.api.boards.unlock
+     * @route DELETE /api/matrix/boards/lock/{board} playground.matrix.api.boards.unlock
      */
     public function unlock(
         Board $board,
@@ -289,13 +262,15 @@ class BoardController extends Controller
 
         $board->save();
 
-        return (new BoardResource($board))->response($request);
+        return (new BoardResource($board))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Update the Board resource in storage.
      *
-     * @route PATCH /api/matrix/{board} playground.matrix.api.boards.patch
+     * @route PATCH /api/matrix/boards/{board} playground.matrix.api.boards.patch
      */
     public function update(
         Board $board,
@@ -305,8 +280,12 @@ class BoardController extends Controller
 
         $user = $request->user();
 
+        $board->modified_by_id = $user?->id;
+
         $board->update($validated);
 
-        return (new BoardResource($board))->response($request);
+        return (new BoardResource($board))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }

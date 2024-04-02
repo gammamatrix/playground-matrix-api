@@ -53,31 +53,16 @@ class EpicController extends Controller
      */
     public function create(
         CreateRequest $request
-    ): JsonResponse {
+    ): JsonResponse|EpicResource {
         $validated = $request->validated();
 
         $user = $request->user();
 
         $epic = new Epic($validated);
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => null,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new EpicResource($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $epic,
-            'meta' => $meta,
-            '_method' => 'post',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
@@ -88,29 +73,10 @@ class EpicController extends Controller
     public function edit(
         Epic $epic,
         EditRequest $request
-    ): JsonResponse {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $epic->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+    ): JsonResponse|EpicResource {
+        return (new EpicResource($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $epic,
-            'meta' => $meta,
-            '_method' => 'patch',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
@@ -150,14 +116,9 @@ class EpicController extends Controller
 
         $epic->save();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $epic->id,
-            'timestamp' => Carbon::now()->toJson(),
+        return (new EpicResource($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new EpicResource($epic))->response($request);
+        ]])->response($request);
     }
 
     /**
@@ -205,7 +166,9 @@ class EpicController extends Controller
 
         $paginator->appends($validated);
 
-        return (new EpicCollection($paginator))->response($request);
+        return (new EpicCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
@@ -223,7 +186,9 @@ class EpicController extends Controller
 
         $epic->restore();
 
-        return (new EpicResource($epic))->response($request);
+        return (new EpicResource($epic))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
@@ -247,7 +212,9 @@ class EpicController extends Controller
             'info' => $this->packageInfo,
         ];
 
-        return (new EpicResource($epic))->response($request);
+        return (new EpicResource($epic))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
@@ -264,9 +231,13 @@ class EpicController extends Controller
 
         $epic = new Epic($validated);
 
+        $epic->created_by_id = $user?->id;
+
         $epic->save();
 
-        return (new EpicResource($epic))->response($request);
+        return (new EpicResource($epic))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
@@ -286,7 +257,9 @@ class EpicController extends Controller
 
         $epic->save();
 
-        return (new EpicResource($epic))->response($request);
+        return (new EpicResource($epic))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
@@ -302,8 +275,12 @@ class EpicController extends Controller
 
         $user = $request->user();
 
+        $epic->modified_by_id = $user?->id;
+
         $epic->update($validated);
 
-        return (new EpicResource($epic))->response($request);
+        return (new EpicResource($epic))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }
