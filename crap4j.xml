@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <crap_result>
   <project/>
-  <timestamp>2024-04-02 18:35:58</timestamp>
+  <timestamp>2024-04-03 01:17:42</timestamp>
   <stats>
     <name>Method Crap Stats</name>
-    <methodCount>265</methodCount>
-    <crapMethodCount>31</crapMethodCount>
-    <crapLoad>253</crapLoad>
-    <totalCrap>2633.35</totalCrap>
-    <crapMethodPercent>11.7</crapMethodPercent>
+    <methodCount>267</methodCount>
+    <crapMethodCount>0</crapMethodCount>
+    <crapLoad>0</crapLoad>
+    <totalCrap>521.4</totalCrap>
+    <crapMethodPercent>0</crapMethodPercent>
   </stats>
   <methods>
     <method>
@@ -94,9 +94,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Backlog\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Backlog</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Backlog\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Backlog</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -116,9 +116,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Backlog $backlog, Playground\Matrix\Api\Http\Requests\Backlog\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Backlog</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Backlog $backlog, Playground\Matrix\Api\Http\Requests\Backlog\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Backlog</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -204,9 +204,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Board\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Board</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Board\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Board</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -226,9 +226,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Board $board, Playground\Matrix\Api\Http\Requests\Board\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Board</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Board $board, Playground\Matrix\Api\Http\Requests\Board\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Board</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -314,9 +314,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Epic\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Epic</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Epic\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Epic</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -336,9 +336,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Epic $epic, Playground\Matrix\Api\Http\Requests\Epic\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Epic</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Epic $epic, Playground\Matrix\Api\Http\Requests\Epic\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Epic</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -424,9 +424,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Flow\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Flow</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Flow\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Flow</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -446,9 +446,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Flow $flow, Playground\Matrix\Api\Http\Requests\Flow\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Flow</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Flow $flow, Playground\Matrix\Api\Http\Requests\Flow\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Flow</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -534,9 +534,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Milestone\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Milestone</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Milestone\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Milestone</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -556,9 +556,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Milestone $milestone, Playground\Matrix\Api\Http\Requests\Milestone\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Milestone</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Milestone $milestone, Playground\Matrix\Api\Http\Requests\Milestone\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Milestone</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -644,9 +644,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Note\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Note</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Note\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Note</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -666,9 +666,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Note $note, Playground\Matrix\Api\Http\Requests\Note\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Note</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Note $note, Playground\Matrix\Api\Http\Requests\Note\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Note</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -754,9 +754,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Project\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Project</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Project\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Project</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -776,9 +776,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Project $project, Playground\Matrix\Api\Http\Requests\Project\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Project</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Project $project, Playground\Matrix\Api\Http\Requests\Project\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Project</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -864,9 +864,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Release\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Release</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Release\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Release</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -886,9 +886,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Release $release, Playground\Matrix\Api\Http\Requests\Release\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Release</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Release $release, Playground\Matrix\Api\Http\Requests\Release\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Release</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -974,9 +974,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Roadmap\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Roadmap</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Roadmap\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Roadmap</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -996,9 +996,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Roadmap $roadmap, Playground\Matrix\Api\Http\Requests\Roadmap\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Roadmap</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Roadmap $roadmap, Playground\Matrix\Api\Http\Requests\Roadmap\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Roadmap</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1084,9 +1084,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Source\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Source</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Source\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Source</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1106,9 +1106,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Source $source, Playground\Matrix\Api\Http\Requests\Source\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Source</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Source $source, Playground\Matrix\Api\Http\Requests\Source\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Source</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1194,9 +1194,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Sprint\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Sprint</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Sprint\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Sprint</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1216,9 +1216,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Sprint $sprint, Playground\Matrix\Api\Http\Requests\Sprint\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Sprint</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Sprint $sprint, Playground\Matrix\Api\Http\Requests\Sprint\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Sprint</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1304,9 +1304,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Tag\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Tag</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Tag\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Tag</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1326,9 +1326,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Tag $tag, Playground\Matrix\Api\Http\Requests\Tag\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Tag</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Tag $tag, Playground\Matrix\Api\Http\Requests\Tag\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Tag</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1414,9 +1414,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Team\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Team</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Team\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Team</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1436,9 +1436,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Team $team, Playground\Matrix\Api\Http\Requests\Team\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Team</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Team $team, Playground\Matrix\Api\Http\Requests\Team\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Team</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1524,9 +1524,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Ticket\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Ticket</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Ticket\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Ticket</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1546,9 +1546,31 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Ticket $ticket, Playground\Matrix\Api\Http\Requests\Ticket\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Ticket</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Ticket $ticket, Playground\Matrix\Api\Http\Requests\Ticket\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Ticket</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
+    </method>
+    <method>
+      <package>Playground\Matrix\Api\Http\Controllers</package>
+      <className>Playground\Matrix\Api\Http\Controllers\TicketController</className>
+      <methodName>getProjectKey</methodName>
+      <methodSignature>getProjectKey(Playground\Matrix\Models\Ticket $ticket): string</methodSignature>
+      <fullMethod>getProjectKey(Playground\Matrix\Models\Ticket $ticket): string</fullMethod>
+      <crap>30</crap>
+      <complexity>5</complexity>
       <coverage>0</coverage>
+      <crapLoad>0</crapLoad>
+    </method>
+    <method>
+      <package>Playground\Matrix\Api\Http\Controllers</package>
+      <className>Playground\Matrix\Api\Http\Controllers\TicketController</className>
+      <methodName>handleTicketCode</methodName>
+      <methodSignature>handleTicketCode(Playground\Matrix\Models\Ticket $ticket): void</methodSignature>
+      <fullMethod>handleTicketCode(Playground\Matrix\Models\Ticket $ticket): void</fullMethod>
+      <crap>14.08</crap>
+      <complexity>4</complexity>
+      <coverage>14.29</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1634,9 +1656,9 @@
       <methodName>store</methodName>
       <methodSignature>store(Playground\Matrix\Api\Http\Requests\Version\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Version</methodSignature>
       <fullMethod>store(Playground\Matrix\Api\Http\Requests\Version\StoreRequest $request): \Illuminate\Http\Response|\Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Version</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1656,9 +1678,9 @@
       <methodName>update</methodName>
       <methodSignature>update(Playground\Matrix\Models\Version $version, Playground\Matrix\Api\Http\Requests\Version\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Version</methodSignature>
       <fullMethod>update(Playground\Matrix\Models\Version $version, Playground\Matrix\Api\Http\Requests\Version\UpdateRequest $request): \Illuminate\Http\JsonResponse|\Playground\Matrix\Api\Http\Resources\Version</fullMethod>
-      <crap>2</crap>
+      <crap>1</crap>
       <complexity>1</complexity>
-      <coverage>0</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1678,10 +1700,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Backlog</package>
@@ -1689,10 +1711,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Board</package>
@@ -1711,10 +1733,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Board</package>
@@ -1722,10 +1744,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Epic</package>
@@ -1744,10 +1766,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Epic</package>
@@ -1755,10 +1777,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Flow</package>
@@ -1777,10 +1799,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Flow</package>
@@ -1788,10 +1810,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests</package>
@@ -1799,9 +1821,9 @@
       <methodName>authorize</methodName>
       <methodSignature>authorize(): bool</methodSignature>
       <fullMethod>authorize(): bool</fullMethod>
-      <crap>2.06</crap>
+      <crap>2</crap>
       <complexity>2</complexity>
-      <coverage>75</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1832,9 +1854,9 @@
       <methodName>userHasAdminPrivileges</methodName>
       <methodSignature>userHasAdminPrivileges(Illuminate\Contracts\Auth\Authenticatable $user): bool</methodSignature>
       <fullMethod>userHasAdminPrivileges(Illuminate\Contracts\Auth\Authenticatable $user): bool</fullMethod>
-      <crap>3.04</crap>
+      <crap>3</crap>
       <complexity>3</complexity>
-      <coverage>83.33</coverage>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -1854,10 +1876,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Milestone</package>
@@ -1865,10 +1887,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Note</package>
@@ -1887,10 +1909,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Note</package>
@@ -1898,10 +1920,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Project</package>
@@ -1920,10 +1942,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Project</package>
@@ -1931,10 +1953,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Release</package>
@@ -1953,10 +1975,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Release</package>
@@ -1964,10 +1986,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Roadmap</package>
@@ -1986,10 +2008,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Roadmap</package>
@@ -1997,10 +2019,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Source</package>
@@ -2019,10 +2041,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Source</package>
@@ -2030,10 +2052,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Sprint</package>
@@ -2052,10 +2074,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Sprint</package>
@@ -2063,10 +2085,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Tag</package>
@@ -2085,10 +2107,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Tag</package>
@@ -2096,10 +2118,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Team</package>
@@ -2118,10 +2140,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Team</package>
@@ -2129,10 +2151,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Ticket</package>
@@ -2151,10 +2173,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>14.16</crap>
+      <complexity>14</complexity>
+      <coverage>90.63</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Ticket</package>
@@ -2162,10 +2184,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>14.16</crap>
+      <complexity>14</complexity>
+      <coverage>90.63</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Version</package>
@@ -2184,10 +2206,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Requests\Version</package>
@@ -2195,10 +2217,10 @@
       <methodName>prepareForValidation</methodName>
       <methodSignature>prepareForValidation()</methodSignature>
       <fullMethod>prepareForValidation()</fullMethod>
-      <crap>72</crap>
-      <complexity>8</complexity>
-      <coverage>0</coverage>
-      <crapLoad>8</crapLoad>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Resources</package>
@@ -2866,9 +2888,9 @@
       <methodName>boot</methodName>
       <methodSignature>boot(): void</methodSignature>
       <fullMethod>boot(): void</fullMethod>
-      <crap>14.2</crap>
-      <complexity>13</complexity>
-      <coverage>80.77</coverage>
+      <crap>11</crap>
+      <complexity>11</complexity>
+      <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
     <method>
@@ -2888,10 +2910,10 @@
       <methodName>setPolicies</methodName>
       <methodSignature>setPolicies(array $policies): void</methodSignature>
       <fullMethod>setPolicies(array $policies): void</fullMethod>
-      <crap>57.05</crap>
+      <crap>10</crap>
       <complexity>10</complexity>
-      <coverage>22.22</coverage>
-      <crapLoad>8</crapLoad>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
     </method>
     <method>
       <package>Playground\Matrix\Api</package>
