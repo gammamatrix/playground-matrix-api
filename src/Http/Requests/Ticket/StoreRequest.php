@@ -90,16 +90,25 @@ class StoreRequest extends BaseStoreRequest
         'introduction' => ['string'],
         'content' => ['nullable', 'string'],
         'summary' => ['nullable', 'string'],
-        'key' => ['nullable', 'string'],
-        'handler' => ['nullable', 'string'],
+        // 'key' => ['nullable', 'string'],
+
+        'handler' => ['max:32', 'regex:/^[a-z0-9\-]*$/i'],
+        'priority' => ['max:16', 'regex:/^[a-z0-9\-]*$/i'],
+        'severity' => ['max:64', 'regex:/^[a-z0-9\-]*$/i'],
+        'resolution' => ['max:16', 'regex:/^[a-z0-9\-]*$/i'],
+        'step' => ['max:16', 'regex:/^[a-z0-9\-]*$/i'],
+        'state' => ['max:16', 'regex:/^[a-z0-9\-]*$/i'],
+        'workflow_type' => ['max:128', 'regex:/^[a-z0-9\-]*$/i'],
+
+        // 'handler' => ['nullable', 'string'],
         'code' => ['integer'],
-        'key_code_hash' => ['nullable', 'string'],
-        'priority' => ['nullable', 'string'],
-        'severity' => ['nullable', 'string'],
-        'resolution' => ['nullable', 'string'],
-        'step' => ['nullable', 'string'],
-        'state' => ['nullable', 'string'],
-        'workflow_type' => ['nullable', 'string'],
+        // 'key_code_hash' => ['nullable', 'string'],
+        // 'priority' => ['nullable', 'string'],
+        // 'severity' => ['nullable', 'string'],
+        // 'resolution' => ['nullable', 'string'],
+        // 'step' => ['nullable', 'string'],
+        // 'state' => ['nullable', 'string'],
+        // 'workflow_type' => ['nullable', 'string'],
         'points' => ['integer'],
         'story' => ['nullable', 'string'],
         'criteria' => ['nullable', 'string'],
@@ -137,6 +146,54 @@ class StoreRequest extends BaseStoreRequest
         $this->filterCommonFields($input);
         $this->filterStatus($input);
         $this->filterSystemFields($input);
+
+        if ($this->exists('handler')) {
+            $input['handler'] = $this->filterHtml($this->input('handler'));
+        }
+
+        if ($this->exists('priority')) {
+            $input['priority'] = $this->filterHtml($this->input('priority'));
+        }
+
+        if ($this->exists('severity')) {
+            $input['severity'] = $this->filterHtml($this->input('severity'));
+        }
+
+        if ($this->exists('resolution')) {
+            $input['resolution'] = $this->filterHtml($this->input('resolution'));
+        }
+
+        if ($this->exists('step')) {
+            $input['step'] = $this->filterHtml($this->input('step'));
+        }
+
+        if ($this->exists('state')) {
+            $input['state'] = $this->filterHtml($this->input('state'));
+        }
+
+        if ($this->exists('workflow_type')) {
+            $input['workflow_type'] = $this->filterHtml($this->input('workflow_type'));
+        }
+
+        if ($this->exists('actual')) {
+            $input['actual'] = $this->purify($this->input('actual'));
+        }
+
+        if ($this->exists('expected')) {
+            $input['expected'] = $this->purify($this->input('expected'));
+        }
+
+        if ($this->exists('steps')) {
+            $input['steps'] = $this->purify($this->input('steps'));
+        }
+
+        if ($this->exists('story')) {
+            $input['story'] = $this->purify($this->input('story'));
+        }
+
+        if ($this->exists('criteria')) {
+            $input['criteria'] = $this->purify($this->input('criteria'));
+        }
 
         if (! empty($input)) {
             $this->merge($input);

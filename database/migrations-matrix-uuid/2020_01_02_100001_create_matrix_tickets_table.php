@@ -28,13 +28,14 @@ return new class() extends Migration
             $table->uuid('modified_by_id')->nullable()->index();
             $table->uuid('owned_by_id')->nullable()->index();
             $table->uuid('parent_id')->nullable()->index();
-            $table->string('ticket_type')->nullable()->index();
             $table->uuid('duplicate_id')->nullable()->index();
             $table->uuid('backlog_id')->nullable()->index();
             $table->uuid('board_id')->nullable()->index();
             $table->uuid('completed_by_id')->nullable()->index();
             $table->uuid('epic_id')->nullable()->index();
+            $table->uuid('fixed_by_id')->nullable()->index();
             $table->uuid('flow_id')->nullable()->index();
+            $table->uuid('matrix_id')->nullable()->index();
             $table->uuid('milestone_id')->nullable()->index();
             $table->uuid('note_id')->nullable()->index();
             $table->uuid('project_id')->nullable()->index();
@@ -47,6 +48,7 @@ return new class() extends Migration
             $table->uuid('team_id')->nullable()->index();
             $table->uuid('version_id')->nullable()->index();
             $table->uuid('version_fixed_id')->nullable()->index();
+            $table->string('ticket_type')->nullable()->index();
 
             // Dates
 
@@ -88,7 +90,7 @@ return new class() extends Migration
 
             // Matrix
 
-            $table->string('matrix')->default('');
+            $table->json('matrix')->nullable()->default(new Expression('(JSON_OBJECT())'));
             $table->bigInteger('x')->nullable();
             $table->bigInteger('y')->nullable();
             $table->bigInteger('z')->nullable();
@@ -143,7 +145,10 @@ return new class() extends Migration
             $table->string('state')->default('');
             $table->string('workflow_type')->default('');
             $table->tinyInteger('points')->default(0)->unsigned();
+            $table->mediumText('actual')->nullable();
+            $table->mediumText('expected')->nullable();
             $table->mediumText('story')->nullable();
+            $table->mediumText('steps')->nullable();
             $table->mediumText('criteria')->nullable();
             $table->decimal('reproducibility', 8, 2)->nullable()->default(null);
 
