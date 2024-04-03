@@ -22,8 +22,9 @@ class TestCase extends BaseTestCase
     use Resource\Playground\LockJsonTrait;
     use Resource\Playground\RestoreJsonTrait;
     use Resource\Playground\ShowJsonTrait;
+    use Resource\Playground\StoreJsonTrait;
     use Resource\Playground\UnlockJsonTrait;
-    // use Resource\Playground\UpdateJsonTrait;
+    use Resource\Playground\UpdateJsonTrait;
 
     /**
      * @var array<string, string>

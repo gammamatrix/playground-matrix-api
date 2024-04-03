@@ -8,7 +8,6 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\Release\CreateRequest;
 use Playground\Matrix\Api\Http\Requests\Release\DestroyRequest;
 use Playground\Matrix\Api\Http\Requests\Release\EditRequest;
@@ -47,76 +46,42 @@ class ReleaseController extends Controller
     ];
 
     /**
-     * CREATE the Release resource in storage.
+     * Create information for the Release resource in storage.
      *
      * @route GET /api/matrix/releases/create playground.matrix.api.releases.create
      */
     public function create(
         CreateRequest $request
-    ): JsonResponse {
+    ): JsonResponse|ReleaseResource {
         $validated = $request->validated();
 
         $user = $request->user();
 
         $release = new Release($validated);
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => null,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new ReleaseResource($release))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $release,
-            'meta' => $meta,
-            '_method' => 'post',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
-     * Edit the Release resource in storage.
+     * Edit information for the Release resource in storage.
      *
      * @route GET /api/matrix/releases/edit playground.matrix.api.releases.edit
      */
     public function edit(
         Release $release,
         EditRequest $request
-    ): JsonResponse {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $release->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+    ): JsonResponse|ReleaseResource {
+        return (new ReleaseResource($release))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $release,
-            'meta' => $meta,
-            '_method' => 'patch',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
      * Remove the Release resource from storage.
      *
-     * @route DELETE /api/matrix/{release} playground.matrix.api.releases.destroy
+     * @route DELETE /api/matrix/releases/{release} playground.matrix.api.releases.destroy
      */
     public function destroy(
         Release $release,
@@ -136,7 +101,7 @@ class ReleaseController extends Controller
     /**
      * Lock the Release resource in storage.
      *
-     * @route PUT /api/matrix/{release} playground.matrix.api.releases.lock
+     * @route PUT /api/matrix/releases/{release} playground.matrix.api.releases.lock
      */
     public function lock(
         Release $release,
@@ -150,20 +115,15 @@ class ReleaseController extends Controller
 
         $release->save();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $release->id,
-            'timestamp' => Carbon::now()->toJson(),
+        return (new ReleaseResource($release))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new ReleaseResource($release))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Display a listing of Release resources.
      *
-     * @route GET /api/matrix playground.matrix.api.releases
+     * @route GET /api/matrix/releases playground.matrix.api.releases
      */
     public function index(
         IndexRequest $request
@@ -205,13 +165,15 @@ class ReleaseController extends Controller
 
         $paginator->appends($validated);
 
-        return (new ReleaseCollection($paginator))->response($request);
+        return (new ReleaseCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Restore the Release resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{release} playground.matrix.api.releases.restore
+     * @route PUT /api/matrix/releases/restore/{release} playground.matrix.api.releases.restore
      */
     public function restore(
         Release $release,
@@ -223,13 +185,15 @@ class ReleaseController extends Controller
 
         $release->restore();
 
-        return (new ReleaseResource($release))->response($request);
+        return (new ReleaseResource($release))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display the Release resource.
      *
-     * @route GET /api/matrix/{release} playground.matrix.api.releases.show
+     * @route GET /api/matrix/releases/{release} playground.matrix.api.releases.show
      */
     public function show(
         Release $release,
@@ -239,21 +203,15 @@ class ReleaseController extends Controller
 
         $user = $request->user();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $release->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new ReleaseResource($release))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new ReleaseResource($release))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Store a newly created API Release resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.releases.post
+     * @route POST /api/matrix/releases playground.matrix.api.releases.post
      */
     public function store(
         StoreRequest $request
@@ -264,15 +222,19 @@ class ReleaseController extends Controller
 
         $release = new Release($validated);
 
+        $release->created_by_id = $user?->id;
+
         $release->save();
 
-        return (new ReleaseResource($release))->response($request);
+        return (new ReleaseResource($release))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Unlock the Release resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{release} playground.matrix.api.releases.unlock
+     * @route DELETE /api/matrix/releases/lock/{release} playground.matrix.api.releases.unlock
      */
     public function unlock(
         Release $release,
@@ -286,13 +248,15 @@ class ReleaseController extends Controller
 
         $release->save();
 
-        return (new ReleaseResource($release))->response($request);
+        return (new ReleaseResource($release))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Update the Release resource in storage.
      *
-     * @route PATCH /api/matrix/{release} playground.matrix.api.releases.patch
+     * @route PATCH /api/matrix/releases/{release} playground.matrix.api.releases.patch
      */
     public function update(
         Release $release,
@@ -302,8 +266,12 @@ class ReleaseController extends Controller
 
         $user = $request->user();
 
+        $release->modified_by_id = $user?->id;
+
         $release->update($validated);
 
-        return (new ReleaseResource($release))->response($request);
+        return (new ReleaseResource($release))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }

@@ -82,7 +82,7 @@ class UpdateRequest extends BaseUpdateRequest
         'suspended' => ['boolean'],
         'unknown' => ['boolean'],
         'label' => ['string'],
-        'title' => ['string'],
+        'title' => ['string', 'required'],
         'byline' => ['string'],
         'slug' => ['nullable', 'string'],
         'url' => ['string'],
@@ -133,38 +133,61 @@ class UpdateRequest extends BaseUpdateRequest
 
         $input = [];
 
-        if ($this->filled('content')) {
-            $input['content'] = $this->purify($this->input('content'));
+        $this->filterContentFields($input);
+        $this->filterCommonFields($input);
+        $this->filterStatus($input);
+        $this->filterSystemFields($input);
+
+        if ($this->exists('handler')) {
+            $input['handler'] = $this->filterHtml($this->input('handler'));
         }
 
-        if ($this->filled('summary')) {
-            $input['summary'] = $this->purify($this->input('summary'));
+        if ($this->exists('priority')) {
+            $input['priority'] = $this->filterHtml($this->input('priority'));
         }
 
-        if ($this->filled('description')) {
-            $input['description'] = $this->exorcise($this->input('description'));
-        } elseif ($this->has('description')) {
-            $input['description'] = '';
+        if ($this->exists('severity')) {
+            $input['severity'] = $this->filterHtml($this->input('severity'));
         }
 
-        if ($this->filled('introduction')) {
-            $input['introduction'] = $this->exorcise($this->input('introduction'));
-        } elseif ($this->has('introduction')) {
-            $input['introduction'] = '';
+        if ($this->exists('resolution')) {
+            $input['resolution'] = $this->filterHtml($this->input('resolution'));
+        }
+
+        if ($this->exists('step')) {
+            $input['step'] = $this->filterHtml($this->input('step'));
+        }
+
+        if ($this->exists('state')) {
+            $input['state'] = $this->filterHtml($this->input('state'));
+        }
+
+        if ($this->exists('workflow_type')) {
+            $input['workflow_type'] = $this->filterHtml($this->input('workflow_type'));
+        }
+
+        if ($this->exists('actual')) {
+            $input['actual'] = $this->purify($this->input('actual'));
+        }
+
+        if ($this->exists('expected')) {
+            $input['expected'] = $this->purify($this->input('expected'));
+        }
+
+        if ($this->exists('steps')) {
+            $input['steps'] = $this->purify($this->input('steps'));
+        }
+
+        if ($this->exists('story')) {
+            $input['story'] = $this->purify($this->input('story'));
+        }
+
+        if ($this->exists('criteria')) {
+            $input['criteria'] = $this->purify($this->input('criteria'));
         }
 
         if (! empty($input)) {
             $this->merge($input);
         }
     }
-
-    //    /**
-    //      * Handle a passed validation attempt.
-    //      *
-    //      * @return void
-    //      */
-    //     protected function passedValidation()
-    //     {
-    //
-    //     }
 }

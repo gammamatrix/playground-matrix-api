@@ -8,7 +8,6 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\Project\CreateRequest;
 use Playground\Matrix\Api\Http\Requests\Project\DestroyRequest;
 use Playground\Matrix\Api\Http\Requests\Project\EditRequest;
@@ -47,76 +46,42 @@ class ProjectController extends Controller
     ];
 
     /**
-     * CREATE the Project resource in storage.
+     * Create information for the Project resource in storage.
      *
      * @route GET /api/matrix/projects/create playground.matrix.api.projects.create
      */
     public function create(
         CreateRequest $request
-    ): JsonResponse {
+    ): JsonResponse|ProjectResource {
         $validated = $request->validated();
 
         $user = $request->user();
 
         $project = new Project($validated);
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => null,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new ProjectResource($project))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $project,
-            'meta' => $meta,
-            '_method' => 'post',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
-     * Edit the Project resource in storage.
+     * Edit information for the Project resource in storage.
      *
      * @route GET /api/matrix/projects/edit playground.matrix.api.projects.edit
      */
     public function edit(
         Project $project,
         EditRequest $request
-    ): JsonResponse {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $project->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+    ): JsonResponse|ProjectResource {
+        return (new ProjectResource($project))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $project,
-            'meta' => $meta,
-            '_method' => 'patch',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
      * Remove the Project resource from storage.
      *
-     * @route DELETE /api/matrix/{project} playground.matrix.api.projects.destroy
+     * @route DELETE /api/matrix/projects/{project} playground.matrix.api.projects.destroy
      */
     public function destroy(
         Project $project,
@@ -136,7 +101,7 @@ class ProjectController extends Controller
     /**
      * Lock the Project resource in storage.
      *
-     * @route PUT /api/matrix/{project} playground.matrix.api.projects.lock
+     * @route PUT /api/matrix/projects/{project} playground.matrix.api.projects.lock
      */
     public function lock(
         Project $project,
@@ -150,20 +115,15 @@ class ProjectController extends Controller
 
         $project->save();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $project->id,
-            'timestamp' => Carbon::now()->toJson(),
+        return (new ProjectResource($project))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new ProjectResource($project))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Display a listing of Project resources.
      *
-     * @route GET /api/matrix playground.matrix.api.projects
+     * @route GET /api/matrix/projects playground.matrix.api.projects
      */
     public function index(
         IndexRequest $request
@@ -205,13 +165,15 @@ class ProjectController extends Controller
 
         $paginator->appends($validated);
 
-        return (new ProjectCollection($paginator))->response($request);
+        return (new ProjectCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Restore the Project resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{project} playground.matrix.api.projects.restore
+     * @route PUT /api/matrix/projects/restore/{project} playground.matrix.api.projects.restore
      */
     public function restore(
         Project $project,
@@ -223,13 +185,15 @@ class ProjectController extends Controller
 
         $project->restore();
 
-        return (new ProjectResource($project))->response($request);
+        return (new ProjectResource($project))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display the Project resource.
      *
-     * @route GET /api/matrix/{project} playground.matrix.api.projects.show
+     * @route GET /api/matrix/projects/{project} playground.matrix.api.projects.show
      */
     public function show(
         Project $project,
@@ -239,21 +203,15 @@ class ProjectController extends Controller
 
         $user = $request->user();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $project->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new ProjectResource($project))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new ProjectResource($project))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Store a newly created API Project resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.projects.post
+     * @route POST /api/matrix/projects playground.matrix.api.projects.post
      */
     public function store(
         StoreRequest $request
@@ -264,15 +222,19 @@ class ProjectController extends Controller
 
         $project = new Project($validated);
 
+        $project->created_by_id = $user?->id;
+
         $project->save();
 
-        return (new ProjectResource($project))->response($request);
+        return (new ProjectResource($project))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Unlock the Project resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{project} playground.matrix.api.projects.unlock
+     * @route DELETE /api/matrix/projects/lock/{project} playground.matrix.api.projects.unlock
      */
     public function unlock(
         Project $project,
@@ -286,13 +248,15 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return (new ProjectResource($project))->response($request);
+        return (new ProjectResource($project))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Update the Project resource in storage.
      *
-     * @route PATCH /api/matrix/{project} playground.matrix.api.projects.patch
+     * @route PATCH /api/matrix/projects/{project} playground.matrix.api.projects.patch
      */
     public function update(
         Project $project,
@@ -302,8 +266,12 @@ class ProjectController extends Controller
 
         $user = $request->user();
 
+        $project->modified_by_id = $user?->id;
+
         $project->update($validated);
 
-        return (new ProjectResource($project))->response($request);
+        return (new ProjectResource($project))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }

@@ -8,7 +8,6 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\Source\CreateRequest;
 use Playground\Matrix\Api\Http\Requests\Source\DestroyRequest;
 use Playground\Matrix\Api\Http\Requests\Source\EditRequest;
@@ -47,76 +46,42 @@ class SourceController extends Controller
     ];
 
     /**
-     * CREATE the Source resource in storage.
+     * Create information for the Source resource in storage.
      *
      * @route GET /api/matrix/sources/create playground.matrix.api.sources.create
      */
     public function create(
         CreateRequest $request
-    ): JsonResponse {
+    ): JsonResponse|SourceResource {
         $validated = $request->validated();
 
         $user = $request->user();
 
         $source = new Source($validated);
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => null,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new SourceResource($source))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $source,
-            'meta' => $meta,
-            '_method' => 'post',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
-     * Edit the Source resource in storage.
+     * Edit information for the Source resource in storage.
      *
      * @route GET /api/matrix/sources/edit playground.matrix.api.sources.edit
      */
     public function edit(
         Source $source,
         EditRequest $request
-    ): JsonResponse {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $source->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+    ): JsonResponse|SourceResource {
+        return (new SourceResource($source))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $source,
-            'meta' => $meta,
-            '_method' => 'patch',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
      * Remove the Source resource from storage.
      *
-     * @route DELETE /api/matrix/{source} playground.matrix.api.sources.destroy
+     * @route DELETE /api/matrix/sources/{source} playground.matrix.api.sources.destroy
      */
     public function destroy(
         Source $source,
@@ -136,7 +101,7 @@ class SourceController extends Controller
     /**
      * Lock the Source resource in storage.
      *
-     * @route PUT /api/matrix/{source} playground.matrix.api.sources.lock
+     * @route PUT /api/matrix/sources/{source} playground.matrix.api.sources.lock
      */
     public function lock(
         Source $source,
@@ -150,20 +115,15 @@ class SourceController extends Controller
 
         $source->save();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $source->id,
-            'timestamp' => Carbon::now()->toJson(),
+        return (new SourceResource($source))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new SourceResource($source))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Display a listing of Source resources.
      *
-     * @route GET /api/matrix playground.matrix.api.sources
+     * @route GET /api/matrix/sources playground.matrix.api.sources
      */
     public function index(
         IndexRequest $request
@@ -205,13 +165,15 @@ class SourceController extends Controller
 
         $paginator->appends($validated);
 
-        return (new SourceCollection($paginator))->response($request);
+        return (new SourceCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Restore the Source resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{source} playground.matrix.api.sources.restore
+     * @route PUT /api/matrix/sources/restore/{source} playground.matrix.api.sources.restore
      */
     public function restore(
         Source $source,
@@ -223,13 +185,15 @@ class SourceController extends Controller
 
         $source->restore();
 
-        return (new SourceResource($source))->response($request);
+        return (new SourceResource($source))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display the Source resource.
      *
-     * @route GET /api/matrix/{source} playground.matrix.api.sources.show
+     * @route GET /api/matrix/sources/{source} playground.matrix.api.sources.show
      */
     public function show(
         Source $source,
@@ -239,21 +203,15 @@ class SourceController extends Controller
 
         $user = $request->user();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $source->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new SourceResource($source))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new SourceResource($source))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Store a newly created API Source resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.sources.post
+     * @route POST /api/matrix/sources playground.matrix.api.sources.post
      */
     public function store(
         StoreRequest $request
@@ -264,15 +222,19 @@ class SourceController extends Controller
 
         $source = new Source($validated);
 
+        $source->created_by_id = $user?->id;
+
         $source->save();
 
-        return (new SourceResource($source))->response($request);
+        return (new SourceResource($source))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Unlock the Source resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{source} playground.matrix.api.sources.unlock
+     * @route DELETE /api/matrix/sources/lock/{source} playground.matrix.api.sources.unlock
      */
     public function unlock(
         Source $source,
@@ -286,13 +248,15 @@ class SourceController extends Controller
 
         $source->save();
 
-        return (new SourceResource($source))->response($request);
+        return (new SourceResource($source))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Update the Source resource in storage.
      *
-     * @route PATCH /api/matrix/{source} playground.matrix.api.sources.patch
+     * @route PATCH /api/matrix/sources/{source} playground.matrix.api.sources.patch
      */
     public function update(
         Source $source,
@@ -302,8 +266,12 @@ class SourceController extends Controller
 
         $user = $request->user();
 
+        $source->modified_by_id = $user?->id;
+
         $source->update($validated);
 
-        return (new SourceResource($source))->response($request);
+        return (new SourceResource($source))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }

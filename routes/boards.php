@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/board',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{board:slug}', [
+        'as' => 'playground.matrix.api.boards.slug',
+        'uses' => 'BoardController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/boards',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'BoardController@show',
     ])->whereUuid('board')
         ->can('detail', 'board');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.boards.slug',
-    //     'uses' => 'BoardController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.boards.store',
-    //     'uses' => 'BoardController@store',
-    // ])->can('store', \Playground\Matrix\Models\Board::class);
 
     // API
 

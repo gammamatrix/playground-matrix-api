@@ -47,76 +47,42 @@ class NoteController extends Controller
     ];
 
     /**
-     * CREATE the Note resource in storage.
+     * Create information for the Note resource in storage.
      *
      * @route GET /api/matrix/notes/create playground.matrix.api.notes.create
      */
     public function create(
         CreateRequest $request
-    ): JsonResponse {
+    ): JsonResponse|NoteResource {
         $validated = $request->validated();
 
         $user = $request->user();
 
         $note = new Note($validated);
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => null,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new NoteResource($note))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $note,
-            'meta' => $meta,
-            '_method' => 'post',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
-     * Edit the Note resource in storage.
+     * Edit information for the Note resource in storage.
      *
      * @route GET /api/matrix/notes/edit playground.matrix.api.notes.edit
      */
     public function edit(
         Note $note,
         EditRequest $request
-    ): JsonResponse {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $note->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+    ): JsonResponse|NoteResource {
+        return (new NoteResource($note))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $note,
-            'meta' => $meta,
-            '_method' => 'patch',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
      * Remove the Note resource from storage.
      *
-     * @route DELETE /api/matrix/{note} playground.matrix.api.notes.destroy
+     * @route DELETE /api/matrix/notes/{note} playground.matrix.api.notes.destroy
      */
     public function destroy(
         Note $note,
@@ -136,7 +102,7 @@ class NoteController extends Controller
     /**
      * Lock the Note resource in storage.
      *
-     * @route PUT /api/matrix/{note} playground.matrix.api.notes.lock
+     * @route PUT /api/matrix/notes/{note} playground.matrix.api.notes.lock
      */
     public function lock(
         Note $note,
@@ -157,13 +123,15 @@ class NoteController extends Controller
             'info' => $this->packageInfo,
         ];
 
-        return (new NoteResource($note))->response($request);
+        return (new NoteResource($note))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display a listing of Note resources.
      *
-     * @route GET /api/matrix playground.matrix.api.notes
+     * @route GET /api/matrix/notes playground.matrix.api.notes
      */
     public function index(
         IndexRequest $request
@@ -205,13 +173,15 @@ class NoteController extends Controller
 
         $paginator->appends($validated);
 
-        return (new NoteCollection($paginator))->response($request);
+        return (new NoteCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Restore the Note resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{note} playground.matrix.api.notes.restore
+     * @route PUT /api/matrix/notes/restore/{note} playground.matrix.api.notes.restore
      */
     public function restore(
         Note $note,
@@ -223,13 +193,15 @@ class NoteController extends Controller
 
         $note->restore();
 
-        return (new NoteResource($note))->response($request);
+        return (new NoteResource($note))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display the Note resource.
      *
-     * @route GET /api/matrix/{note} playground.matrix.api.notes.show
+     * @route GET /api/matrix/notes/{note} playground.matrix.api.notes.show
      */
     public function show(
         Note $note,
@@ -247,13 +219,15 @@ class NoteController extends Controller
             'info' => $this->packageInfo,
         ];
 
-        return (new NoteResource($note))->response($request);
+        return (new NoteResource($note))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Store a newly created API Note resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.notes.post
+     * @route POST /api/matrix/notes playground.matrix.api.notes.post
      */
     public function store(
         StoreRequest $request
@@ -264,15 +238,19 @@ class NoteController extends Controller
 
         $note = new Note($validated);
 
+        $note->created_by_id = $user?->id;
+
         $note->save();
 
-        return (new NoteResource($note))->response($request);
+        return (new NoteResource($note))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Unlock the Note resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{note} playground.matrix.api.notes.unlock
+     * @route DELETE /api/matrix/notes/lock/{note} playground.matrix.api.notes.unlock
      */
     public function unlock(
         Note $note,
@@ -286,13 +264,15 @@ class NoteController extends Controller
 
         $note->save();
 
-        return (new NoteResource($note))->response($request);
+        return (new NoteResource($note))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Update the Note resource in storage.
      *
-     * @route PATCH /api/matrix/{note} playground.matrix.api.notes.patch
+     * @route PATCH /api/matrix/notes/{note} playground.matrix.api.notes.patch
      */
     public function update(
         Note $note,
@@ -302,8 +282,12 @@ class NoteController extends Controller
 
         $user = $request->user();
 
+        $note->modified_by_id = $user?->id;
+
         $note->update($validated);
 
-        return (new NoteResource($note))->response($request);
+        return (new NoteResource($note))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }

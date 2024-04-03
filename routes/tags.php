@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/tag',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{tag:slug}', [
+        'as' => 'playground.matrix.api.tags.slug',
+        'uses' => 'TagController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/tags',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'TagController@show',
     ])->whereUuid('tag')
         ->can('detail', 'tag');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.tags.slug',
-    //     'uses' => 'TagController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.tags.store',
-    //     'uses' => 'TagController@store',
-    // ])->can('store', \Playground\Matrix\Models\Tag::class);
 
     // API
 

@@ -3,10 +3,26 @@
 declare(strict_types=1);
 
 return [
+    'about' => (bool) env('PLAYGROUND_MATRIX_API_ABOUT', true),
+    'default_key' => env('PLAYGROUND_MATRIX_API_DEFAULT_KEY', ''),
     'middleware' => [
-        'default' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_DEFAULT', ['web']),
-        'auth' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_AUTH', ['web', 'auth']),
-        'guest' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_GUEST', ['web']),
+        'default' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_DEFAULT', [
+            'web',
+            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'auth:sanctum',
+            Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        ]),
+        'auth' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_AUTH', [
+            'web',
+            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'auth:sanctum',
+            Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        ]),
+        'guest' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_GUEST', [
+            'web',
+            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+        ]),
     ],
     'policies' => [
         Playground\Matrix\Models\Backlog::class => Playground\Matrix\Api\Policies\BacklogPolicy::class,

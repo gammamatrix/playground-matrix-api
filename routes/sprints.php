@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/sprint',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{sprint:slug}', [
+        'as' => 'playground.matrix.api.sprints.slug',
+        'uses' => 'SprintController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/sprints',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'SprintController@show',
     ])->whereUuid('sprint')
         ->can('detail', 'sprint');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.sprints.slug',
-    //     'uses' => 'SprintController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.sprints.store',
-    //     'uses' => 'SprintController@store',
-    // ])->can('store', \Playground\Matrix\Models\Sprint::class);
 
     // API
 

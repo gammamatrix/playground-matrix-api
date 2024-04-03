@@ -8,7 +8,6 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\Team\CreateRequest;
 use Playground\Matrix\Api\Http\Requests\Team\DestroyRequest;
 use Playground\Matrix\Api\Http\Requests\Team\EditRequest;
@@ -47,76 +46,42 @@ class TeamController extends Controller
     ];
 
     /**
-     * CREATE the Team resource in storage.
+     * Create information for the Team resource in storage.
      *
      * @route GET /api/matrix/teams/create playground.matrix.api.teams.create
      */
     public function create(
         CreateRequest $request
-    ): JsonResponse {
+    ): JsonResponse|TeamResource {
         $validated = $request->validated();
 
         $user = $request->user();
 
         $team = new Team($validated);
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => null,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new TeamResource($team))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $team,
-            'meta' => $meta,
-            '_method' => 'post',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
-     * Edit the Team resource in storage.
+     * Edit information for the Team resource in storage.
      *
      * @route GET /api/matrix/teams/edit playground.matrix.api.teams.edit
      */
     public function edit(
         Team $team,
         EditRequest $request
-    ): JsonResponse {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $team->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+    ): JsonResponse|TeamResource {
+        return (new TeamResource($team))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $team,
-            'meta' => $meta,
-            '_method' => 'patch',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
      * Remove the Team resource from storage.
      *
-     * @route DELETE /api/matrix/{team} playground.matrix.api.teams.destroy
+     * @route DELETE /api/matrix/teams/{team} playground.matrix.api.teams.destroy
      */
     public function destroy(
         Team $team,
@@ -136,7 +101,7 @@ class TeamController extends Controller
     /**
      * Lock the Team resource in storage.
      *
-     * @route PUT /api/matrix/{team} playground.matrix.api.teams.lock
+     * @route PUT /api/matrix/teams/{team} playground.matrix.api.teams.lock
      */
     public function lock(
         Team $team,
@@ -150,20 +115,15 @@ class TeamController extends Controller
 
         $team->save();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $team->id,
-            'timestamp' => Carbon::now()->toJson(),
+        return (new TeamResource($team))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new TeamResource($team))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Display a listing of Team resources.
      *
-     * @route GET /api/matrix playground.matrix.api.teams
+     * @route GET /api/matrix/teams playground.matrix.api.teams
      */
     public function index(
         IndexRequest $request
@@ -205,13 +165,15 @@ class TeamController extends Controller
 
         $paginator->appends($validated);
 
-        return (new TeamCollection($paginator))->response($request);
+        return (new TeamCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Restore the Team resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{team} playground.matrix.api.teams.restore
+     * @route PUT /api/matrix/teams/restore/{team} playground.matrix.api.teams.restore
      */
     public function restore(
         Team $team,
@@ -223,13 +185,15 @@ class TeamController extends Controller
 
         $team->restore();
 
-        return (new TeamResource($team))->response($request);
+        return (new TeamResource($team))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display the Team resource.
      *
-     * @route GET /api/matrix/{team} playground.matrix.api.teams.show
+     * @route GET /api/matrix/teams/{team} playground.matrix.api.teams.show
      */
     public function show(
         Team $team,
@@ -239,21 +203,15 @@ class TeamController extends Controller
 
         $user = $request->user();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $team->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new TeamResource($team))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new TeamResource($team))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Store a newly created API Team resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.teams.post
+     * @route POST /api/matrix/teams playground.matrix.api.teams.post
      */
     public function store(
         StoreRequest $request
@@ -264,15 +222,19 @@ class TeamController extends Controller
 
         $team = new Team($validated);
 
+        $team->created_by_id = $user?->id;
+
         $team->save();
 
-        return (new TeamResource($team))->response($request);
+        return (new TeamResource($team))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Unlock the Team resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{team} playground.matrix.api.teams.unlock
+     * @route DELETE /api/matrix/teams/lock/{team} playground.matrix.api.teams.unlock
      */
     public function unlock(
         Team $team,
@@ -286,13 +248,15 @@ class TeamController extends Controller
 
         $team->save();
 
-        return (new TeamResource($team))->response($request);
+        return (new TeamResource($team))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Update the Team resource in storage.
      *
-     * @route PATCH /api/matrix/{team} playground.matrix.api.teams.patch
+     * @route PATCH /api/matrix/teams/{team} playground.matrix.api.teams.patch
      */
     public function update(
         Team $team,
@@ -302,8 +266,12 @@ class TeamController extends Controller
 
         $user = $request->user();
 
+        $team->modified_by_id = $user?->id;
+
         $team->update($validated);
 
-        return (new TeamResource($team))->response($request);
+        return (new TeamResource($team))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }

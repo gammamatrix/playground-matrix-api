@@ -33,6 +33,7 @@ return new class() extends Migration
             $table->uuid('board_id')->nullable()->index();
             $table->uuid('epic_id')->nullable()->index();
             $table->uuid('flow_id')->nullable()->index();
+            $table->uuid('matrix_id')->nullable()->index();
             $table->uuid('milestone_id')->nullable()->index();
             $table->uuid('note_id')->nullable()->index();
             $table->uuid('release_id')->nullable()->index();
@@ -84,7 +85,7 @@ return new class() extends Migration
 
             // Matrix
 
-            $table->string('matrix')->default('');
+            $table->json('matrix')->nullable()->default(new Expression('(JSON_OBJECT())'));
             $table->bigInteger('x')->nullable();
             $table->bigInteger('y')->nullable();
             $table->bigInteger('z')->nullable();
@@ -128,6 +129,8 @@ return new class() extends Migration
             $table->string('introduction')->default('');
             $table->mediumText('content')->nullable();
             $table->mediumText('summary')->nullable();
+            $table->string('key', 128)->default('');
+            $table->string('code_name', 128)->default('');
 
             // UI
 

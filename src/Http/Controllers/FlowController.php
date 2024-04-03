@@ -8,7 +8,6 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\Flow\CreateRequest;
 use Playground\Matrix\Api\Http\Requests\Flow\DestroyRequest;
 use Playground\Matrix\Api\Http\Requests\Flow\EditRequest;
@@ -47,76 +46,42 @@ class FlowController extends Controller
     ];
 
     /**
-     * CREATE the Flow resource in storage.
+     * Create information for the Flow resource in storage.
      *
      * @route GET /api/matrix/flows/create playground.matrix.api.flows.create
      */
     public function create(
         CreateRequest $request
-    ): JsonResponse {
+    ): JsonResponse|FlowResource {
         $validated = $request->validated();
 
         $user = $request->user();
 
         $flow = new Flow($validated);
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => null,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new FlowResource($flow))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $flow,
-            'meta' => $meta,
-            '_method' => 'post',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
-     * Edit the Flow resource in storage.
+     * Edit information for the Flow resource in storage.
      *
      * @route GET /api/matrix/flows/edit playground.matrix.api.flows.edit
      */
     public function edit(
         Flow $flow,
         EditRequest $request
-    ): JsonResponse {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $flow->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+    ): JsonResponse|FlowResource {
+        return (new FlowResource($flow))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        $meta['input'] = $request->input();
-        $meta['validated'] = $request->validated();
-
-        $data = [
-            'data' => $flow,
-            'meta' => $meta,
-            '_method' => 'patch',
-        ];
-
-        return response()->json($data);
+        ]])->response($request);
     }
 
     /**
      * Remove the Flow resource from storage.
      *
-     * @route DELETE /api/matrix/{flow} playground.matrix.api.flows.destroy
+     * @route DELETE /api/matrix/flows/{flow} playground.matrix.api.flows.destroy
      */
     public function destroy(
         Flow $flow,
@@ -136,7 +101,7 @@ class FlowController extends Controller
     /**
      * Lock the Flow resource in storage.
      *
-     * @route PUT /api/matrix/{flow} playground.matrix.api.flows.lock
+     * @route PUT /api/matrix/flows/{flow} playground.matrix.api.flows.lock
      */
     public function lock(
         Flow $flow,
@@ -150,20 +115,15 @@ class FlowController extends Controller
 
         $flow->save();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $flow->id,
-            'timestamp' => Carbon::now()->toJson(),
+        return (new FlowResource($flow))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new FlowResource($flow))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Display a listing of Flow resources.
      *
-     * @route GET /api/matrix playground.matrix.api.flows
+     * @route GET /api/matrix/flows playground.matrix.api.flows
      */
     public function index(
         IndexRequest $request
@@ -205,13 +165,15 @@ class FlowController extends Controller
 
         $paginator->appends($validated);
 
-        return (new FlowCollection($paginator))->response($request);
+        return (new FlowCollection($paginator))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Restore the Flow resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{flow} playground.matrix.api.flows.restore
+     * @route PUT /api/matrix/flows/restore/{flow} playground.matrix.api.flows.restore
      */
     public function restore(
         Flow $flow,
@@ -223,13 +185,15 @@ class FlowController extends Controller
 
         $flow->restore();
 
-        return (new FlowResource($flow))->response($request);
+        return (new FlowResource($flow))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Display the Flow resource.
      *
-     * @route GET /api/matrix/{flow} playground.matrix.api.flows.show
+     * @route GET /api/matrix/flows/{flow} playground.matrix.api.flows.show
      */
     public function show(
         Flow $flow,
@@ -239,21 +203,15 @@ class FlowController extends Controller
 
         $user = $request->user();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $flow->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
+        return (new FlowResource($flow))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ];
-
-        return (new FlowResource($flow))->response($request);
+        ]])->response($request);
     }
 
     /**
      * Store a newly created API Flow resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.flows.post
+     * @route POST /api/matrix/flows playground.matrix.api.flows.post
      */
     public function store(
         StoreRequest $request
@@ -264,15 +222,19 @@ class FlowController extends Controller
 
         $flow = new Flow($validated);
 
+        $flow->created_by_id = $user?->id;
+
         $flow->save();
 
-        return (new FlowResource($flow))->response($request);
+        return (new FlowResource($flow))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Unlock the Flow resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{flow} playground.matrix.api.flows.unlock
+     * @route DELETE /api/matrix/flows/lock/{flow} playground.matrix.api.flows.unlock
      */
     public function unlock(
         Flow $flow,
@@ -286,13 +248,15 @@ class FlowController extends Controller
 
         $flow->save();
 
-        return (new FlowResource($flow))->response($request);
+        return (new FlowResource($flow))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 
     /**
      * Update the Flow resource in storage.
      *
-     * @route PATCH /api/matrix/{flow} playground.matrix.api.flows.patch
+     * @route PATCH /api/matrix/flows/{flow} playground.matrix.api.flows.patch
      */
     public function update(
         Flow $flow,
@@ -302,8 +266,12 @@ class FlowController extends Controller
 
         $user = $request->user();
 
+        $flow->modified_by_id = $user?->id;
+
         $flow->update($validated);
 
-        return (new FlowResource($flow))->response($request);
+        return (new FlowResource($flow))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request);
     }
 }

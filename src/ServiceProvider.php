@@ -9,7 +9,6 @@ namespace Playground\Matrix\Api;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\View;
 
 /**
  * \Playground\Matrix\Api\ServiceProvider
@@ -53,13 +52,6 @@ class ServiceProvider extends AuthServiceProvider
                 $this->routes($config['routes']);
             }
 
-            if (! empty($config['load']['views'])) {
-                $this->loadViewsFrom(
-                    dirname(__DIR__).'/resources/views',
-                    $this->package
-                );
-            }
-
             if ($this->app->runningInConsole()) {
                 // Publish configuration
                 $this->publishes([
@@ -73,11 +65,9 @@ class ServiceProvider extends AuthServiceProvider
             }
         }
 
-        if (! empty($config['layout']) && is_string($config['layout'])) {
-            View::share('layout', $config['layout']);
+        if (! empty($config['about'])) {
+            $this->about();
         }
-
-        $this->about();
     }
 
     /**
@@ -100,8 +90,8 @@ class ServiceProvider extends AuthServiceProvider
     {
         foreach ($policies as $model => $policy) {
             if (! is_string($model) || ! class_exists($model)) {
-                Log::error(__METHOD__, [
-                    'error' => 'Expecting the model to exist.',
+                Log::error('Expecting the model to exist for the policy.', [
+                    '__METHOD__' => __METHOD__,
                     'model' => is_string($model) ? $model : gettype($model),
                     'policy' => is_string($policy) ? $policy : gettype($policy),
                     'policies' => $policies,
@@ -110,8 +100,8 @@ class ServiceProvider extends AuthServiceProvider
                 continue;
             }
             if (! is_string($policy) || ! class_exists($policy)) {
-                Log::error(__METHOD__, [
-                    'error' => 'Expecting the policy to exist.',
+                Log::error('Expecting the policy to exist for the model.', [
+                    '__METHOD__' => __METHOD__,
                     'model' => is_string($model) ? $model : gettype($model),
                     'policy' => is_string($policy) ? $policy : gettype($policy),
                     'policies' => $policies,

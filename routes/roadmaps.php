@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/roadmap',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{roadmap:slug}', [
+        'as' => 'playground.matrix.api.roadmaps.slug',
+        'uses' => 'RoadmapController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/roadmaps',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'RoadmapController@show',
     ])->whereUuid('roadmap')
         ->can('detail', 'roadmap');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.roadmaps.slug',
-    //     'uses' => 'RoadmapController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.roadmaps.store',
-    //     'uses' => 'RoadmapController@store',
-    // ])->can('store', \Playground\Matrix\Models\Roadmap::class);
 
     // API
 

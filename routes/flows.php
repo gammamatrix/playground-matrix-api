@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/flow',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{flow:slug}', [
+        'as' => 'playground.matrix.api.flows.slug',
+        'uses' => 'FlowController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/flows',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'FlowController@show',
     ])->whereUuid('flow')
         ->can('detail', 'flow');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.flows.slug',
-    //     'uses' => 'FlowController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.flows.store',
-    //     'uses' => 'FlowController@store',
-    // ])->can('store', \Playground\Matrix\Models\Flow::class);
 
     // API
 

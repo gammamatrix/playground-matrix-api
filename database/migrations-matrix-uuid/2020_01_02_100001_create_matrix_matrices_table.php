@@ -17,7 +17,7 @@ return new class() extends Migration
      */
     public function up(): void
     {
-        Schema::create('matrix_versions', function (Blueprint $table) {
+        Schema::create('matrix_matrices', function (Blueprint $table) {
             // Primary key
 
             $table->uuid('id')->primary();
@@ -27,23 +27,9 @@ return new class() extends Migration
             $table->uuid('created_by_id')->nullable()->index();
             $table->uuid('modified_by_id')->nullable()->index();
             $table->uuid('owned_by_id')->nullable()->index();
-            $table->uuid('parent_id')->nullable()->index();
-            $table->string('version_type')->nullable()->index();
-            $table->uuid('backlog_id')->nullable()->index();
-            $table->uuid('board_id')->nullable()->index();
-            $table->uuid('epic_id')->nullable()->index();
-            $table->uuid('flow_id')->nullable()->index();
             $table->uuid('matrix_id')->nullable()->index();
-            $table->uuid('milestone_id')->nullable()->index();
-            $table->uuid('note_id')->nullable()->index();
-            $table->uuid('project_id')->nullable()->index();
-            $table->uuid('release_id')->nullable()->index();
-            $table->uuid('roadmap_id')->nullable()->index();
-            $table->uuid('source_id')->nullable()->index();
-            $table->uuid('sprint_id')->nullable()->index();
-            $table->uuid('tag_id')->nullable()->index();
-            $table->uuid('team_id')->nullable()->index();
-            $table->uuid('ticket_id')->nullable()->index();
+            $table->uuid('parent_id')->nullable()->index();
+            $table->string('matrix_type')->nullable()->index();
 
             // Dates
 
@@ -57,13 +43,7 @@ return new class() extends Migration
             $table->dateTime('planned_end_at')->nullable();
             $table->dateTime('canceled_at')->nullable();
             $table->dateTime('closed_at')->nullable()->index();
-            $table->dateTime('embargo_at')->nullable();
-            $table->dateTime('fixed_at')->nullable();
-            $table->dateTime('postponed_at')->nullable();
-            $table->dateTime('published_at')->nullable();
-            $table->dateTime('released_at')->nullable();
             $table->dateTime('resumed_at')->nullable();
-            $table->dateTime('resolved_at')->nullable()->index();
             $table->dateTime('suspended_at')->nullable();
 
             // Permissions
@@ -102,19 +82,13 @@ return new class() extends Migration
             $table->boolean('active')->default(1)->index();
             $table->boolean('canceled')->default(0);
             $table->boolean('closed')->default(0);
-            $table->boolean('completed')->default(0);
-            $table->boolean('duplicate')->default(0);
-            $table->boolean('fixed')->default(0);
             $table->boolean('flagged')->default(0);
             $table->boolean('internal')->default(0);
             $table->boolean('locked')->default(0);
             $table->boolean('pending')->default(0);
             $table->boolean('planned')->default(0);
             $table->boolean('problem')->default(0);
-            $table->boolean('published')->default(0);
-            $table->boolean('released')->default(0);
             $table->boolean('retired')->default(0);
-            $table->boolean('resolved')->default(0);
             $table->boolean('suspended')->default(0);
             $table->boolean('unknown')->default(0);
 
@@ -140,13 +114,9 @@ return new class() extends Migration
             // JSON
 
             $table->json('assets')->nullable()->default(new Expression('(JSON_OBJECT())'));
-            $table->json('backlog')->nullable()->default(new Expression('(JSON_OBJECT())'));
-            $table->json('board')->nullable()->default(new Expression('(JSON_OBJECT())'));
-            $table->json('flow')->nullable()->default(new Expression('(JSON_OBJECT())'));
             $table->json('meta')->nullable()->default(new Expression('(JSON_OBJECT())'));
             $table->json('notes')->nullable()->default(new Expression('(JSON_ARRAY())'))->comment('Array of note objects');
             $table->json('options')->nullable()->default(new Expression('(JSON_OBJECT())'));
-            $table->json('roadmap')->nullable()->default(new Expression('(JSON_OBJECT())'));
             $table->json('sources')->nullable()->default(new Expression('(JSON_OBJECT())'));
         });
     }
@@ -156,6 +126,6 @@ return new class() extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('matrix_versions');
+        Schema::dropIfExists('matrix_matrices');
     }
 };

@@ -14,42 +14,12 @@ use Illuminate\Http\Exceptions\HttpResponseException;
 /**
  * \Playground\Matrix\Api\Http\Requests\FormRequest
  */
-abstract class FormRequest extends BaseFormRequest
+class FormRequest extends BaseFormRequest
 {
     /**
      * @var array<string, string|array<mixed>>
      */
     public const RULES = [];
-
-    // /**
-    //  * Determine if the request is sending JSON.
-    //  *
-    //  * @return bool
-    //  */
-    // public function isJson()
-    // {
-    //     return true;
-    // }
-
-    // /**
-    //  * Determine if the current request probably expects a JSON response.
-    //  *
-    //  * @return bool
-    //  */
-    // public function expectsJson()
-    // {
-    //     return true;
-    // }
-
-    //     /**
-    //  * Determine if the current request is asking for JSON.
-    //  *
-    //  * @return bool
-    //  */
-    // public function wantsJson()
-    // {
-    //     return true;
-    // }
 
     /**
      * Determine if the user is authorized to make this request.

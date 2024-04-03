@@ -11,6 +11,17 @@ use Illuminate\Support\Facades\Route;
 |
 |
 */
+Route::group([
+    'prefix' => 'api/matrix/backlog',
+    'middleware' => config('playground-matrix-api.middleware.default'),
+    'namespace' => '\Playground\Matrix\Api\Http\Controllers',
+], function () {
+
+    Route::get('/{backlog:slug}', [
+        'as' => 'playground.matrix.api.backlogs.slug',
+        'uses' => 'BacklogController@show',
+    ])->where('slug', '[a-zA-Z0-9\-]+');
+});
 
 Route::group([
     'prefix' => 'api/matrix/backlogs',
@@ -45,16 +56,6 @@ Route::group([
         'uses' => 'BacklogController@show',
     ])->whereUuid('backlog')
         ->can('detail', 'backlog');
-
-    // Route::get('/{slug}', [
-    //     'as'   => 'playground.matrix.api.backlogs.slug',
-    //     'uses' => 'BacklogController@slug',
-    // ])->where('slug', '[a-zA-Z0-9\-]+');
-
-    // Route::post('/store', [
-    //     'as'   => 'playground.matrix.api.backlogs.store',
-    //     'uses' => 'BacklogController@store',
-    // ])->can('store', \Playground\Matrix\Models\Backlog::class);
 
     // API
 

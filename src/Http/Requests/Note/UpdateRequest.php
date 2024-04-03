@@ -28,6 +28,7 @@ class UpdateRequest extends BaseUpdateRequest
         'rank' => ['integer'],
         'size' => ['integer'],
         'label' => ['string'],
+        'title' => ['string', 'required'],
         'byline' => ['string'],
         'slug' => ['nullable', 'string'],
         'content' => ['nullable', 'string'],
@@ -69,9 +70,9 @@ class UpdateRequest extends BaseUpdateRequest
         'resumed_at' => ['nullable', 'string'],
         'suspended_at' => ['nullable', 'string'],
         'assets' => ['nullable', 'array'],
-        'backlog' => ['nullable', 'string'],
-        'board' => ['nullable', 'string'],
-        'flow' => ['nullable', 'string'],
+        'backlog' => ['nullable', 'array'],
+        'board' => ['nullable', 'array'],
+        'flow' => ['nullable', 'array'],
         'meta' => ['nullable', 'array'],
         'notes' => ['nullable', 'array'],
         'options' => ['nullable', 'array'],
@@ -93,38 +94,13 @@ class UpdateRequest extends BaseUpdateRequest
 
         $input = [];
 
-        if ($this->filled('content')) {
-            $input['content'] = $this->purify($this->input('content'));
-        }
-
-        if ($this->filled('summary')) {
-            $input['summary'] = $this->purify($this->input('summary'));
-        }
-
-        if ($this->filled('description')) {
-            $input['description'] = $this->exorcise($this->input('description'));
-        } elseif ($this->has('description')) {
-            $input['description'] = '';
-        }
-
-        if ($this->filled('introduction')) {
-            $input['introduction'] = $this->exorcise($this->input('introduction'));
-        } elseif ($this->has('introduction')) {
-            $input['introduction'] = '';
-        }
+        $this->filterContentFields($input);
+        $this->filterCommonFields($input);
+        $this->filterStatus($input);
+        $this->filterSystemFields($input);
 
         if (! empty($input)) {
             $this->merge($input);
         }
     }
-
-    //    /**
-    //      * Handle a passed validation attempt.
-    //      *
-    //      * @return void
-    //      */
-    //     protected function passedValidation()
-    //     {
-    //
-    //     }
 }
