@@ -1,12 +1,11 @@
 <?php
-
-declare(strict_types=1);
 /**
  * Playground
  */
+
+declare(strict_types=1);
 namespace Tests\Unit\Playground\Matrix\Api\Policies\BacklogPolicy;
 
-// use Illuminate\Support\Facades\Artisan;
 use Playground\Matrix\Api\Policies\BacklogPolicy;
 use Tests\Unit\Playground\Matrix\Api\TestCase;
 
@@ -21,10 +20,4 @@ class PolicyTest extends TestCase
 
         $this->assertInstanceOf(BacklogPolicy::class, $instance);
     }
-
-    // public function test_dump_console_about(): void
-    // {
-    //     $result = $this->withoutMockingConsoleOutput()->artisan('about');
-    //     dump(Artisan::output());
-    // }
 }

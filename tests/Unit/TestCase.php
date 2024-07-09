@@ -1,9 +1,9 @@
 <?php
-
-declare(strict_types=1);
 /**
  * Playground
  */
+
+declare(strict_types=1);
 namespace Tests\Unit\Playground\Matrix\Api;
 
 use Playground\Test\OrchestraTestCase;
@@ -13,5 +13,5 @@ use Playground\Test\OrchestraTestCase;
  */
 class TestCase extends OrchestraTestCase
 {
-    use TestTrait;
+    use PackageProviders;
 }

@@ -90,6 +90,34 @@ Information on [environment variables is available on the wiki for this package]
 
 This package requires the migrations in [playground-matrix](https://github.com/gammamatrix/playground-matrix) a Laravel package.
 
+## Cloc
+
+```sh
+composer cloc
+```
+
+```
+➜  playground-matrix-api git:(develop) ✗ composer cloc
+> cloc --exclude-dir=node_modules,output,vendor .
+     740 text files.
+     376 unique files.
+     365 files ignored.
+
+github.com/AlDanial/cloc v 1.98  T=1.80 s (208.6 files/s, 52893.7 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+JSON                             5              0              0          59484
+PHP                            272           2357           3954          15138
+YAML                            92              5              2          13941
+XML                              4              0              5            297
+Markdown                         2             48              1             83
+INI                              1              3              0             12
+-------------------------------------------------------------------------------
+SUM:                           376           2413           3962          88955
+-------------------------------------------------------------------------------
+```
+
 ## PHPStan
 
 Tests at level 9 on:

@@ -1,9 +1,9 @@
 <?php
-
-declare(strict_types=1);
 /**
  * Playground
  */
+
+declare(strict_types=1);
 namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Database\Eloquent\Model;
@@ -25,6 +25,8 @@ class TestCase extends BaseTestCase
     use Resource\Playground\StoreJsonTrait;
     use Resource\Playground\UnlockJsonTrait;
     use Resource\Playground\UpdateJsonTrait;
+
+    protected bool $setUpUserForPlayground = true;
 
     /**
      * @var array<string, string>

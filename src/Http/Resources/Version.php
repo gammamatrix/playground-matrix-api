@@ -9,18 +9,11 @@ use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests\FormRequest;
 use Playground\Matrix\Models\Version as VersionModel;
 
+/**
+ * \Playground\Matrix\Api\Http\Resources\Version
+ */
 class Version extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
-     */
-    public function toArray(Request $request)
-    {
-        return parent::toArray($request);
-    }
-
     /**
      * Get additional data that should be returned with the resource array.
      *

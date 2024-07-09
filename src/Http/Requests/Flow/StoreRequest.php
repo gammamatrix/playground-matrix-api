@@ -1,9 +1,9 @@
 <?php
-
-declare(strict_types=1);
 /**
  * Playground
  */
+
+declare(strict_types=1);
 namespace Playground\Matrix\Api\Http\Requests\Flow;
 
 use Playground\Http\Requests\StoreRequest as BaseStoreRequest;
