@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Project
-  summary: 'Restore a project by id.'
+  summary: 'Restore a project from the trash by ID.'
   operationId: restore_project
   responses:
     200:

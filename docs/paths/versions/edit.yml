@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The version id.'
+    schema:
+      type: string
+      format: uuid
+get:
+  tags:
+    - Version
+  summary: 'Edit a version form.'
+  operationId: edit_version
+  responses:
+    200:
+      description: 'The edit version information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/version.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Roadmap
-  summary: 'Unlock a roadmap by id.'
-  operationId: lock_roadmap
+  summary: 'Delete a roadmap by id.'
+  operationId: unlock_roadmap
   responses:
     204:
       description: 'The roadmap has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Roadmap
-  summary: 'Lock a roadmap by id.'
-  operationId: unlock_roadmap
+  summary: 'Lock a roadmap by ID.'
+  operationId: lock_roadmap
   responses:
     200:
       description: 'The unlocked roadmap.'

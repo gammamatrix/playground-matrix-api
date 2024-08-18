@@ -1,0 +1,28 @@
+post:
+  tags:
+    - Release
+  summary: 'Get releases from the index using POST.'
+  operationId: post_releases_index
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../requests/release/form.yml
+  responses:
+    200:
+      description: 'Get the releases from the index.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: ../../models/release.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

@@ -8,18 +8,9 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Playground\Matrix\Api\Http\Requests\Epic\CreateRequest;
-use Playground\Matrix\Api\Http\Requests\Epic\DestroyRequest;
-use Playground\Matrix\Api\Http\Requests\Epic\EditRequest;
-use Playground\Matrix\Api\Http\Requests\Epic\IndexRequest;
-use Playground\Matrix\Api\Http\Requests\Epic\LockRequest;
-use Playground\Matrix\Api\Http\Requests\Epic\RestoreRequest;
-use Playground\Matrix\Api\Http\Requests\Epic\ShowRequest;
-use Playground\Matrix\Api\Http\Requests\Epic\StoreRequest;
-use Playground\Matrix\Api\Http\Requests\Epic\UnlockRequest;
-use Playground\Matrix\Api\Http\Requests\Epic\UpdateRequest;
-use Playground\Matrix\Api\Http\Resources\Epic as EpicResource;
-use Playground\Matrix\Api\Http\Resources\EpicCollection;
+use Illuminate\Support\Carbon;
+use Playground\Matrix\Api\Http\Requests;
+use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Epic;
 
 /**
@@ -31,7 +22,7 @@ class EpicController extends Controller
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Epic',
         'model_label_plural' => 'Epics',
         'model_route' => 'playground.matrix.api.epics',
@@ -46,34 +37,35 @@ class EpicController extends Controller
     ];
 
     /**
-     * Create information for the Epic resource in storage.
+     * Create the Epic resource in storage.
      *
      * @route GET /api/matrix/epics/create playground.matrix.api.epics.create
      */
     public function create(
-        CreateRequest $request
-    ): JsonResponse|EpicResource {
+        Requests\Epic\CreateRequest $request
+    ): JsonResponse|Resources\Epic {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
         $epic = new Epic($validated);
 
-        return (new EpicResource($epic))->additional(['meta' => [
+        return (new Resources\Epic($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
     /**
-     * Edit information for the Epic resource in storage.
+     * Edit the Epic resource in storage.
      *
      * @route GET /api/matrix/epics/edit playground.matrix.api.epics.edit
      */
     public function edit(
         Epic $epic,
-        EditRequest $request
-    ): JsonResponse|EpicResource {
-        return (new EpicResource($epic))->additional(['meta' => [
+        Requests\Epic\EditRequest $request
+    ): JsonResponse|Resources\Epic {
+        return (new Resources\Epic($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -81,13 +73,20 @@ class EpicController extends Controller
     /**
      * Remove the Epic resource from storage.
      *
-     * @route DELETE /api/matrix/{epic} playground.matrix.api.epics.destroy
+     * @route DELETE /api/matrix/epics/{epic} playground.matrix.api.epics.destroy
      */
     public function destroy(
         Epic $epic,
-        DestroyRequest $request
+        Requests\Epic\DestroyRequest $request
     ): Response {
+
         $validated = $request->validated();
+
+        $user = $request->user();
+
+        if ($user?->id) {
+            $epic->modified_by_id = $user->id;
+        }
 
         if (empty($validated['force'])) {
             $epic->delete();
@@ -101,21 +100,26 @@ class EpicController extends Controller
     /**
      * Lock the Epic resource in storage.
      *
-     * @route PUT /api/matrix/{epic} playground.matrix.api.epics.lock
+     * @route PUT /api/matrix/epics/{epic} playground.matrix.api.epics.lock
      */
     public function lock(
         Epic $epic,
-        LockRequest $request
-    ): JsonResponse|EpicResource {
+        Requests\Epic\LockRequest $request
+    ): JsonResponse|Resources\Epic {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $epic->setAttribute('locked', true);
+        if ($user?->id) {
+            $epic->modified_by_id = $user->id;
+        }
+
+        $epic->locked = true;
 
         $epic->save();
 
-        return (new EpicResource($epic))->additional(['meta' => [
+        return (new Resources\Epic($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -123,11 +127,12 @@ class EpicController extends Controller
     /**
      * Display a listing of Epic resources.
      *
-     * @route GET /api/matrix playground.matrix.api.epics
+     * @route GET /api/matrix/epics playground.matrix.api.epics
      */
     public function index(
-        IndexRequest $request
-    ): JsonResponse|EpicCollection {
+        Requests\Epic\IndexRequest $request
+    ): JsonResponse|Resources\EpicCollection {
+
         $user = $request->user();
 
         $validated = $request->validated();
@@ -137,6 +142,7 @@ class EpicController extends Controller
         $query->sort($validated['sort'] ?? null);
 
         if (! empty($validated['filter']) && is_array($validated['filter'])) {
+
             $query->filterTrash($validated['filter']['trash'] ?? null);
 
             $query->filterIds(
@@ -161,31 +167,32 @@ class EpicController extends Controller
         }
 
         $perPage = ! empty($validated['perPage']) && is_int($validated['perPage']) ? $validated['perPage'] : null;
-        $paginator = $query->paginate( $perPage);
+        $paginator = $query->paginate($perPage);
 
         $paginator->appends($validated);
 
-        return (new EpicCollection($paginator))->additional(['meta' => [
-            'info' => $this->packageInfo,
-        ]])->response($request);
+        return (new Resources\EpicCollection($paginator))->response($request);
     }
 
     /**
      * Restore the Epic resource from the trash.
      *
-     * @route PUT /api/matrix/restore/{epic} playground.matrix.api.epics.restore
+     * @route PUT /api/matrix/epics/restore/{epic} playground.matrix.api.epics.restore
      */
     public function restore(
         Epic $epic,
-        RestoreRequest $request
-    ): JsonResponse|EpicResource {
-        $validated = $request->validated();
+        Requests\Epic\RestoreRequest $request
+    ): JsonResponse|Resources\Epic {
 
         $user = $request->user();
 
+        if ($user?->id) {
+            $epic->modified_by_id = $user->id;
+        }
+
         $epic->restore();
 
-        return (new EpicResource($epic))->additional(['meta' => [
+        return (new Resources\Epic($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -193,29 +200,25 @@ class EpicController extends Controller
     /**
      * Display the Epic resource.
      *
-     * @route GET /api/matrix/{epic} playground.matrix.api.epics.show
+     * @route GET /api/matrix/epics/{epic} playground.matrix.api.epics.show
      */
     public function show(
         Epic $epic,
-        ShowRequest $request
-    ): JsonResponse|EpicResource {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        return (new EpicResource($epic))->additional(['meta' => [
+        Requests\Epic\ShowRequest $request
+    ): JsonResponse|Resources\Epic {
+        return (new Resources\Epic($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
-    /**
+   /**
      * Store a newly created API Epic resource in storage.
      *
-     * @route POST /api/matrix playground.matrix.api.epics.post
+     * @route POST /api/matrix/epics playground.matrix.api.epics.post
      */
     public function store(
-        StoreRequest $request
-    ): Response|JsonResponse|EpicResource {
+        Requests\Epic\StoreRequest $request
+    ): Response|JsonResponse|Resources\Epic {
         $validated = $request->validated();
 
         $user = $request->user();
@@ -226,29 +229,34 @@ class EpicController extends Controller
 
         $epic->save();
 
-        return (new EpicResource($epic))->additional(['meta' => [
+        return (new Resources\Epic($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ]])->response($request);
+        ]])->response($request)->setStatusCode(201);
     }
 
     /**
      * Unlock the Epic resource in storage.
      *
-     * @route DELETE /api/matrix/lock/{epic} playground.matrix.api.epics.unlock
+     * @route DELETE /api/matrix/epics/lock/{epic} playground.matrix.api.epics.unlock
      */
     public function unlock(
         Epic $epic,
-        UnlockRequest $request
-    ): JsonResponse|EpicResource {
+        Requests\Epic\UnlockRequest $request
+    ): JsonResponse|Resources\Epic {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $epic->setAttribute('locked', false);
+        $epic->locked = false;
+
+        if ($user?->id) {
+            $epic->modified_by_id = $user->id;
+        }
 
         $epic->save();
 
-        return (new EpicResource($epic))->additional(['meta' => [
+        return (new Resources\Epic($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -256,21 +264,24 @@ class EpicController extends Controller
     /**
      * Update the Epic resource in storage.
      *
-     * @route PATCH /api/matrix/{epic} playground.matrix.api.epics.patch
+     * @route PATCH /api/matrix/epics/{epic} playground.matrix.api.epics.patch
      */
     public function update(
         Epic $epic,
-        UpdateRequest $request
-    ): JsonResponse|EpicResource {
+        Requests\Epic\UpdateRequest $request
+    ): JsonResponse {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $epic->modified_by_id = $user?->id;
+        if ($user?->id) {
+            $epic->modified_by_id = $user->id;
+        }
 
         $epic->update($validated);
 
-        return (new EpicResource($epic))->additional(['meta' => [
+        return (new Resources\Epic($epic))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }

@@ -8,18 +8,9 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Playground\Matrix\Api\Http\Requests\Board\CreateRequest;
-use Playground\Matrix\Api\Http\Requests\Board\DestroyRequest;
-use Playground\Matrix\Api\Http\Requests\Board\EditRequest;
-use Playground\Matrix\Api\Http\Requests\Board\IndexRequest;
-use Playground\Matrix\Api\Http\Requests\Board\LockRequest;
-use Playground\Matrix\Api\Http\Requests\Board\RestoreRequest;
-use Playground\Matrix\Api\Http\Requests\Board\ShowRequest;
-use Playground\Matrix\Api\Http\Requests\Board\StoreRequest;
-use Playground\Matrix\Api\Http\Requests\Board\UnlockRequest;
-use Playground\Matrix\Api\Http\Requests\Board\UpdateRequest;
-use Playground\Matrix\Api\Http\Resources\Board as BoardResource;
-use Playground\Matrix\Api\Http\Resources\BoardCollection;
+use Illuminate\Support\Carbon;
+use Playground\Matrix\Api\Http\Requests;
+use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Board;
 
 /**
@@ -31,7 +22,7 @@ class BoardController extends Controller
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Board',
         'model_label_plural' => 'Boards',
         'model_route' => 'playground.matrix.api.boards',
@@ -46,32 +37,35 @@ class BoardController extends Controller
     ];
 
     /**
-     * Create information for the Board resource in storage.
+     * Create the Board resource in storage.
      *
      * @route GET /api/matrix/boards/create playground.matrix.api.boards.create
      */
     public function create(
-        CreateRequest $request
-    ): JsonResponse|BoardResource {
+        Requests\Board\CreateRequest $request
+    ): JsonResponse|Resources\Board {
+
         $validated = $request->validated();
+
+        $user = $request->user();
 
         $board = new Board($validated);
 
-        return (new BoardResource($board))->additional(['meta' => [
+        return (new Resources\Board($board))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
     /**
-     * Edit information for the Board resource in storage.
+     * Edit the Board resource in storage.
      *
      * @route GET /api/matrix/boards/edit playground.matrix.api.boards.edit
      */
     public function edit(
         Board $board,
-        EditRequest $request
-    ): JsonResponse|BoardResource {
-        return (new BoardResource($board))->additional(['meta' => [
+        Requests\Board\EditRequest $request
+    ): JsonResponse|Resources\Board {
+        return (new Resources\Board($board))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -83,9 +77,16 @@ class BoardController extends Controller
      */
     public function destroy(
         Board $board,
-        DestroyRequest $request
+        Requests\Board\DestroyRequest $request
     ): Response {
+
         $validated = $request->validated();
+
+        $user = $request->user();
+
+        if ($user?->id) {
+            $board->modified_by_id = $user->id;
+        }
 
         if (empty($validated['force'])) {
             $board->delete();
@@ -103,17 +104,22 @@ class BoardController extends Controller
      */
     public function lock(
         Board $board,
-        LockRequest $request
-    ): JsonResponse|BoardResource {
+        Requests\Board\LockRequest $request
+    ): JsonResponse|Resources\Board {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $board->setAttribute('locked', true);
+        if ($user?->id) {
+            $board->modified_by_id = $user->id;
+        }
+
+        $board->locked = true;
 
         $board->save();
 
-        return (new BoardResource($board))->additional(['meta' => [
+        return (new Resources\Board($board))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -124,8 +130,9 @@ class BoardController extends Controller
      * @route GET /api/matrix/boards playground.matrix.api.boards
      */
     public function index(
-        IndexRequest $request
-    ): JsonResponse|BoardCollection {
+        Requests\Board\IndexRequest $request
+    ): JsonResponse|Resources\BoardCollection {
+
         $user = $request->user();
 
         $validated = $request->validated();
@@ -135,6 +142,7 @@ class BoardController extends Controller
         $query->sort($validated['sort'] ?? null);
 
         if (! empty($validated['filter']) && is_array($validated['filter'])) {
+
             $query->filterTrash($validated['filter']['trash'] ?? null);
 
             $query->filterIds(
@@ -159,13 +167,11 @@ class BoardController extends Controller
         }
 
         $perPage = ! empty($validated['perPage']) && is_int($validated['perPage']) ? $validated['perPage'] : null;
-        $paginator = $query->paginate( $perPage);
+        $paginator = $query->paginate($perPage);
 
         $paginator->appends($validated);
 
-        return (new BoardCollection($paginator))->additional(['meta' => [
-            'info' => $this->packageInfo,
-        ]])->response($request);
+        return (new Resources\BoardCollection($paginator))->response($request);
     }
 
     /**
@@ -175,15 +181,18 @@ class BoardController extends Controller
      */
     public function restore(
         Board $board,
-        RestoreRequest $request
-    ): JsonResponse|BoardResource {
-        $validated = $request->validated();
+        Requests\Board\RestoreRequest $request
+    ): JsonResponse|Resources\Board {
 
         $user = $request->user();
 
+        if ($user?->id) {
+            $board->modified_by_id = $user->id;
+        }
+
         $board->restore();
 
-        return (new BoardResource($board))->additional(['meta' => [
+        return (new Resources\Board($board))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -195,25 +204,21 @@ class BoardController extends Controller
      */
     public function show(
         Board $board,
-        ShowRequest $request
-    ): JsonResponse|BoardResource {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        return (new BoardResource($board))->additional(['meta' => [
+        Requests\Board\ShowRequest $request
+    ): JsonResponse|Resources\Board {
+        return (new Resources\Board($board))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
-    /**
+   /**
      * Store a newly created API Board resource in storage.
      *
      * @route POST /api/matrix/boards playground.matrix.api.boards.post
      */
     public function store(
-        StoreRequest $request
-    ): Response|JsonResponse|BoardResource {
+        Requests\Board\StoreRequest $request
+    ): Response|JsonResponse|Resources\Board {
         $validated = $request->validated();
 
         $user = $request->user();
@@ -224,9 +229,9 @@ class BoardController extends Controller
 
         $board->save();
 
-        return (new BoardResource($board))->additional(['meta' => [
+        return (new Resources\Board($board))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ]])->response($request);
+        ]])->response($request)->setStatusCode(201);
     }
 
     /**
@@ -236,17 +241,22 @@ class BoardController extends Controller
      */
     public function unlock(
         Board $board,
-        UnlockRequest $request
-    ): JsonResponse|BoardResource {
+        Requests\Board\UnlockRequest $request
+    ): JsonResponse|Resources\Board {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $board->setAttribute('locked', false);
+        $board->locked = false;
+
+        if ($user?->id) {
+            $board->modified_by_id = $user->id;
+        }
 
         $board->save();
 
-        return (new BoardResource($board))->additional(['meta' => [
+        return (new Resources\Board($board))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -258,17 +268,20 @@ class BoardController extends Controller
      */
     public function update(
         Board $board,
-        UpdateRequest $request
-    ): JsonResponse|BoardResource {
+        Requests\Board\UpdateRequest $request
+    ): JsonResponse {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $board->modified_by_id = $user?->id;
+        if ($user?->id) {
+            $board->modified_by_id = $user->id;
+        }
 
         $board->update($validated);
 
-        return (new BoardResource($board))->additional(['meta' => [
+        return (new Resources\Board($board))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }

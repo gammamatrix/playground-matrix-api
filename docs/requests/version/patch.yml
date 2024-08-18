@@ -1,72 +1,27 @@
 description: 'The Matrix Version fillable properties.'
 type: object
 properties:
+  version_type:
+    description: 'The version type of this version.'
+    type: string
+    nullable: true
   owned_by_id:
     description: 'Foreign key: links an owned by user to this version.'
     type: string
     format: uuid
     nullable: true
   parent_id:
-    description: 'Foreign key: links a parent to this version.'
+    description: 'ID: a parent of this version.'
     type: string
     format: uuid
     nullable: true
-  version_type:
-    description: 'The version type of this version.'
-    type: string
-    nullable: true
-  backlog_id:
-    description: 'Foreign key: links a backlog to this version.'
-    type: string
-    format: uuid
-    nullable: true
-  board_id:
-    description: 'Foreign key: links a board to this version.'
-    type: string
-    format: uuid
-    nullable: true
-  epic_id:
-    description: 'Foreign key: links an epic to this version.'
-    type: string
-    format: uuid
-    nullable: true
-  flow_id:
-    description: 'Foreign key: links a flow to this version.'
-    type: string
-    format: uuid
-    nullable: true
-  milestone_id:
-    description: 'Foreign key: links a milestone to this version.'
-    type: string
-    format: uuid
-    nullable: true
-  note_id:
-    description: 'Foreign key: links a note to this version.'
+  matrix_id:
+    description: 'Foreign key: links a matrix to this version.'
     type: string
     format: uuid
     nullable: true
   project_id:
     description: 'Foreign key: links a project to this version.'
-    type: string
-    format: uuid
-    nullable: true
-  release_id:
-    description: 'Foreign key: links a release to this version.'
-    type: string
-    format: uuid
-    nullable: true
-  roadmap_id:
-    description: 'Foreign key: links a roadmap to this version.'
-    type: string
-    format: uuid
-    nullable: true
-  source_id:
-    description: 'Foreign key: links a source to this version.'
-    type: string
-    format: uuid
-    nullable: true
-  sprint_id:
-    description: 'Foreign key: links a sprint to this version.'
     type: string
     format: uuid
     nullable: true
@@ -85,26 +40,6 @@ properties:
     type: string
     format: uuid
     nullable: true
-  start_at:
-    description: 'The start at date for this version.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_start_at:
-    description: 'The planned start at date for this version.'
-    type: string
-    format: date-time
-    nullable: true
-  end_at:
-    description: 'The end at date for this version.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_end_at:
-    description: 'The planned end at date for this version.'
-    type: string
-    format: date-time
-    nullable: true
   canceled_at:
     description: 'The canceled at date for this version.'
     type: string
@@ -120,8 +55,13 @@ properties:
     type: string
     format: date-time
     nullable: true
-  fixed_at:
-    description: 'The fixed at date for this version.'
+  planned_end_at:
+    description: 'The planned end at date for this version.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_start_at:
+    description: 'The planned start at date for this version.'
     type: string
     format: date-time
     nullable: true
@@ -135,8 +75,8 @@ properties:
     type: string
     format: date-time
     nullable: true
-  released_at:
-    description: 'The released at date for this version.'
+  resolved_at:
+    description: 'The resolved at date for this version.'
     type: string
     format: date-time
     nullable: true
@@ -145,13 +85,18 @@ properties:
     type: string
     format: date-time
     nullable: true
-  resolved_at:
-    description: 'The resolved at date for this version.'
+  suspended_at:
+    description: 'The suspended at date for this version.'
     type: string
     format: date-time
     nullable: true
-  suspended_at:
-    description: 'The suspended at date for this version.'
+  timer_end_at:
+    description: 'The timer end at date for this version.'
+    type: string
+    format: date-time
+    nullable: true
+  timer_start_at:
+    description: 'The timer start at date for this version.'
     type: string
     format: date-time
     nullable: true
@@ -214,6 +159,24 @@ properties:
   active:
     description: 'Flags: active'
     type: boolean
+  canceled:
+    description: 'Flags: canceled'
+    type: boolean
+  closed:
+    description: 'Flags: closed'
+    type: boolean
+  completed:
+    description: 'Flags: completed'
+    type: boolean
+  cron:
+    description: 'Flags: cron'
+    type: boolean
+  featured:
+    description: 'Flags: featured'
+    type: boolean
+  fixed:
+    description: 'Flags: fixed'
+    type: boolean
   flagged:
     description: 'Flags: flagged'
     type: boolean
@@ -229,14 +192,26 @@ properties:
   planned:
     description: 'Flags: planned'
     type: boolean
+  prioritized:
+    description: 'Flags: prioritized'
+    type: boolean
   problem:
     description: 'Flags: problem'
     type: boolean
   published:
     description: 'Flags: published'
     type: boolean
+  released:
+    description: 'Flags: released'
+    type: boolean
+  resolved:
+    description: 'Flags: resolved'
+    type: boolean
   retired:
     description: 'Flags: retired'
+    type: boolean
+  special:
+    description: 'Flags: special'
     type: boolean
   suspended:
     description: 'Flags: suspended'
@@ -244,10 +219,18 @@ properties:
   unknown:
     description: 'Flags: unknown'
     type: boolean
+  locale:
+    description: 'The locale of the version.'
+    type: string
+    maxLength: 255
   label:
     description: 'The label of the version.'
     type: string
     maxLength: 128
+  title:
+    description: 'The title of the version.'
+    type: string
+    maxLength: 255
   byline:
     description: 'The byline of the version.'
     type: string
@@ -281,28 +264,12 @@ properties:
     description: 'JSON: assets'
     type: object
     nullable: true
-  backlog:
-    description: 'JSON: backlog'
-    type: object
-    nullable: true
-  board:
-    description: 'JSON: board'
-    type: object
-    nullable: true
-  flow:
-    description: 'JSON: flow'
-    type: object
-    nullable: true
   meta:
     description: 'JSON: meta'
     type: object
     nullable: true
   options:
     description: 'JSON: options'
-    type: object
-    nullable: true
-  roadmap:
-    description: 'JSON: roadmap'
     type: object
     nullable: true
   sources:

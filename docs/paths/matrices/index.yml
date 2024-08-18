@@ -1,0 +1,66 @@
+get:
+  tags:
+    - Matrix
+  summary: 'Get matrices from the index.'
+  operationId: get_matrices_index
+  responses:
+    200:
+      description: 'Get the matrices from the index.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: ../../models/matrix.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+post:
+  tags:
+    - Matrix
+  summary: 'Create a matrix.'
+  operationId: post_matrix
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../requests/matrix/post.yml
+  responses:
+    200:
+      description: 'The created matrix.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/matrix.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+    422:
+      description: 'Validation error'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              errors:
+                type: object
+                properties:
+                  title:
+                    type: array
+                    items:
+                      type: string
+                      example: 'The title field is required.'
+    423:
+      description: 'The matrix is locked. Unlock to patch.'

@@ -45,7 +45,7 @@ delete:
 patch:
   tags:
     - Release
-  summary: 'Update a release by id.'
+  summary: 'Patch a release by id.'
   operationId: patch_release
   requestBody:
     content:
@@ -54,7 +54,7 @@ patch:
           $ref: ../../requests/release/patch.yml
   responses:
     200:
-      description: 'The updated release.'
+      description: 'The release has been patched.'
       content:
         application/json:
           schema:
@@ -78,8 +78,10 @@ patch:
               errors:
                 type: object
                 properties:
-                  label:
+                  title:
                     type: array
                     items:
                       type: string
-                      example: 'The label field is required.'
+                      example: 'The title field is required.'
+    423:
+      description: 'The release is locked. Unlock to patch.'

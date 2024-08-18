@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Epic
-  summary: 'Unlock a epic by id.'
-  operationId: lock_epic
+  summary: 'Delete a epic by id.'
+  operationId: unlock_epic
   responses:
     204:
       description: 'The epic has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Epic
-  summary: 'Lock a epic by id.'
-  operationId: unlock_epic
+  summary: 'Lock a epic by ID.'
+  operationId: lock_epic
   responses:
     200:
       description: 'The unlocked epic.'

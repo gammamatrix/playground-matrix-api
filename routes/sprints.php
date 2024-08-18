@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Matrix Routes: Sprint
+| Matrix API Routes: Sprint
 |--------------------------------------------------------------------------
 |
 |
 */
+
 Route::group([
     'prefix' => 'api/matrix/sprint',
     'middleware' => config('playground-matrix-api.middleware.default'),
@@ -33,6 +37,11 @@ Route::group([
         'uses' => 'SprintController@index',
     ])->can('index', Playground\Matrix\Models\Sprint::class);
 
+    Route::post('/index', [
+        'as' => 'playground.matrix.api.sprints.index',
+        'uses' => 'SprintController@index',
+    ])->can('index', Playground\Matrix\Models\Sprint::class);
+
     // UI
 
     Route::get('/create', [
@@ -43,47 +52,39 @@ Route::group([
     Route::get('/edit/{sprint}', [
         'as' => 'playground.matrix.api.sprints.edit',
         'uses' => 'SprintController@edit',
-    ])->whereUuid('sprint')
-        ->can('edit', 'sprint');
+    ])->whereUuid('sprint')->can('edit', 'sprint');
 
     // Route::get('/go/{id}', [
-    //     'as'   => 'playground.matrix.api.sprints.go',
+    //     'as' => 'playground.matrix.api.sprints.go',
     //     'uses' => 'SprintController@go',
     // ]);
 
     Route::get('/{sprint}', [
         'as' => 'playground.matrix.api.sprints.show',
         'uses' => 'SprintController@show',
-    ])->whereUuid('sprint')
-        ->can('detail', 'sprint');
+    ])->whereUuid('sprint')->can('detail', 'sprint');
 
     // API
 
     Route::put('/lock/{sprint}', [
         'as' => 'playground.matrix.api.sprints.lock',
         'uses' => 'SprintController@lock',
-    ])->whereUuid('sprint')
-        ->can('lock', 'sprint');
+    ])->whereUuid('sprint')->can('lock', 'sprint');
 
     Route::delete('/lock/{sprint}', [
         'as' => 'playground.matrix.api.sprints.unlock',
         'uses' => 'SprintController@unlock',
-    ])->whereUuid('sprint')
-        ->can('unlock', 'sprint');
+    ])->whereUuid('sprint')->can('unlock', 'sprint');
 
     Route::delete('/{sprint}', [
         'as' => 'playground.matrix.api.sprints.destroy',
         'uses' => 'SprintController@destroy',
-    ])->whereUuid('sprint')
-        ->can('delete', 'sprint')
-        ->withTrashed();
+    ])->whereUuid('sprint')->can('delete', 'sprint')->withTrashed();
 
     Route::put('/restore/{sprint}', [
         'as' => 'playground.matrix.api.sprints.restore',
         'uses' => 'SprintController@restore',
-    ])->whereUuid('sprint')
-        ->can('restore', 'sprint')
-        ->withTrashed();
+    ])->whereUuid('sprint')->can('restore', 'sprint')->withTrashed();
 
     Route::post('/', [
         'as' => 'playground.matrix.api.sprints.post',
@@ -91,12 +92,12 @@ Route::group([
     ])->can('store', Playground\Matrix\Models\Sprint::class);
 
     // Route::put('/', [
-    //     'as'   => 'playground.matrix.api.sprints.put',
+    //     'as' => 'playground.matrix.api.sprints.put',
     //     'uses' => 'SprintController@store',
-    // ])->can('store', \Playground\Matrix\Models\Sprint::class);
+    // ])->can('store', Playground\Matrix\Models\Sprint::class);
     //
     // Route::put('/{sprint}', [
-    //     'as'   => 'playground.matrix.api.sprints.put.id',
+    //     'as' => 'playground.matrix.api.sprints.put.id',
     //     'uses' => 'SprintController@store',
     // ])->whereUuid('sprint')->can('update', 'sprint');
 

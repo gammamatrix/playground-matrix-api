@@ -8,18 +8,9 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Playground\Matrix\Api\Http\Requests\Milestone\CreateRequest;
-use Playground\Matrix\Api\Http\Requests\Milestone\DestroyRequest;
-use Playground\Matrix\Api\Http\Requests\Milestone\EditRequest;
-use Playground\Matrix\Api\Http\Requests\Milestone\IndexRequest;
-use Playground\Matrix\Api\Http\Requests\Milestone\LockRequest;
-use Playground\Matrix\Api\Http\Requests\Milestone\RestoreRequest;
-use Playground\Matrix\Api\Http\Requests\Milestone\ShowRequest;
-use Playground\Matrix\Api\Http\Requests\Milestone\StoreRequest;
-use Playground\Matrix\Api\Http\Requests\Milestone\UnlockRequest;
-use Playground\Matrix\Api\Http\Requests\Milestone\UpdateRequest;
-use Playground\Matrix\Api\Http\Resources\Milestone as MilestoneResource;
-use Playground\Matrix\Api\Http\Resources\MilestoneCollection;
+use Illuminate\Support\Carbon;
+use Playground\Matrix\Api\Http\Requests;
+use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Milestone;
 
 /**
@@ -31,7 +22,7 @@ class MilestoneController extends Controller
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Milestone',
         'model_label_plural' => 'Milestones',
         'model_route' => 'playground.matrix.api.milestones',
@@ -46,34 +37,35 @@ class MilestoneController extends Controller
     ];
 
     /**
-     * Create information for the Milestone resource in storage.
+     * Create the Milestone resource in storage.
      *
      * @route GET /api/matrix/milestones/create playground.matrix.api.milestones.create
      */
     public function create(
-        CreateRequest $request
-    ): JsonResponse|MilestoneResource {
+        Requests\Milestone\CreateRequest $request
+    ): JsonResponse|Resources\Milestone {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
         $milestone = new Milestone($validated);
 
-        return (new MilestoneResource($milestone))->additional(['meta' => [
+        return (new Resources\Milestone($milestone))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
     /**
-     * Edit information for the Milestone resource in storage.
+     * Edit the Milestone resource in storage.
      *
      * @route GET /api/matrix/milestones/edit playground.matrix.api.milestones.edit
      */
     public function edit(
         Milestone $milestone,
-        EditRequest $request
-    ): JsonResponse|MilestoneResource {
-        return (new MilestoneResource($milestone))->additional(['meta' => [
+        Requests\Milestone\EditRequest $request
+    ): JsonResponse|Resources\Milestone {
+        return (new Resources\Milestone($milestone))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -85,9 +77,16 @@ class MilestoneController extends Controller
      */
     public function destroy(
         Milestone $milestone,
-        DestroyRequest $request
+        Requests\Milestone\DestroyRequest $request
     ): Response {
+
         $validated = $request->validated();
+
+        $user = $request->user();
+
+        if ($user?->id) {
+            $milestone->modified_by_id = $user->id;
+        }
 
         if (empty($validated['force'])) {
             $milestone->delete();
@@ -105,17 +104,22 @@ class MilestoneController extends Controller
      */
     public function lock(
         Milestone $milestone,
-        LockRequest $request
-    ): JsonResponse|MilestoneResource {
+        Requests\Milestone\LockRequest $request
+    ): JsonResponse|Resources\Milestone {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $milestone->setAttribute('locked', true);
+        if ($user?->id) {
+            $milestone->modified_by_id = $user->id;
+        }
+
+        $milestone->locked = true;
 
         $milestone->save();
 
-        return (new MilestoneResource($milestone))->additional(['meta' => [
+        return (new Resources\Milestone($milestone))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -126,8 +130,9 @@ class MilestoneController extends Controller
      * @route GET /api/matrix/milestones playground.matrix.api.milestones
      */
     public function index(
-        IndexRequest $request
-    ): JsonResponse|MilestoneCollection {
+        Requests\Milestone\IndexRequest $request
+    ): JsonResponse|Resources\MilestoneCollection {
+
         $user = $request->user();
 
         $validated = $request->validated();
@@ -137,6 +142,7 @@ class MilestoneController extends Controller
         $query->sort($validated['sort'] ?? null);
 
         if (! empty($validated['filter']) && is_array($validated['filter'])) {
+
             $query->filterTrash($validated['filter']['trash'] ?? null);
 
             $query->filterIds(
@@ -161,13 +167,11 @@ class MilestoneController extends Controller
         }
 
         $perPage = ! empty($validated['perPage']) && is_int($validated['perPage']) ? $validated['perPage'] : null;
-        $paginator = $query->paginate( $perPage);
+        $paginator = $query->paginate($perPage);
 
         $paginator->appends($validated);
 
-        return (new MilestoneCollection($paginator))->additional(['meta' => [
-            'info' => $this->packageInfo,
-        ]])->response($request);
+        return (new Resources\MilestoneCollection($paginator))->response($request);
     }
 
     /**
@@ -177,15 +181,18 @@ class MilestoneController extends Controller
      */
     public function restore(
         Milestone $milestone,
-        RestoreRequest $request
-    ): JsonResponse|MilestoneResource {
-        $validated = $request->validated();
+        Requests\Milestone\RestoreRequest $request
+    ): JsonResponse|Resources\Milestone {
 
         $user = $request->user();
 
+        if ($user?->id) {
+            $milestone->modified_by_id = $user->id;
+        }
+
         $milestone->restore();
 
-        return (new MilestoneResource($milestone))->additional(['meta' => [
+        return (new Resources\Milestone($milestone))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -197,25 +204,21 @@ class MilestoneController extends Controller
      */
     public function show(
         Milestone $milestone,
-        ShowRequest $request
-    ): JsonResponse|MilestoneResource {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        return (new MilestoneResource($milestone))->additional(['meta' => [
+        Requests\Milestone\ShowRequest $request
+    ): JsonResponse|Resources\Milestone {
+        return (new Resources\Milestone($milestone))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
-    /**
+   /**
      * Store a newly created API Milestone resource in storage.
      *
      * @route POST /api/matrix/milestones playground.matrix.api.milestones.post
      */
     public function store(
-        StoreRequest $request
-    ): Response|JsonResponse|MilestoneResource {
+        Requests\Milestone\StoreRequest $request
+    ): Response|JsonResponse|Resources\Milestone {
         $validated = $request->validated();
 
         $user = $request->user();
@@ -226,9 +229,9 @@ class MilestoneController extends Controller
 
         $milestone->save();
 
-        return (new MilestoneResource($milestone))->additional(['meta' => [
+        return (new Resources\Milestone($milestone))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ]])->response($request);
+        ]])->response($request)->setStatusCode(201);
     }
 
     /**
@@ -238,17 +241,22 @@ class MilestoneController extends Controller
      */
     public function unlock(
         Milestone $milestone,
-        UnlockRequest $request
-    ): JsonResponse|MilestoneResource {
+        Requests\Milestone\UnlockRequest $request
+    ): JsonResponse|Resources\Milestone {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $milestone->setAttribute('locked', false);
+        $milestone->locked = false;
+
+        if ($user?->id) {
+            $milestone->modified_by_id = $user->id;
+        }
 
         $milestone->save();
 
-        return (new MilestoneResource($milestone))->additional(['meta' => [
+        return (new Resources\Milestone($milestone))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -260,17 +268,20 @@ class MilestoneController extends Controller
      */
     public function update(
         Milestone $milestone,
-        UpdateRequest $request
-    ): JsonResponse|MilestoneResource {
+        Requests\Milestone\UpdateRequest $request
+    ): JsonResponse {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $milestone->modified_by_id = $user?->id;
+        if ($user?->id) {
+            $milestone->modified_by_id = $user->id;
+        }
 
         $milestone->update($validated);
 
-        return (new MilestoneResource($milestone))->additional(['meta' => [
+        return (new Resources\Milestone($milestone))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }

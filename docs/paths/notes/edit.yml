@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The note id.'
+    schema:
+      type: string
+      format: uuid
+get:
+  tags:
+    - Note
+  summary: 'Edit a note form.'
+  operationId: edit_note
+  responses:
+    200:
+      description: 'The edit note information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/note.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Board
-  summary: 'Restore a board by id.'
+  summary: 'Restore a board from the trash by ID.'
   operationId: restore_board
   responses:
     200:

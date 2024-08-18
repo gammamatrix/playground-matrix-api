@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Milestone
-  summary: 'Restore a milestone by id.'
+  summary: 'Restore a milestone from the trash by ID.'
   operationId: restore_milestone
   responses:
     200:

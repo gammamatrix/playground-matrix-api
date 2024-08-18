@@ -1,0 +1,28 @@
+post:
+  tags:
+    - Milestone
+  summary: 'Get milestones from the index using POST.'
+  operationId: post_milestones_index
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../requests/milestone/form.yml
+  responses:
+    200:
+      description: 'Get the milestones from the index.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: ../../models/milestone.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

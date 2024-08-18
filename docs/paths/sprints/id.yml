@@ -45,7 +45,7 @@ delete:
 patch:
   tags:
     - Sprint
-  summary: 'Update a sprint by id.'
+  summary: 'Patch a sprint by id.'
   operationId: patch_sprint
   requestBody:
     content:
@@ -54,7 +54,7 @@ patch:
           $ref: ../../requests/sprint/patch.yml
   responses:
     200:
-      description: 'The updated sprint.'
+      description: 'The sprint has been patched.'
       content:
         application/json:
           schema:
@@ -78,8 +78,10 @@ patch:
               errors:
                 type: object
                 properties:
-                  label:
+                  title:
                     type: array
                     items:
                       type: string
-                      example: 'The label field is required.'
+                      example: 'The title field is required.'
+    423:
+      description: 'The sprint is locked. Unlock to patch.'

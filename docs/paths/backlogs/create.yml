@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Backlog
+  summary: 'Create a backlog form.'
+  operationId: create_backlog
+  responses:
+    200:
+      description: 'The create backlog information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/backlog.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

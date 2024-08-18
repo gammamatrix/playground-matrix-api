@@ -8,18 +8,9 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Playground\Matrix\Api\Http\Requests\Tag\CreateRequest;
-use Playground\Matrix\Api\Http\Requests\Tag\DestroyRequest;
-use Playground\Matrix\Api\Http\Requests\Tag\EditRequest;
-use Playground\Matrix\Api\Http\Requests\Tag\IndexRequest;
-use Playground\Matrix\Api\Http\Requests\Tag\LockRequest;
-use Playground\Matrix\Api\Http\Requests\Tag\RestoreRequest;
-use Playground\Matrix\Api\Http\Requests\Tag\ShowRequest;
-use Playground\Matrix\Api\Http\Requests\Tag\StoreRequest;
-use Playground\Matrix\Api\Http\Requests\Tag\UnlockRequest;
-use Playground\Matrix\Api\Http\Requests\Tag\UpdateRequest;
-use Playground\Matrix\Api\Http\Resources\Tag as TagResource;
-use Playground\Matrix\Api\Http\Resources\TagCollection;
+use Illuminate\Support\Carbon;
+use Playground\Matrix\Api\Http\Requests;
+use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Tag;
 
 /**
@@ -31,7 +22,7 @@ class TagController extends Controller
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Tag',
         'model_label_plural' => 'Tags',
         'model_route' => 'playground.matrix.api.tags',
@@ -46,34 +37,35 @@ class TagController extends Controller
     ];
 
     /**
-     * Create information for the Tag resource in storage.
+     * Create the Tag resource in storage.
      *
      * @route GET /api/matrix/tags/create playground.matrix.api.tags.create
      */
     public function create(
-        CreateRequest $request
-    ): JsonResponse|TagResource {
+        Requests\Tag\CreateRequest $request
+    ): JsonResponse|Resources\Tag {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
         $tag = new Tag($validated);
 
-        return (new TagResource($tag))->additional(['meta' => [
+        return (new Resources\Tag($tag))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
     /**
-     * Edit information for the Tag resource in storage.
+     * Edit the Tag resource in storage.
      *
      * @route GET /api/matrix/tags/edit playground.matrix.api.tags.edit
      */
     public function edit(
         Tag $tag,
-        EditRequest $request
-    ): JsonResponse|TagResource {
-        return (new TagResource($tag))->additional(['meta' => [
+        Requests\Tag\EditRequest $request
+    ): JsonResponse|Resources\Tag {
+        return (new Resources\Tag($tag))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -85,9 +77,16 @@ class TagController extends Controller
      */
     public function destroy(
         Tag $tag,
-        DestroyRequest $request
+        Requests\Tag\DestroyRequest $request
     ): Response {
+
         $validated = $request->validated();
+
+        $user = $request->user();
+
+        if ($user?->id) {
+            $tag->modified_by_id = $user->id;
+        }
 
         if (empty($validated['force'])) {
             $tag->delete();
@@ -105,17 +104,22 @@ class TagController extends Controller
      */
     public function lock(
         Tag $tag,
-        LockRequest $request
-    ): JsonResponse|TagResource {
+        Requests\Tag\LockRequest $request
+    ): JsonResponse|Resources\Tag {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $tag->setAttribute('locked', true);
+        if ($user?->id) {
+            $tag->modified_by_id = $user->id;
+        }
+
+        $tag->locked = true;
 
         $tag->save();
 
-        return (new TagResource($tag))->additional(['meta' => [
+        return (new Resources\Tag($tag))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -126,8 +130,9 @@ class TagController extends Controller
      * @route GET /api/matrix/tags playground.matrix.api.tags
      */
     public function index(
-        IndexRequest $request
-    ): JsonResponse|TagCollection {
+        Requests\Tag\IndexRequest $request
+    ): JsonResponse|Resources\TagCollection {
+
         $user = $request->user();
 
         $validated = $request->validated();
@@ -137,6 +142,7 @@ class TagController extends Controller
         $query->sort($validated['sort'] ?? null);
 
         if (! empty($validated['filter']) && is_array($validated['filter'])) {
+
             $query->filterTrash($validated['filter']['trash'] ?? null);
 
             $query->filterIds(
@@ -161,13 +167,11 @@ class TagController extends Controller
         }
 
         $perPage = ! empty($validated['perPage']) && is_int($validated['perPage']) ? $validated['perPage'] : null;
-        $paginator = $query->paginate( $perPage);
+        $paginator = $query->paginate($perPage);
 
         $paginator->appends($validated);
 
-        return (new TagCollection($paginator))->additional(['meta' => [
-            'info' => $this->packageInfo,
-        ]])->response($request);
+        return (new Resources\TagCollection($paginator))->response($request);
     }
 
     /**
@@ -177,15 +181,18 @@ class TagController extends Controller
      */
     public function restore(
         Tag $tag,
-        RestoreRequest $request
-    ): JsonResponse|TagResource {
-        $validated = $request->validated();
+        Requests\Tag\RestoreRequest $request
+    ): JsonResponse|Resources\Tag {
 
         $user = $request->user();
 
+        if ($user?->id) {
+            $tag->modified_by_id = $user->id;
+        }
+
         $tag->restore();
 
-        return (new TagResource($tag))->additional(['meta' => [
+        return (new Resources\Tag($tag))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -197,25 +204,21 @@ class TagController extends Controller
      */
     public function show(
         Tag $tag,
-        ShowRequest $request
-    ): JsonResponse|TagResource {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        return (new TagResource($tag))->additional(['meta' => [
+        Requests\Tag\ShowRequest $request
+    ): JsonResponse|Resources\Tag {
+        return (new Resources\Tag($tag))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
-    /**
+   /**
      * Store a newly created API Tag resource in storage.
      *
      * @route POST /api/matrix/tags playground.matrix.api.tags.post
      */
     public function store(
-        StoreRequest $request
-    ): Response|JsonResponse|TagResource {
+        Requests\Tag\StoreRequest $request
+    ): Response|JsonResponse|Resources\Tag {
         $validated = $request->validated();
 
         $user = $request->user();
@@ -226,9 +229,9 @@ class TagController extends Controller
 
         $tag->save();
 
-        return (new TagResource($tag))->additional(['meta' => [
+        return (new Resources\Tag($tag))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ]])->response($request);
+        ]])->response($request)->setStatusCode(201);
     }
 
     /**
@@ -238,17 +241,22 @@ class TagController extends Controller
      */
     public function unlock(
         Tag $tag,
-        UnlockRequest $request
-    ): JsonResponse|TagResource {
+        Requests\Tag\UnlockRequest $request
+    ): JsonResponse|Resources\Tag {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $tag->setAttribute('locked', false);
+        $tag->locked = false;
+
+        if ($user?->id) {
+            $tag->modified_by_id = $user->id;
+        }
 
         $tag->save();
 
-        return (new TagResource($tag))->additional(['meta' => [
+        return (new Resources\Tag($tag))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -260,17 +268,20 @@ class TagController extends Controller
      */
     public function update(
         Tag $tag,
-        UpdateRequest $request
-    ): JsonResponse|TagResource {
+        Requests\Tag\UpdateRequest $request
+    ): JsonResponse {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $tag->modified_by_id = $user?->id;
+        if ($user?->id) {
+            $tag->modified_by_id = $user->id;
+        }
 
         $tag->update($validated);
 
-        return (new TagResource($tag))->additional(['meta' => [
+        return (new Resources\Tag($tag))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }

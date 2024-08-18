@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Project
-  summary: 'Unlock a project by id.'
-  operationId: lock_project
+  summary: 'Delete a project by id.'
+  operationId: unlock_project
   responses:
     204:
       description: 'The project has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Project
-  summary: 'Lock a project by id.'
-  operationId: unlock_project
+  summary: 'Lock a project by ID.'
+  operationId: lock_project
   responses:
     200:
       description: 'The unlocked project.'

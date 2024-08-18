@@ -1,0 +1,42 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The matrix id.'
+    schema:
+      type: string
+      format: uuid
+delete:
+  tags:
+    - Matrix
+  summary: 'Delete a matrix by id.'
+  operationId: unlock_matrix
+  responses:
+    204:
+      description: 'The matrix has been unlocked.'
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden
+put:
+  tags:
+    - Matrix
+  summary: 'Lock a matrix by ID.'
+  operationId: lock_matrix
+  responses:
+    200:
+      description: 'The unlocked matrix.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/matrix.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

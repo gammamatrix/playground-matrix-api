@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Sprint
-  summary: 'Restore a sprint by id.'
+  summary: 'Restore a sprint from the trash by ID.'
   operationId: restore_sprint
   responses:
     200:

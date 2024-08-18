@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Roadmap
+  summary: 'Create a roadmap form.'
+  operationId: create_roadmap
+  responses:
+    200:
+      description: 'The create roadmap information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/roadmap.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

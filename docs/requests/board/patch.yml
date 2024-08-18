@@ -1,19 +1,24 @@
 description: 'The Matrix Board fillable properties.'
 type: object
 properties:
+  board_type:
+    description: 'The board type of this board.'
+    type: string
+    nullable: true
   owned_by_id:
     description: 'Foreign key: links an owned by user to this board.'
     type: string
     format: uuid
     nullable: true
   parent_id:
-    description: 'Foreign key: links a parent to this board.'
+    description: 'ID: a parent of this board.'
     type: string
     format: uuid
     nullable: true
-  board_type:
-    description: 'The board type of this board.'
+  backlog_id:
+    description: 'Foreign key: links a backlog to this board.'
     type: string
+    format: uuid
     nullable: true
   epic_id:
     description: 'Foreign key: links an epic to this board.'
@@ -22,6 +27,11 @@ properties:
     nullable: true
   flow_id:
     description: 'Foreign key: links a flow to this board.'
+    type: string
+    format: uuid
+    nullable: true
+  matrix_id:
+    description: 'Foreign key: links a matrix to this board.'
     type: string
     format: uuid
     nullable: true
@@ -80,26 +90,6 @@ properties:
     type: string
     format: uuid
     nullable: true
-  start_at:
-    description: 'The start at date for this board.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_start_at:
-    description: 'The planned start at date for this board.'
-    type: string
-    format: date-time
-    nullable: true
-  end_at:
-    description: 'The end at date for this board.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_end_at:
-    description: 'The planned end at date for this board.'
-    type: string
-    format: date-time
-    nullable: true
   canceled_at:
     description: 'The canceled at date for this board.'
     type: string
@@ -115,8 +105,13 @@ properties:
     type: string
     format: date-time
     nullable: true
-  fixed_at:
-    description: 'The fixed at date for this board.'
+  planned_end_at:
+    description: 'The planned end at date for this board.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_start_at:
+    description: 'The planned start at date for this board.'
     type: string
     format: date-time
     nullable: true
@@ -130,8 +125,8 @@ properties:
     type: string
     format: date-time
     nullable: true
-  released_at:
-    description: 'The released at date for this board.'
+  resolved_at:
+    description: 'The resolved at date for this board.'
     type: string
     format: date-time
     nullable: true
@@ -140,13 +135,18 @@ properties:
     type: string
     format: date-time
     nullable: true
-  resolved_at:
-    description: 'The resolved at date for this board.'
+  suspended_at:
+    description: 'The suspended at date for this board.'
     type: string
     format: date-time
     nullable: true
-  suspended_at:
-    description: 'The suspended at date for this board.'
+  timer_end_at:
+    description: 'The timer end at date for this board.'
+    type: string
+    format: date-time
+    nullable: true
+  timer_start_at:
+    description: 'The timer start at date for this board.'
     type: string
     format: date-time
     nullable: true
@@ -209,6 +209,21 @@ properties:
   active:
     description: 'Flags: active'
     type: boolean
+  canceled:
+    description: 'Flags: canceled'
+    type: boolean
+  closed:
+    description: 'Flags: closed'
+    type: boolean
+  completed:
+    description: 'Flags: completed'
+    type: boolean
+  cron:
+    description: 'Flags: cron'
+    type: boolean
+  featured:
+    description: 'Flags: featured'
+    type: boolean
   flagged:
     description: 'Flags: flagged'
     type: boolean
@@ -224,14 +239,23 @@ properties:
   planned:
     description: 'Flags: planned'
     type: boolean
+  prioritized:
+    description: 'Flags: prioritized'
+    type: boolean
   problem:
     description: 'Flags: problem'
     type: boolean
   published:
     description: 'Flags: published'
     type: boolean
+  released:
+    description: 'Flags: released'
+    type: boolean
   retired:
     description: 'Flags: retired'
+    type: boolean
+  special:
+    description: 'Flags: special'
     type: boolean
   suspended:
     description: 'Flags: suspended'
@@ -239,10 +263,18 @@ properties:
   unknown:
     description: 'Flags: unknown'
     type: boolean
+  locale:
+    description: 'The locale of the board.'
+    type: string
+    maxLength: 255
   label:
     description: 'The label of the board.'
     type: string
     maxLength: 128
+  title:
+    description: 'The title of the board.'
+    type: string
+    maxLength: 255
   byline:
     description: 'The byline of the board.'
     type: string
@@ -286,6 +318,10 @@ properties:
     nullable: true
   flow:
     description: 'JSON: flow'
+    type: object
+    nullable: true
+  history:
+    description: 'JSON: history'
     type: object
     nullable: true
   meta:

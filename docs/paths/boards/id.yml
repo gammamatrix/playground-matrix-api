@@ -45,7 +45,7 @@ delete:
 patch:
   tags:
     - Board
-  summary: 'Update a board by id.'
+  summary: 'Patch a board by id.'
   operationId: patch_board
   requestBody:
     content:
@@ -54,7 +54,7 @@ patch:
           $ref: ../../requests/board/patch.yml
   responses:
     200:
-      description: 'The updated board.'
+      description: 'The board has been patched.'
       content:
         application/json:
           schema:
@@ -78,8 +78,10 @@ patch:
               errors:
                 type: object
                 properties:
-                  label:
+                  title:
                     type: array
                     items:
                       type: string
-                      example: 'The label field is required.'
+                      example: 'The title field is required.'
+    423:
+      description: 'The board is locked. Unlock to patch.'

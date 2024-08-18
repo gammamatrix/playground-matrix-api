@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Matrix Routes: Milestone
+| Matrix API Routes: Milestone
 |--------------------------------------------------------------------------
 |
 |
 */
+
 Route::group([
     'prefix' => 'api/matrix/milestone',
     'middleware' => config('playground-matrix-api.middleware.default'),
@@ -33,6 +37,11 @@ Route::group([
         'uses' => 'MilestoneController@index',
     ])->can('index', Playground\Matrix\Models\Milestone::class);
 
+    Route::post('/index', [
+        'as' => 'playground.matrix.api.milestones.index',
+        'uses' => 'MilestoneController@index',
+    ])->can('index', Playground\Matrix\Models\Milestone::class);
+
     // UI
 
     Route::get('/create', [
@@ -43,47 +52,39 @@ Route::group([
     Route::get('/edit/{milestone}', [
         'as' => 'playground.matrix.api.milestones.edit',
         'uses' => 'MilestoneController@edit',
-    ])->whereUuid('milestone')
-        ->can('edit', 'milestone');
+    ])->whereUuid('milestone')->can('edit', 'milestone');
 
     // Route::get('/go/{id}', [
-    //     'as'   => 'playground.matrix.api.milestones.go',
+    //     'as' => 'playground.matrix.api.milestones.go',
     //     'uses' => 'MilestoneController@go',
     // ]);
 
     Route::get('/{milestone}', [
         'as' => 'playground.matrix.api.milestones.show',
         'uses' => 'MilestoneController@show',
-    ])->whereUuid('milestone')
-        ->can('detail', 'milestone');
+    ])->whereUuid('milestone')->can('detail', 'milestone');
 
     // API
 
     Route::put('/lock/{milestone}', [
         'as' => 'playground.matrix.api.milestones.lock',
         'uses' => 'MilestoneController@lock',
-    ])->whereUuid('milestone')
-        ->can('lock', 'milestone');
+    ])->whereUuid('milestone')->can('lock', 'milestone');
 
     Route::delete('/lock/{milestone}', [
         'as' => 'playground.matrix.api.milestones.unlock',
         'uses' => 'MilestoneController@unlock',
-    ])->whereUuid('milestone')
-        ->can('unlock', 'milestone');
+    ])->whereUuid('milestone')->can('unlock', 'milestone');
 
     Route::delete('/{milestone}', [
         'as' => 'playground.matrix.api.milestones.destroy',
         'uses' => 'MilestoneController@destroy',
-    ])->whereUuid('milestone')
-        ->can('delete', 'milestone')
-        ->withTrashed();
+    ])->whereUuid('milestone')->can('delete', 'milestone')->withTrashed();
 
     Route::put('/restore/{milestone}', [
         'as' => 'playground.matrix.api.milestones.restore',
         'uses' => 'MilestoneController@restore',
-    ])->whereUuid('milestone')
-        ->can('restore', 'milestone')
-        ->withTrashed();
+    ])->whereUuid('milestone')->can('restore', 'milestone')->withTrashed();
 
     Route::post('/', [
         'as' => 'playground.matrix.api.milestones.post',
@@ -91,12 +92,12 @@ Route::group([
     ])->can('store', Playground\Matrix\Models\Milestone::class);
 
     // Route::put('/', [
-    //     'as'   => 'playground.matrix.api.milestones.put',
+    //     'as' => 'playground.matrix.api.milestones.put',
     //     'uses' => 'MilestoneController@store',
-    // ])->can('store', \Playground\Matrix\Models\Milestone::class);
+    // ])->can('store', Playground\Matrix\Models\Milestone::class);
     //
     // Route::put('/{milestone}', [
-    //     'as'   => 'playground.matrix.api.milestones.put.id',
+    //     'as' => 'playground.matrix.api.milestones.put.id',
     //     'uses' => 'MilestoneController@store',
     // ])->whereUuid('milestone')->can('update', 'milestone');
 

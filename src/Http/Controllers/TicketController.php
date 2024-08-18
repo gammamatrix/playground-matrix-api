@@ -8,30 +8,24 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Playground\Matrix\Api\Http\Requests\Ticket\CreateRequest;
-use Playground\Matrix\Api\Http\Requests\Ticket\DestroyRequest;
-use Playground\Matrix\Api\Http\Requests\Ticket\EditRequest;
-use Playground\Matrix\Api\Http\Requests\Ticket\IndexRequest;
-use Playground\Matrix\Api\Http\Requests\Ticket\LockRequest;
-use Playground\Matrix\Api\Http\Requests\Ticket\RestoreRequest;
-use Playground\Matrix\Api\Http\Requests\Ticket\ShowRequest;
-use Playground\Matrix\Api\Http\Requests\Ticket\StoreRequest;
-use Playground\Matrix\Api\Http\Requests\Ticket\UnlockRequest;
-use Playground\Matrix\Api\Http\Requests\Ticket\UpdateRequest;
-use Playground\Matrix\Api\Http\Resources\Ticket as TicketResource;
-use Playground\Matrix\Api\Http\Resources\TicketCollection;
+use Illuminate\Support\Carbon;
+use Playground\Matrix\Api\Http\Requests;
+use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Ticket;
+use Playground\Matrix\Concerns\Creating;
 
 /**
  * \Playground\Matrix\Api\Http\Controllers\TicketController
  */
 class TicketController extends Controller
 {
+    use Creating;
+
     /**
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Ticket',
         'model_label_plural' => 'Tickets',
         'model_route' => 'playground.matrix.api.tickets',
@@ -46,34 +40,35 @@ class TicketController extends Controller
     ];
 
     /**
-     * Create information for the Ticket resource in storage.
+     * Create the Ticket resource in storage.
      *
      * @route GET /api/matrix/tickets/create playground.matrix.api.tickets.create
      */
     public function create(
-        CreateRequest $request
-    ): JsonResponse|TicketResource {
+        Requests\Ticket\CreateRequest $request
+    ): JsonResponse|Resources\Ticket {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
         $ticket = new Ticket($validated);
 
-        return (new TicketResource($ticket))->additional(['meta' => [
+        return (new Resources\Ticket($ticket))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
     /**
-     * Edit information for the Ticket resource in storage.
+     * Edit the Ticket resource in storage.
      *
      * @route GET /api/matrix/tickets/edit playground.matrix.api.tickets.edit
      */
     public function edit(
         Ticket $ticket,
-        EditRequest $request
-    ): JsonResponse {
-        return (new TicketResource($ticket))->additional(['meta' => [
+        Requests\Ticket\EditRequest $request
+    ): JsonResponse|Resources\Ticket {
+        return (new Resources\Ticket($ticket))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -85,9 +80,16 @@ class TicketController extends Controller
      */
     public function destroy(
         Ticket $ticket,
-        DestroyRequest $request
+        Requests\Ticket\DestroyRequest $request
     ): Response {
+
         $validated = $request->validated();
+
+        $user = $request->user();
+
+        if ($user?->id) {
+            $ticket->modified_by_id = $user->id;
+        }
 
         if (empty($validated['force'])) {
             $ticket->delete();
@@ -105,17 +107,22 @@ class TicketController extends Controller
      */
     public function lock(
         Ticket $ticket,
-        LockRequest $request
-    ): JsonResponse|TicketResource {
+        Requests\Ticket\LockRequest $request
+    ): JsonResponse|Resources\Ticket {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $ticket->setAttribute('locked', true);
+        if ($user?->id) {
+            $ticket->modified_by_id = $user->id;
+        }
+
+        $ticket->locked = true;
 
         $ticket->save();
 
-        return (new TicketResource($ticket))->additional(['meta' => [
+        return (new Resources\Ticket($ticket))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -126,8 +133,9 @@ class TicketController extends Controller
      * @route GET /api/matrix/tickets playground.matrix.api.tickets
      */
     public function index(
-        IndexRequest $request
-    ): JsonResponse|TicketCollection {
+        Requests\Ticket\IndexRequest $request
+    ): JsonResponse|Resources\TicketCollection {
+
         $user = $request->user();
 
         $validated = $request->validated();
@@ -137,6 +145,7 @@ class TicketController extends Controller
         $query->sort($validated['sort'] ?? null);
 
         if (! empty($validated['filter']) && is_array($validated['filter'])) {
+
             $query->filterTrash($validated['filter']['trash'] ?? null);
 
             $query->filterIds(
@@ -161,13 +170,11 @@ class TicketController extends Controller
         }
 
         $perPage = ! empty($validated['perPage']) && is_int($validated['perPage']) ? $validated['perPage'] : null;
-        $paginator = $query->paginate( $perPage);
+        $paginator = $query->paginate($perPage);
 
         $paginator->appends($validated);
 
-        return (new TicketCollection($paginator))->additional(['meta' => [
-            'info' => $this->packageInfo,
-        ]])->response($request);
+        return (new Resources\TicketCollection($paginator))->response($request);
     }
 
     /**
@@ -177,15 +184,18 @@ class TicketController extends Controller
      */
     public function restore(
         Ticket $ticket,
-        RestoreRequest $request
-    ): JsonResponse|TicketResource {
-        $validated = $request->validated();
+        Requests\Ticket\RestoreRequest $request
+    ): JsonResponse|Resources\Ticket {
 
         $user = $request->user();
 
+        if ($user?->id) {
+            $ticket->modified_by_id = $user->id;
+        }
+
         $ticket->restore();
 
-        return (new TicketResource($ticket))->additional(['meta' => [
+        return (new Resources\Ticket($ticket))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -197,25 +207,21 @@ class TicketController extends Controller
      */
     public function show(
         Ticket $ticket,
-        ShowRequest $request
-    ): JsonResponse|TicketResource {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        return (new TicketResource($ticket))->additional(['meta' => [
+        Requests\Ticket\ShowRequest $request
+    ): JsonResponse|Resources\Ticket {
+        return (new Resources\Ticket($ticket))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
-    /**
+   /**
      * Store a newly created API Ticket resource in storage.
      *
      * @route POST /api/matrix/tickets playground.matrix.api.tickets.post
      */
     public function store(
-        StoreRequest $request
-    ): Response|JsonResponse|TicketResource {
+        Requests\Ticket\StoreRequest $request
+    ): Response|JsonResponse|Resources\Ticket {
         $validated = $request->validated();
 
         $user = $request->user();
@@ -228,7 +234,9 @@ class TicketController extends Controller
 
         $ticket->save();
 
-        return (new TicketResource($ticket))->response($request);
+        return (new Resources\Ticket($ticket))->additional(['meta' => [
+            'info' => $this->packageInfo,
+        ]])->response($request)->setStatusCode(201);
     }
 
     /**
@@ -238,17 +246,22 @@ class TicketController extends Controller
      */
     public function unlock(
         Ticket $ticket,
-        UnlockRequest $request
-    ): JsonResponse|TicketResource {
+        Requests\Ticket\UnlockRequest $request
+    ): JsonResponse|Resources\Ticket {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $ticket->setAttribute('locked', false);
+        $ticket->locked = false;
+
+        if ($user?->id) {
+            $ticket->modified_by_id = $user->id;
+        }
 
         $ticket->save();
 
-        return (new TicketResource($ticket))->additional(['meta' => [
+        return (new Resources\Ticket($ticket))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -260,54 +273,21 @@ class TicketController extends Controller
      */
     public function update(
         Ticket $ticket,
-        UpdateRequest $request
-    ): JsonResponse|TicketResource {
+        Requests\Ticket\UpdateRequest $request
+    ): JsonResponse {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $ticket->modified_by_id = $user?->id;
+        if ($user?->id) {
+            $ticket->modified_by_id = $user->id;
+        }
 
         $ticket->update($validated);
 
-        return (new TicketResource($ticket))->additional(['meta' => [
+        return (new Resources\Ticket($ticket))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
-    }
-
-    protected function getProjectKey(Ticket $ticket): string
-    {
-        $key = config('playground-matrix-api.default_key');
-        $key = is_string($key) ? $key : '';
-
-        $project = $ticket->project_id ? $ticket->project() : null;
-
-        if (! empty($project->key) && is_string($project->key)) {
-            $key = $project->key;
-        }
-
-        return $key;
-    }
-
-    protected function handleTicketCode(Ticket $ticket): void
-    {
-        if (empty($ticket->project_id)) {
-            return;
-        }
-
-        $ticket->key = $this->getProjectKey($ticket);
-
-        $code = Ticket::where('key', 'LIKE', $ticket->key)->max('code');
-        $next = $code > 0 ? ++$code : 1;
-        $slug = sprintf(
-            '%1$s%2$s%3$d',
-            $ticket->key,
-            $ticket->key ? '-' : '',
-            $next
-        );
-
-        $ticket->code = $next;
-        $ticket->slug = $slug;
-        $ticket->key_code_hash = md5($slug);
     }
 }

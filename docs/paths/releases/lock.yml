@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Release
-  summary: 'Unlock a release by id.'
-  operationId: lock_release
+  summary: 'Delete a release by id.'
+  operationId: unlock_release
   responses:
     204:
       description: 'The release has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Release
-  summary: 'Lock a release by id.'
-  operationId: unlock_release
+  summary: 'Lock a release by ID.'
+  operationId: lock_release
   responses:
     200:
       description: 'The unlocked release.'

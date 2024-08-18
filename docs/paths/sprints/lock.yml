@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Sprint
-  summary: 'Unlock a sprint by id.'
-  operationId: lock_sprint
+  summary: 'Delete a sprint by id.'
+  operationId: unlock_sprint
   responses:
     204:
       description: 'The sprint has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Sprint
-  summary: 'Lock a sprint by id.'
-  operationId: unlock_sprint
+  summary: 'Lock a sprint by ID.'
+  operationId: lock_sprint
   responses:
     200:
       description: 'The unlocked sprint.'

@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Ticket
-  summary: 'Restore a ticket by id.'
+  summary: 'Restore a ticket from the trash by ID.'
   operationId: restore_ticket
   responses:
     200:

@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The roadmap id.'
+    schema:
+      type: string
+      format: uuid
+get:
+  tags:
+    - Roadmap
+  summary: 'Edit a roadmap form.'
+  operationId: edit_roadmap
+  responses:
+    200:
+      description: 'The edit roadmap information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/roadmap.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

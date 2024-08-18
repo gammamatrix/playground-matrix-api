@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Matrix Routes: Source
+| Matrix API Routes: Source
 |--------------------------------------------------------------------------
 |
 |
 */
+
 Route::group([
     'prefix' => 'api/matrix/source',
     'middleware' => config('playground-matrix-api.middleware.default'),
@@ -33,6 +37,11 @@ Route::group([
         'uses' => 'SourceController@index',
     ])->can('index', Playground\Matrix\Models\Source::class);
 
+    Route::post('/index', [
+        'as' => 'playground.matrix.api.sources.index',
+        'uses' => 'SourceController@index',
+    ])->can('index', Playground\Matrix\Models\Source::class);
+
     // UI
 
     Route::get('/create', [
@@ -43,47 +52,39 @@ Route::group([
     Route::get('/edit/{source}', [
         'as' => 'playground.matrix.api.sources.edit',
         'uses' => 'SourceController@edit',
-    ])->whereUuid('source')
-        ->can('edit', 'source');
+    ])->whereUuid('source')->can('edit', 'source');
 
     // Route::get('/go/{id}', [
-    //     'as'   => 'playground.matrix.api.sources.go',
+    //     'as' => 'playground.matrix.api.sources.go',
     //     'uses' => 'SourceController@go',
     // ]);
 
     Route::get('/{source}', [
         'as' => 'playground.matrix.api.sources.show',
         'uses' => 'SourceController@show',
-    ])->whereUuid('source')
-        ->can('detail', 'source');
+    ])->whereUuid('source')->can('detail', 'source');
 
     // API
 
     Route::put('/lock/{source}', [
         'as' => 'playground.matrix.api.sources.lock',
         'uses' => 'SourceController@lock',
-    ])->whereUuid('source')
-        ->can('lock', 'source');
+    ])->whereUuid('source')->can('lock', 'source');
 
     Route::delete('/lock/{source}', [
         'as' => 'playground.matrix.api.sources.unlock',
         'uses' => 'SourceController@unlock',
-    ])->whereUuid('source')
-        ->can('unlock', 'source');
+    ])->whereUuid('source')->can('unlock', 'source');
 
     Route::delete('/{source}', [
         'as' => 'playground.matrix.api.sources.destroy',
         'uses' => 'SourceController@destroy',
-    ])->whereUuid('source')
-        ->can('delete', 'source')
-        ->withTrashed();
+    ])->whereUuid('source')->can('delete', 'source')->withTrashed();
 
     Route::put('/restore/{source}', [
         'as' => 'playground.matrix.api.sources.restore',
         'uses' => 'SourceController@restore',
-    ])->whereUuid('source')
-        ->can('restore', 'source')
-        ->withTrashed();
+    ])->whereUuid('source')->can('restore', 'source')->withTrashed();
 
     Route::post('/', [
         'as' => 'playground.matrix.api.sources.post',
@@ -91,12 +92,12 @@ Route::group([
     ])->can('store', Playground\Matrix\Models\Source::class);
 
     // Route::put('/', [
-    //     'as'   => 'playground.matrix.api.sources.put',
+    //     'as' => 'playground.matrix.api.sources.put',
     //     'uses' => 'SourceController@store',
-    // ])->can('store', \Playground\Matrix\Models\Source::class);
+    // ])->can('store', Playground\Matrix\Models\Source::class);
     //
     // Route::put('/{source}', [
-    //     'as'   => 'playground.matrix.api.sources.put.id',
+    //     'as' => 'playground.matrix.api.sources.put.id',
     //     'uses' => 'SourceController@store',
     // ])->whereUuid('source')->can('update', 'source');
 

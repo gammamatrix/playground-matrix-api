@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Project
+  summary: 'Create a project form.'
+  operationId: create_project
+  responses:
+    200:
+      description: 'The create project information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/project.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

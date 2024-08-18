@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Sprint
+  summary: 'Create a sprint form.'
+  operationId: create_sprint
+  responses:
+    200:
+      description: 'The create sprint information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/sprint.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

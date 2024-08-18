@@ -45,7 +45,7 @@ delete:
 patch:
   tags:
     - Flow
-  summary: 'Update a flow by id.'
+  summary: 'Patch a flow by id.'
   operationId: patch_flow
   requestBody:
     content:
@@ -54,7 +54,7 @@ patch:
           $ref: ../../requests/flow/patch.yml
   responses:
     200:
-      description: 'The updated flow.'
+      description: 'The flow has been patched.'
       content:
         application/json:
           schema:
@@ -78,8 +78,10 @@ patch:
               errors:
                 type: object
                 properties:
-                  label:
+                  title:
                     type: array
                     items:
                       type: string
-                      example: 'The label field is required.'
+                      example: 'The title field is required.'
+    423:
+      description: 'The flow is locked. Unlock to patch.'

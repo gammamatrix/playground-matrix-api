@@ -1,89 +1,29 @@
 description: 'The Matrix Note fillable properties.'
 type: object
 properties:
+  note_type:
+    description: 'The note type of this note.'
+    type: string
+    nullable: true
   owned_by_id:
     description: 'Foreign key: links an owned by user to this note.'
     type: string
     format: uuid
     nullable: true
   parent_id:
-    description: 'Foreign key: links a parent to this note.'
+    description: 'ID: a parent of this note.'
     type: string
     format: uuid
     nullable: true
-  note_type:
-    description: 'The note type of this note.'
+  matrix_id:
+    description: 'Foreign key: links a matrix to this note.'
     type: string
+    format: uuid
     nullable: true
-  start_at:
-    description: 'The start at date for this note.'
+  tag_id:
+    description: 'Foreign key: links a tag to this note.'
     type: string
-    format: date-time
-    nullable: true
-  planned_start_at:
-    description: 'The planned start at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  end_at:
-    description: 'The end at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_end_at:
-    description: 'The planned end at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  canceled_at:
-    description: 'The canceled at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  closed_at:
-    description: 'The closed at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  embargo_at:
-    description: 'The embargo at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  fixed_at:
-    description: 'The fixed at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  postponed_at:
-    description: 'The postponed at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  published_at:
-    description: 'The published at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  released_at:
-    description: 'The released at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  resumed_at:
-    description: 'The resumed at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  resolved_at:
-    description: 'The resolved at date for this note.'
-    type: string
-    format: date-time
-    nullable: true
-  suspended_at:
-    description: 'The suspended at date for this note.'
-    type: string
-    format: date-time
+    format: uuid
     nullable: true
   gids:
     description: 'Permissions: gids'
@@ -144,6 +84,21 @@ properties:
   active:
     description: 'Flags: active'
     type: boolean
+  canceled:
+    description: 'Flags: canceled'
+    type: boolean
+  closed:
+    description: 'Flags: closed'
+    type: boolean
+  completed:
+    description: 'Flags: completed'
+    type: boolean
+  cron:
+    description: 'Flags: cron'
+    type: boolean
+  featured:
+    description: 'Flags: featured'
+    type: boolean
   flagged:
     description: 'Flags: flagged'
     type: boolean
@@ -159,14 +114,23 @@ properties:
   planned:
     description: 'Flags: planned'
     type: boolean
+  prioritized:
+    description: 'Flags: prioritized'
+    type: boolean
   problem:
     description: 'Flags: problem'
     type: boolean
   published:
     description: 'Flags: published'
     type: boolean
+  released:
+    description: 'Flags: released'
+    type: boolean
   retired:
     description: 'Flags: retired'
+    type: boolean
+  special:
+    description: 'Flags: special'
     type: boolean
   suspended:
     description: 'Flags: suspended'
@@ -174,10 +138,18 @@ properties:
   unknown:
     description: 'Flags: unknown'
     type: boolean
+  locale:
+    description: 'The locale of the note.'
+    type: string
+    maxLength: 255
   label:
     description: 'The label of the note.'
     type: string
     maxLength: 128
+  title:
+    description: 'The title of the note.'
+    type: string
+    maxLength: 255
   byline:
     description: 'The byline of the note.'
     type: string
@@ -211,28 +183,12 @@ properties:
     description: 'JSON: assets'
     type: object
     nullable: true
-  backlog:
-    description: 'JSON: backlog'
-    type: object
-    nullable: true
-  board:
-    description: 'JSON: board'
-    type: object
-    nullable: true
-  flow:
-    description: 'JSON: flow'
-    type: object
-    nullable: true
   meta:
     description: 'JSON: meta'
     type: object
     nullable: true
   options:
     description: 'JSON: options'
-    type: object
-    nullable: true
-  roadmap:
-    description: 'JSON: roadmap'
     type: object
     nullable: true
   sources:

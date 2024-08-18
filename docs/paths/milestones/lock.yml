@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Milestone
-  summary: 'Unlock a milestone by id.'
-  operationId: lock_milestone
+  summary: 'Delete a milestone by id.'
+  operationId: unlock_milestone
   responses:
     204:
       description: 'The milestone has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Milestone
-  summary: 'Lock a milestone by id.'
-  operationId: unlock_milestone
+  summary: 'Lock a milestone by ID.'
+  operationId: lock_milestone
   responses:
     200:
       description: 'The unlocked milestone.'

@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Note
-  summary: 'Unlock a note by id.'
-  operationId: lock_note
+  summary: 'Delete a note by id.'
+  operationId: unlock_note
   responses:
     204:
       description: 'The note has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Note
-  summary: 'Lock a note by id.'
-  operationId: unlock_note
+  summary: 'Lock a note by ID.'
+  operationId: lock_note
   responses:
     200:
       description: 'The unlocked note.'

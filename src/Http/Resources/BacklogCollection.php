@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 namespace Playground\Matrix\Api\Http\Resources;
@@ -9,7 +12,7 @@ use Illuminate\Support\Carbon;
 use Playground\Http\Requests\IndexRequest;
 
 /**
- * \Playground\Matrix\Api\Http\Resources\Backlog
+ * \Playground\Matrix\Api\Http\Resources\BacklogCollection
  */
 class BacklogCollection extends ResourceCollection
 {

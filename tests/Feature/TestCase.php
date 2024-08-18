@@ -33,6 +33,8 @@ class TestCase extends OrchestraTestCase
 
     protected bool $load_migrations_laravel = false;
 
+    protected bool $load_migrations_package = false;
+
     protected bool $load_migrations_playground = true;
 
     protected bool $setUpUserForPlayground = false;

@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The matrix id.'
+    schema:
+      type: string
+      format: uuid
+put:
+  tags:
+    - Matrix
+  summary: 'Restore a matrix from the trash by ID.'
+  operationId: restore_matrix
+  responses:
+    200:
+      description: 'The restored matrix.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/matrix.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Board
-  summary: 'Unlock a board by id.'
-  operationId: lock_board
+  summary: 'Delete a board by id.'
+  operationId: unlock_board
   responses:
     204:
       description: 'The board has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Board
-  summary: 'Lock a board by id.'
-  operationId: unlock_board
+  summary: 'Lock a board by ID.'
+  operationId: lock_board
   responses:
     200:
       description: 'The unlocked board.'

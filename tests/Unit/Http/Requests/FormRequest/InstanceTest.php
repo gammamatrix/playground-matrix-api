@@ -16,6 +16,8 @@ use Tests\Unit\Playground\Matrix\Api\TestCase;
  */
 class InstanceTest extends TestCase
 {
+    protected bool $load_migrations_playground = true;
+
     public function test_FormRequest_authorize_without_user(): void
     {
         $instance = new FormRequest;

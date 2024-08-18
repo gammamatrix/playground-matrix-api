@@ -2,9 +2,11 @@
 /**
  * Playground
  */
+
 declare(strict_types=1);
 namespace Playground\Matrix\Api\Http\Resources;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Carbon;
@@ -29,11 +31,16 @@ class Backlog extends JsonResource
          */
         $backlog = $request->route('backlog');
 
+        /**
+         * @var ?Authenticatable $user;
+         */
+        $user = $request->user();
+
         return [
             'meta' => [
                 'id' => $backlog?->id,
                 'rules' => $request->rules(),
-                'session_user_id' => $request->user()?->id,
+                'session_user_id' => $user?->getAttributeValue('id'),
                 'timestamp' => Carbon::now()->toJson(),
                 'validated' => $request->validated(),
             ],

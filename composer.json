@@ -1,14 +1,10 @@
 {
     "name": "gammamatrix/playground-matrix-api",
-    "description": "Playground: Provide the Matrix API for a Laravel application.",
+    "description": "Playground: Provides an API, without a UI for interacting with Playground Matrix, a Project Management System for Laravel applications.",
     "keywords": [
-        "matrix",
-        "agile",
-        "sprints",
-        "projects",
-        "tickets",
         "gammamatrix",
         "laravel",
+        "matrix",
         "playground"
     ],
     "homepage": "https://github.com/gammamatrix/playground-matrix-api",
@@ -21,7 +17,8 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
+        "gammamatrix/playground": "*",
         "gammamatrix/playground-auth": "*",
         "gammamatrix/playground-http": "*",
         "gammamatrix/playground-matrix": "*"
@@ -30,8 +27,6 @@
         "gammamatrix/playground-test": "*",
         "laravel/sanctum": "^4.0"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Playground\\Matrix\\Api\\": "src/"
@@ -52,8 +47,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "73.x-dev",
-            "dev-master": "73.x-dev"
+            "dev-develop": "73.x-dev"
         },
         "laravel": {
             "providers": [
@@ -61,10 +55,15 @@
             ]
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse --verbose --debug --level max",
         "cloc": "cloc --exclude-dir=node_modules,output,vendor .",
         "format": "vendor/bin/php-cs-fixer fix",
-        "test": "vendor/bin/phpunit"
+        "test": [
+            "Composer\\Config::disableProcessTimeout",
+            "vendor/bin/testbench package:test"
+        ]
     }
 }
