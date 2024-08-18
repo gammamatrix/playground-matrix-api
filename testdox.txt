@@ -73,9 +73,150 @@ Board Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\Boa
  [x] Json destroy as user and get denied and no force delete allowed
 
 Command (Tests\Feature\Playground\Matrix\Api\Console\Commands\About\Command)
- [x] Command about displays package information and succeed with code 0
+ [x] Command about displays package information and succeed
 
 Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Backlog\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Board\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Epic\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Flow\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Matrix\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Note\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Project\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Release\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Roadmap\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Source\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Sprint\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Team\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Ticket\CreateRequest)
+ [x] Request instance
+
+Create Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Version\CreateRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Backlog\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Board\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Epic\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Flow\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Matrix\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Note\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Project\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Release\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Roadmap\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Source\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Sprint\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Team\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Ticket\DestroyRequest)
+ [x] Request instance
+
+Destroy Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Version\DestroyRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Backlog\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Board\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Epic\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Flow\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Matrix\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Note\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Project\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Release\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Roadmap\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Source\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Sprint\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Team\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Ticket\EditRequest)
+ [x] Request instance
+
+Edit Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Version\EditRequest)
  [x] Request instance
 
 Epic Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\EpicRoute)
@@ -152,6 +293,57 @@ Flow Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\Flow
  [x] Json destroy as admin and succeed and ignore redirect
  [x] Json destroy as user and get denied and no force delete allowed
 
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Backlog\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Board\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Epic\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Flow\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Matrix\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Note\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Project\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Release\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Roadmap\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Source\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Sprint\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Team\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Ticket\IndexRequest)
+ [x] Request instance
+
+Index Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Version\IndexRequest)
+ [x] Request instance
+
+Instance (Tests\Feature\Playground\Matrix\Api\Http\Requests\FormRequest\Instance)
+ [x] FormRequest authorize with admin
+
 Instance (Tests\Unit\Playground\Matrix\Api\Http\Requests\FormRequest\Instance)
  [x] FormRequest authorize without user
  [x] RULES is empty by default
@@ -164,6 +356,91 @@ Instance (Tests\Unit\Playground\Matrix\Api\ServiceProvider\Instance)
  [x] SetPolicies with empty array
  [x] SetPolicies with invalid model
  [x] SetPolicies with invalid policy
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Backlog\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Board\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Epic\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Flow\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Matrix\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Note\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Project\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Release\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Roadmap\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Source\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Sprint\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Team\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Ticket\LockRequest)
+ [x] Request instance
+
+Lock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Version\LockRequest)
+ [x] Request instance
+
+Matrix Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\MatrixRoute)
+ [x] Json guest cannot see info
+ [x] Json guest cannot destroy
+ [x] Json guest cannot restore
+ [x] Json guest cannot get index
+ [x] Json guest cannot lock
+ [x] Json guest cannot unlock
+ [x] Json guest cannot get create info
+ [x] Json guest cannot get edit info
+ [x] Json guest cannot store
+ [x] Json guest cannot update
+ [x] Json admin can get index
+ [x] Json show info for admin
+ [x] Json admin can get create info
+ [x] Json admin can get edit info
+ [x] Json destroy as admin and succeed
+ [x] Json restore as admin and succeed
+ [x] Json update as admin without payload and fail validation
+ [x] Json lock as admin and succeed
+ [x] Json store as admin without payload and fail validation
+ [x] Json unlock as admin and succeed
+ [x] Json get create info as admin with invalid parameter and fail validation
+ [x] Json admin can get index with filters
+ [x] Json edit as admin and fail validation with invalid parameter
+ [x] Json admin can update
+ [x] Json store as admin and succeed
+ [x] Json lock as admin and succeed with no redirect
+ [x] Json destroy as admin and succeed with force delete
+ [x] Json restore as admin and succeed with no redirect
+ [x] Json unlock as admin and succeed with no redirect
+ [x] Json destroy as admin and succeed with no content
+ [x] Json lock as user and get denied
+ [x] Json restore as user and get denied
+ [x] Json unlock as user and get denied
+ [x] Json destroy as admin and succeed and ignore redirect
+ [x] Json destroy as user and get denied and no force delete allowed
 
 Milestone Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\MilestoneRoute)
  [x] Json guest cannot see info
@@ -242,6 +519,51 @@ Note Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\Note
 Policy (Tests\Unit\Playground\Matrix\Api\Policies\BacklogPolicy\Policy)
  [x] Policy instance
 
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\BoardPolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\EpicPolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\FlowPolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\MatrixPolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\MilestonePolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\NotePolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\ProjectPolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\ReleasePolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\RoadmapPolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\SourcePolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\SprintPolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\TagPolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\TeamPolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\TicketPolicy\Policy)
+ [x] Policy instance
+
+Policy (Tests\Unit\Playground\Matrix\Api\Policies\VersionPolicy\Policy)
+ [x] Policy instance
+
 Project Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\ProjectRoute)
  [x] Json guest cannot see info
  [x] Json guest cannot destroy
@@ -316,6 +638,54 @@ Release Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\R
  [x] Json destroy as admin and succeed and ignore redirect
  [x] Json destroy as user and get denied and no force delete allowed
 
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Backlog\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Board\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Epic\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Flow\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Matrix\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Note\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Project\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Release\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Roadmap\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Source\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Sprint\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Team\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Ticket\RestoreRequest)
+ [x] Request instance
+
+Restore Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Version\RestoreRequest)
+ [x] Request instance
+
 Roadmap Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\RoadmapRoute)
  [x] Json guest cannot see info
  [x] Json guest cannot destroy
@@ -352,6 +722,54 @@ Roadmap Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\R
  [x] Json unlock as user and get denied
  [x] Json destroy as admin and succeed and ignore redirect
  [x] Json destroy as user and get denied and no force delete allowed
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Backlog\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Board\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Epic\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Flow\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Matrix\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Note\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Project\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Release\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Roadmap\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Source\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Sprint\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Team\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Ticket\ShowRequest)
+ [x] Request instance
+
+Show Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Version\ShowRequest)
+ [x] Request instance
 
 Source Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\SourceRoute)
  [x] Json guest cannot see info
@@ -429,6 +847,83 @@ Sprint Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\Sp
 
 Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Backlog\StoreRequest)
  [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Board\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Epic\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Flow\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Matrix\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Note\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Project\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Release\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Roadmap\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Source\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Sprint\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Team\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Ticket\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
+
+Store Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Version\StoreRequest)
+ [x] Request instance
+ [x] StoreRequest rules with optional revisions disabled
+ [x] StoreRequest rules with optional revisions enabled
 
 Tag Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\TagRoute)
  [x] Json guest cannot see info
@@ -541,8 +1036,133 @@ Ticket Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\Ti
  [x] Json destroy as admin and succeed and ignore redirect
  [x] Json destroy as user and get denied and no force delete allowed
 
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Backlog\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Board\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Epic\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Flow\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Matrix\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Note\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Project\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Release\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Roadmap\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Source\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Sprint\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Team\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Ticket\UnlockRequest)
+ [x] Request instance
+
+Unlock Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Version\UnlockRequest)
+ [x] Request instance
+
 Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Backlog\UpdateRequest)
  [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Board\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Epic\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Flow\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Matrix\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Note\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Project\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Release\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Roadmap\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Source\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Sprint\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Team\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Ticket\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
+
+Update Request (Tests\Unit\Playground\Matrix\Api\Http\Requests\Version\UpdateRequest)
+ [x] Request instance
+ [x] UpdateRequest rules with optional revisions disabled
+ [x] UpdateRequest rules with optional revisions enabled
 
 Version Route (Tests\Feature\Playground\Matrix\Api\Http\Controllers\Playground\VersionRoute)
  [x] Json guest cannot see info
