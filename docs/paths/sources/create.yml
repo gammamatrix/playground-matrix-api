@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Source
+  summary: 'Create a source form.'
+  operationId: create_source
+  responses:
+    200:
+      description: 'The create source information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/source.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

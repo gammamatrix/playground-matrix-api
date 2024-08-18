@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Version
-  summary: 'Unlock a version by id.'
-  operationId: lock_version
+  summary: 'Delete a version by id.'
+  operationId: unlock_version
   responses:
     204:
       description: 'The version has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Version
-  summary: 'Lock a version by id.'
-  operationId: unlock_version
+  summary: 'Lock a version by ID.'
+  operationId: lock_version
   responses:
     200:
       description: 'The unlocked version.'

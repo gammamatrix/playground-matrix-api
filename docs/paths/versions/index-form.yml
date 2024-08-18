@@ -1,0 +1,28 @@
+post:
+  tags:
+    - Version
+  summary: 'Get versions from the index using POST.'
+  operationId: post_versions_index
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../requests/version/form.yml
+  responses:
+    200:
+      description: 'Get the versions from the index.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: ../../models/version.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

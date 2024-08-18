@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Matrix Routes: Project
+| Matrix API Routes: Project
 |--------------------------------------------------------------------------
 |
 |
 */
+
 Route::group([
     'prefix' => 'api/matrix/project',
     'middleware' => config('playground-matrix-api.middleware.default'),
@@ -33,6 +37,11 @@ Route::group([
         'uses' => 'ProjectController@index',
     ])->can('index', Playground\Matrix\Models\Project::class);
 
+    Route::post('/index', [
+        'as' => 'playground.matrix.api.projects.index',
+        'uses' => 'ProjectController@index',
+    ])->can('index', Playground\Matrix\Models\Project::class);
+
     // UI
 
     Route::get('/create', [
@@ -43,47 +52,39 @@ Route::group([
     Route::get('/edit/{project}', [
         'as' => 'playground.matrix.api.projects.edit',
         'uses' => 'ProjectController@edit',
-    ])->whereUuid('project')
-        ->can('edit', 'project');
+    ])->whereUuid('project')->can('edit', 'project');
 
     // Route::get('/go/{id}', [
-    //     'as'   => 'playground.matrix.api.projects.go',
+    //     'as' => 'playground.matrix.api.projects.go',
     //     'uses' => 'ProjectController@go',
     // ]);
 
     Route::get('/{project}', [
         'as' => 'playground.matrix.api.projects.show',
         'uses' => 'ProjectController@show',
-    ])->whereUuid('project')
-        ->can('detail', 'project');
+    ])->whereUuid('project')->can('detail', 'project');
 
     // API
 
     Route::put('/lock/{project}', [
         'as' => 'playground.matrix.api.projects.lock',
         'uses' => 'ProjectController@lock',
-    ])->whereUuid('project')
-        ->can('lock', 'project');
+    ])->whereUuid('project')->can('lock', 'project');
 
     Route::delete('/lock/{project}', [
         'as' => 'playground.matrix.api.projects.unlock',
         'uses' => 'ProjectController@unlock',
-    ])->whereUuid('project')
-        ->can('unlock', 'project');
+    ])->whereUuid('project')->can('unlock', 'project');
 
     Route::delete('/{project}', [
         'as' => 'playground.matrix.api.projects.destroy',
         'uses' => 'ProjectController@destroy',
-    ])->whereUuid('project')
-        ->can('delete', 'project')
-        ->withTrashed();
+    ])->whereUuid('project')->can('delete', 'project')->withTrashed();
 
     Route::put('/restore/{project}', [
         'as' => 'playground.matrix.api.projects.restore',
         'uses' => 'ProjectController@restore',
-    ])->whereUuid('project')
-        ->can('restore', 'project')
-        ->withTrashed();
+    ])->whereUuid('project')->can('restore', 'project')->withTrashed();
 
     Route::post('/', [
         'as' => 'playground.matrix.api.projects.post',
@@ -91,12 +92,12 @@ Route::group([
     ])->can('store', Playground\Matrix\Models\Project::class);
 
     // Route::put('/', [
-    //     'as'   => 'playground.matrix.api.projects.put',
+    //     'as' => 'playground.matrix.api.projects.put',
     //     'uses' => 'ProjectController@store',
-    // ])->can('store', \Playground\Matrix\Models\Project::class);
+    // ])->can('store', Playground\Matrix\Models\Project::class);
     //
     // Route::put('/{project}', [
-    //     'as'   => 'playground.matrix.api.projects.put.id',
+    //     'as' => 'playground.matrix.api.projects.put.id',
     //     'uses' => 'ProjectController@store',
     // ])->whereUuid('project')->can('update', 'project');
 

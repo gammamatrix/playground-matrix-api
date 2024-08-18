@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Version
+  summary: 'Create a version form.'
+  operationId: create_version
+  responses:
+    200:
+      description: 'The create version information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/version.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

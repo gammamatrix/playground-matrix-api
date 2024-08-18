@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Milestone
+  summary: 'Create a milestone form.'
+  operationId: create_milestone
+  responses:
+    200:
+      description: 'The create milestone information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/milestone.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

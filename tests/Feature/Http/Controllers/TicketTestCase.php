@@ -6,6 +6,8 @@
 declare(strict_types=1);
 namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\TicketTestCase
  */
@@ -25,6 +27,12 @@ class TicketTestCase extends TestCase
 
     protected int $status_code_json_guest_restore = 401;
 
+    protected int $status_code_json_guest_restore_revision = 401;
+
+    protected int $status_code_guest_json_revision = 401;
+
+    protected int $status_code_guest_json_revisions = 401;
+
     protected int $status_code_json_guest_show = 401;
 
     protected int $status_code_guest_json_store = 401;
@@ -37,7 +45,7 @@ class TicketTestCase extends TestCase
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Ticket',
         'model_label_plural' => 'Tickets',
         'model_route' => 'playground.matrix.api.tickets',
@@ -49,7 +57,6 @@ class TicketTestCase extends TestCase
         'module_slug' => 'matrix',
         'privilege' => 'playground-matrix-api:ticket',
         'table' => 'matrix_tickets',
-        'view' => 'playground-matrix-api::ticket',
     ];
 
     /**
@@ -57,15 +64,16 @@ class TicketTestCase extends TestCase
      */
     protected $structure_model = [
         'id',
+        'ticket_type',
         'created_by_id',
         'modified_by_id',
         'owned_by_id',
         'parent_id',
-        'ticket_type',
         'backlog_id',
         'board_id',
         'epic_id',
         'flow_id',
+        'matrix_id',
         'milestone_id',
         'note_id',
         'project_id',
@@ -76,23 +84,27 @@ class TicketTestCase extends TestCase
         'tag_id',
         'team_id',
         'version_id',
+        'completed_by_id',
+        'duplicate_id',
+        'fixed_by_id',
+        'reported_by_id',
+        'version_fixed_id',
         'created_at',
-        'deleted_at',
         'updated_at',
-        'start_at',
-        'planned_start_at',
-        'end_at',
-        'planned_end_at',
+        'deleted_at',
         'canceled_at',
         'closed_at',
         'embargo_at',
         'fixed_at',
+        'planned_end_at',
+        'planned_start_at',
         'postponed_at',
         'published_at',
-        'released_at',
-        'resumed_at',
         'resolved_at',
+        'resumed_at',
         'suspended_at',
+        'timer_end_at',
+        'timer_start_at',
         'gids',
         'po',
         'pg',
@@ -104,24 +116,40 @@ class TicketTestCase extends TestCase
         'status',
         'rank',
         'size',
+        'matrix',
+        'x',
+        'y',
+        'z',
+        'r',
+        'theta',
+        'rho',
+        'phi',
+        'elevation',
+        'latitude',
+        'longitude',
         'active',
         'canceled',
         'closed',
         'completed',
+        'cron',
         'duplicate',
+        'featured',
         'fixed',
         'flagged',
         'internal',
         'locked',
         'pending',
         'planned',
+        'prioritized',
         'problem',
         'published',
         'released',
-        'retired',
         'resolved',
+        'retired',
+        'special',
         'suspended',
         'unknown',
+        'locale',
         'label',
         'title',
         'byline',
@@ -131,6 +159,23 @@ class TicketTestCase extends TestCase
         'introduction',
         'content',
         'summary',
+        'handler',
+        'key',
+        'code',
+        'key_code_hash',
+        'priority',
+        'severity',
+        'resolution',
+        'step',
+        'state',
+        'workflow_type',
+        'points',
+        'actual',
+        'expected',
+        'story',
+        'steps',
+        'criteria',
+        'reproducibility',
         'icon',
         'image',
         'avatar',
@@ -139,7 +184,9 @@ class TicketTestCase extends TestCase
         'backlog',
         'board',
         'flow',
+        'history',
         'meta',
+        'notes',
         'options',
         'roadmap',
         'sources',

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 namespace Playground\Matrix\Api\Http\Resources;

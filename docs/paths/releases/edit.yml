@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The release id.'
+    schema:
+      type: string
+      format: uuid
+get:
+  tags:
+    - Release
+  summary: 'Edit a release form.'
+  operationId: edit_release
+  responses:
+    200:
+      description: 'The edit release information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/release.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

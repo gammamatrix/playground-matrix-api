@@ -14,6 +14,4 @@ use Tests\Feature\Playground\Matrix\Api\Http\Controllers\SprintTestCase;
 class SprintRouteTest extends SprintTestCase
 {
     protected bool $load_migrations_playground = true;
-
-    protected bool $load_migrations_matrix = true;
 }

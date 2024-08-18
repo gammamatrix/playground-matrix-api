@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Flow
-  summary: 'Restore a flow by id.'
+  summary: 'Restore a flow from the trash by ID.'
   operationId: restore_flow
   responses:
     200:

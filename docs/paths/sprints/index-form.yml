@@ -1,0 +1,28 @@
+post:
+  tags:
+    - Sprint
+  summary: 'Get sprints from the index using POST.'
+  operationId: post_sprints_index
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../requests/sprint/form.yml
+  responses:
+    200:
+      description: 'Get the sprints from the index.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: ../../models/sprint.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

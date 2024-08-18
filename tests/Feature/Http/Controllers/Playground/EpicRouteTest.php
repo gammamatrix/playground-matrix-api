@@ -14,6 +14,4 @@ use Tests\Feature\Playground\Matrix\Api\Http\Controllers\EpicTestCase;
 class EpicRouteTest extends EpicTestCase
 {
     protected bool $load_migrations_playground = true;
-
-    protected bool $load_migrations_matrix = true;
 }

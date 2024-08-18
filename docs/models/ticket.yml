@@ -1,4 +1,4 @@
-description: 'The Matrix Ticket model.'
+description: 'The Matrix ticket model.'
 type: object
 properties:
   id:
@@ -6,6 +6,10 @@ properties:
     type: string
     format: uuid
     readOnly: true
+  ticket_type:
+    description: 'The ticket type of this ticket.'
+    type: string
+    nullable: true
   created_by_id:
     description: 'Foreign key: links a created by user to this ticket.'
     type: string
@@ -22,16 +26,7 @@ properties:
     format: uuid
     nullable: true
   parent_id:
-    description: 'Foreign key: links a parent to this ticket.'
-    type: string
-    format: uuid
-    nullable: true
-  ticket_type:
-    description: 'The ticket type of this ticket.'
-    type: string
-    nullable: true
-  duplicate_id:
-    description: 'Foreign key: links a duplicate to this ticket.'
+    description: 'ID: a parent of this ticket.'
     type: string
     format: uuid
     nullable: true
@@ -45,11 +40,6 @@ properties:
     type: string
     format: uuid
     nullable: true
-  completed_by_id:
-    description: 'Foreign key: links a completed by user to this ticket.'
-    type: string
-    format: uuid
-    nullable: true
   epic_id:
     description: 'Foreign key: links an epic to this ticket.'
     type: string
@@ -57,6 +47,11 @@ properties:
     nullable: true
   flow_id:
     description: 'Foreign key: links a flow to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  matrix_id:
+    description: 'Foreign key: links a matrix to this ticket.'
     type: string
     format: uuid
     nullable: true
@@ -77,11 +72,6 @@ properties:
     nullable: true
   release_id:
     description: 'Foreign key: links a release to this ticket.'
-    type: string
-    format: uuid
-    nullable: true
-  reported_by_id:
-    description: 'Foreign key: links a reported by user to this ticket.'
     type: string
     format: uuid
     nullable: true
@@ -115,6 +105,26 @@ properties:
     type: string
     format: uuid
     nullable: true
+  completed_by_id:
+    description: 'Foreign key: links a completed by user to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  duplicate_id:
+    description: 'Foreign key: links a duplicate to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  fixed_by_id:
+    description: 'Foreign key: links a fixed by user to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
+  reported_by_id:
+    description: 'Foreign key: links a reported by user to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
   version_fixed_id:
     description: 'Foreign key: links a version fixed to this ticket.'
     type: string
@@ -132,26 +142,6 @@ properties:
     readOnly: true
   deleted_at:
     description: 'Denotes the date and time, the ticket was put in the trash.'
-    type: string
-    format: date-time
-    nullable: true
-  start_at:
-    description: 'The start at date for this ticket.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_start_at:
-    description: 'The planned start at date for this ticket.'
-    type: string
-    format: date-time
-    nullable: true
-  end_at:
-    description: 'The end at date for this ticket.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_end_at:
-    description: 'The planned end at date for this ticket.'
     type: string
     format: date-time
     nullable: true
@@ -175,6 +165,16 @@ properties:
     type: string
     format: date-time
     nullable: true
+  planned_end_at:
+    description: 'The planned end at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_start_at:
+    description: 'The planned start at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
   postponed_at:
     description: 'The postponed at date for this ticket.'
     type: string
@@ -185,8 +185,8 @@ properties:
     type: string
     format: date-time
     nullable: true
-  released_at:
-    description: 'The released at date for this ticket.'
+  resolved_at:
+    description: 'The resolved at date for this ticket.'
     type: string
     format: date-time
     nullable: true
@@ -195,13 +195,18 @@ properties:
     type: string
     format: date-time
     nullable: true
-  resolved_at:
-    description: 'The resolved at date for this ticket.'
+  suspended_at:
+    description: 'The suspended at date for this ticket.'
     type: string
     format: date-time
     nullable: true
-  suspended_at:
-    description: 'The suspended at date for this ticket.'
+  timer_end_at:
+    description: 'The timer end at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  timer_start_at:
+    description: 'The timer start at date for this ticket.'
     type: string
     format: date-time
     nullable: true
@@ -273,8 +278,14 @@ properties:
   completed:
     description: 'Flags: completed'
     type: boolean
+  cron:
+    description: 'Flags: cron'
+    type: boolean
   duplicate:
     description: 'Flags: duplicate'
+    type: boolean
+  featured:
+    description: 'Flags: featured'
     type: boolean
   fixed:
     description: 'Flags: fixed'
@@ -294,6 +305,9 @@ properties:
   planned:
     description: 'Flags: planned'
     type: boolean
+  prioritized:
+    description: 'Flags: prioritized'
+    type: boolean
   problem:
     description: 'Flags: problem'
     type: boolean
@@ -303,11 +317,14 @@ properties:
   released:
     description: 'Flags: released'
     type: boolean
+  resolved:
+    description: 'Flags: resolved'
+    type: boolean
   retired:
     description: 'Flags: retired'
     type: boolean
-  resolved:
-    description: 'Flags: resolved'
+  special:
+    description: 'Flags: special'
     type: boolean
   suspended:
     description: 'Flags: suspended'
@@ -315,6 +332,10 @@ properties:
   unknown:
     description: 'Flags: unknown'
     type: boolean
+  locale:
+    description: 'The locale of the ticket.'
+    type: string
+    maxLength: 255
   label:
     description: 'The label of the ticket.'
     type: string
@@ -352,56 +373,70 @@ properties:
     description: 'The summary of the ticket. Allows HTML.'
     type: string
     nullable: true
-  key:
-    description: 'The key of the ticket.'
-    type: string
-    maxLength: 64
   handler:
     description: 'The handler of the ticket.'
     type: string
+    nullable: true
+  key:
+    description: 'The key of the ticket.'
+    type: string
     maxLength: 32
+    nullable: true
   code:
     description: 'The code of the ticket.'
     type: integer
     format: int64
+    nullable: true
   key_code_hash:
     description: 'The key code hash of the ticket.'
     type: string
-    maxLength: 32
+    nullable: true
   priority:
     description: 'The priority of the ticket.'
     type: string
-    maxLength: 32
+    nullable: true
   severity:
     description: 'The severity of the ticket.'
     type: string
-    maxLength: 32
+    nullable: true
   resolution:
     description: 'The resolution of the ticket.'
     type: string
-    maxLength: 32
+    nullable: true
   step:
     description: 'The step of the ticket.'
     type: string
-    maxLength: 32
+    nullable: true
   state:
     description: 'The state of the ticket.'
     type: string
-    maxLength: 32
+    nullable: true
   workflow_type:
     description: 'The workflow type of the ticket.'
     type: string
-    maxLength: 128
+    nullable: true
   points:
     description: 'The points of the ticket.'
     type: integer
-    format: int32
+    format: int64
+  actual:
+    description: 'The actual of the ticket.'
+    type: string
+    nullable: true
+  expected:
+    description: 'The expected of the ticket.'
+    type: string
+    nullable: true
   story:
-    description: 'The story of the ticket. Allows HTML.'
+    description: 'The story of the ticket.'
+    type: string
+    nullable: true
+  steps:
+    description: 'The steps of the ticket.'
     type: string
     nullable: true
   criteria:
-    description: 'The criteria of the ticket. Allows HTML.'
+    description: 'The criteria of the ticket.'
     type: string
     nullable: true
   reproducibility:

@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Ticket
+  summary: 'Create a ticket form.'
+  operationId: create_ticket
+  responses:
+    200:
+      description: 'The create ticket information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/ticket.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

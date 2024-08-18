@@ -45,7 +45,7 @@ delete:
 patch:
   tags:
     - Milestone
-  summary: 'Update a milestone by id.'
+  summary: 'Patch a milestone by id.'
   operationId: patch_milestone
   requestBody:
     content:
@@ -54,7 +54,7 @@ patch:
           $ref: ../../requests/milestone/patch.yml
   responses:
     200:
-      description: 'The updated milestone.'
+      description: 'The milestone has been patched.'
       content:
         application/json:
           schema:
@@ -78,8 +78,10 @@ patch:
               errors:
                 type: object
                 properties:
-                  label:
+                  title:
                     type: array
                     items:
                       type: string
-                      example: 'The label field is required.'
+                      example: 'The title field is required.'
+    423:
+      description: 'The milestone is locked. Unlock to patch.'

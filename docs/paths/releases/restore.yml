@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Release
-  summary: 'Restore a release by id.'
+  summary: 'Restore a release from the trash by ID.'
   operationId: restore_release
   responses:
     200:

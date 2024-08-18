@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Matrix Routes: Tag
+| Matrix API Routes: Tag
 |--------------------------------------------------------------------------
 |
 |
 */
+
 Route::group([
     'prefix' => 'api/matrix/tag',
     'middleware' => config('playground-matrix-api.middleware.default'),
@@ -33,6 +37,11 @@ Route::group([
         'uses' => 'TagController@index',
     ])->can('index', Playground\Matrix\Models\Tag::class);
 
+    Route::post('/index', [
+        'as' => 'playground.matrix.api.tags.index',
+        'uses' => 'TagController@index',
+    ])->can('index', Playground\Matrix\Models\Tag::class);
+
     // UI
 
     Route::get('/create', [
@@ -43,47 +52,39 @@ Route::group([
     Route::get('/edit/{tag}', [
         'as' => 'playground.matrix.api.tags.edit',
         'uses' => 'TagController@edit',
-    ])->whereUuid('tag')
-        ->can('edit', 'tag');
+    ])->whereUuid('tag')->can('edit', 'tag');
 
     // Route::get('/go/{id}', [
-    //     'as'   => 'playground.matrix.api.tags.go',
+    //     'as' => 'playground.matrix.api.tags.go',
     //     'uses' => 'TagController@go',
     // ]);
 
     Route::get('/{tag}', [
         'as' => 'playground.matrix.api.tags.show',
         'uses' => 'TagController@show',
-    ])->whereUuid('tag')
-        ->can('detail', 'tag');
+    ])->whereUuid('tag')->can('detail', 'tag');
 
     // API
 
     Route::put('/lock/{tag}', [
         'as' => 'playground.matrix.api.tags.lock',
         'uses' => 'TagController@lock',
-    ])->whereUuid('tag')
-        ->can('lock', 'tag');
+    ])->whereUuid('tag')->can('lock', 'tag');
 
     Route::delete('/lock/{tag}', [
         'as' => 'playground.matrix.api.tags.unlock',
         'uses' => 'TagController@unlock',
-    ])->whereUuid('tag')
-        ->can('unlock', 'tag');
+    ])->whereUuid('tag')->can('unlock', 'tag');
 
     Route::delete('/{tag}', [
         'as' => 'playground.matrix.api.tags.destroy',
         'uses' => 'TagController@destroy',
-    ])->whereUuid('tag')
-        ->can('delete', 'tag')
-        ->withTrashed();
+    ])->whereUuid('tag')->can('delete', 'tag')->withTrashed();
 
     Route::put('/restore/{tag}', [
         'as' => 'playground.matrix.api.tags.restore',
         'uses' => 'TagController@restore',
-    ])->whereUuid('tag')
-        ->can('restore', 'tag')
-        ->withTrashed();
+    ])->whereUuid('tag')->can('restore', 'tag')->withTrashed();
 
     Route::post('/', [
         'as' => 'playground.matrix.api.tags.post',
@@ -91,12 +92,12 @@ Route::group([
     ])->can('store', Playground\Matrix\Models\Tag::class);
 
     // Route::put('/', [
-    //     'as'   => 'playground.matrix.api.tags.put',
+    //     'as' => 'playground.matrix.api.tags.put',
     //     'uses' => 'TagController@store',
-    // ])->can('store', \Playground\Matrix\Models\Tag::class);
+    // ])->can('store', Playground\Matrix\Models\Tag::class);
     //
     // Route::put('/{tag}', [
-    //     'as'   => 'playground.matrix.api.tags.put.id',
+    //     'as' => 'playground.matrix.api.tags.put.id',
     //     'uses' => 'TagController@store',
     // ])->whereUuid('tag')->can('update', 'tag');
 

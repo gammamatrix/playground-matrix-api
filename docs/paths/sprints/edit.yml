@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The sprint id.'
+    schema:
+      type: string
+      format: uuid
+get:
+  tags:
+    - Sprint
+  summary: 'Edit a sprint form.'
+  operationId: edit_sprint
+  responses:
+    200:
+      description: 'The edit sprint information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/sprint.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

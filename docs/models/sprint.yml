@@ -1,4 +1,4 @@
-description: 'The Matrix Sprint model.'
+description: 'The Matrix sprint model.'
 type: object
 properties:
   id:
@@ -6,6 +6,10 @@ properties:
     type: string
     format: uuid
     readOnly: true
+  sprint_type:
+    description: 'The sprint type of this sprint.'
+    type: string
+    nullable: true
   created_by_id:
     description: 'Foreign key: links a created by user to this sprint.'
     type: string
@@ -22,13 +26,9 @@ properties:
     format: uuid
     nullable: true
   parent_id:
-    description: 'Foreign key: links a parent to this sprint.'
+    description: 'ID: a parent of this sprint.'
     type: string
     format: uuid
-    nullable: true
-  sprint_type:
-    description: 'The sprint type of this sprint.'
-    type: string
     nullable: true
   backlog_id:
     description: 'Foreign key: links a backlog to this sprint.'
@@ -47,6 +47,11 @@ properties:
     nullable: true
   flow_id:
     description: 'Foreign key: links a flow to this sprint.'
+    type: string
+    format: uuid
+    nullable: true
+  matrix_id:
+    description: 'Foreign key: links a matrix to this sprint.'
     type: string
     format: uuid
     nullable: true
@@ -115,26 +120,6 @@ properties:
     type: string
     format: date-time
     nullable: true
-  start_at:
-    description: 'The start at date for this sprint.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_start_at:
-    description: 'The planned start at date for this sprint.'
-    type: string
-    format: date-time
-    nullable: true
-  end_at:
-    description: 'The end at date for this sprint.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_end_at:
-    description: 'The planned end at date for this sprint.'
-    type: string
-    format: date-time
-    nullable: true
   canceled_at:
     description: 'The canceled at date for this sprint.'
     type: string
@@ -150,8 +135,13 @@ properties:
     type: string
     format: date-time
     nullable: true
-  fixed_at:
-    description: 'The fixed at date for this sprint.'
+  planned_end_at:
+    description: 'The planned end at date for this sprint.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_start_at:
+    description: 'The planned start at date for this sprint.'
     type: string
     format: date-time
     nullable: true
@@ -165,8 +155,8 @@ properties:
     type: string
     format: date-time
     nullable: true
-  released_at:
-    description: 'The released at date for this sprint.'
+  resolved_at:
+    description: 'The resolved at date for this sprint.'
     type: string
     format: date-time
     nullable: true
@@ -175,13 +165,18 @@ properties:
     type: string
     format: date-time
     nullable: true
-  resolved_at:
-    description: 'The resolved at date for this sprint.'
+  suspended_at:
+    description: 'The suspended at date for this sprint.'
     type: string
     format: date-time
     nullable: true
-  suspended_at:
-    description: 'The suspended at date for this sprint.'
+  timer_end_at:
+    description: 'The timer end at date for this sprint.'
+    type: string
+    format: date-time
+    nullable: true
+  timer_start_at:
+    description: 'The timer start at date for this sprint.'
     type: string
     format: date-time
     nullable: true
@@ -253,11 +248,11 @@ properties:
   completed:
     description: 'Flags: completed'
     type: boolean
-  duplicate:
-    description: 'Flags: duplicate'
+  cron:
+    description: 'Flags: cron'
     type: boolean
-  fixed:
-    description: 'Flags: fixed'
+  featured:
+    description: 'Flags: featured'
     type: boolean
   flagged:
     description: 'Flags: flagged'
@@ -274,6 +269,9 @@ properties:
   planned:
     description: 'Flags: planned'
     type: boolean
+  prioritized:
+    description: 'Flags: prioritized'
+    type: boolean
   problem:
     description: 'Flags: problem'
     type: boolean
@@ -286,8 +284,8 @@ properties:
   retired:
     description: 'Flags: retired'
     type: boolean
-  resolved:
-    description: 'Flags: resolved'
+  special:
+    description: 'Flags: special'
     type: boolean
   suspended:
     description: 'Flags: suspended'
@@ -295,6 +293,10 @@ properties:
   unknown:
     description: 'Flags: unknown'
     type: boolean
+  locale:
+    description: 'The locale of the sprint.'
+    type: string
+    maxLength: 255
   label:
     description: 'The label of the sprint.'
     type: string
@@ -346,6 +348,10 @@ properties:
     nullable: true
   flow:
     description: 'JSON: flow'
+    type: object
+    nullable: true
+  history:
+    description: 'JSON: history'
     type: object
     nullable: true
   meta:

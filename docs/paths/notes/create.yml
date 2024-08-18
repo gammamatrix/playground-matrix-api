@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Note
+  summary: 'Create a note form.'
+  operationId: create_note
+  responses:
+    200:
+      description: 'The create note information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/note.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

@@ -1,0 +1,30 @@
+parameters:
+  -
+    in: path
+    name: id
+    required: true
+    description: 'The source id.'
+    schema:
+      type: string
+      format: uuid
+get:
+  tags:
+    - Source
+  summary: 'Edit a source form.'
+  operationId: edit_source
+  responses:
+    200:
+      description: 'The edit source information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/source.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

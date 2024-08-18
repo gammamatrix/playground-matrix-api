@@ -1,0 +1,28 @@
+post:
+  tags:
+    - Backlog
+  summary: 'Get backlogs from the index using POST.'
+  operationId: post_backlogs_index
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../requests/backlog/form.yml
+  responses:
+    200:
+      description: 'Get the backlogs from the index.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: ../../models/backlog.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

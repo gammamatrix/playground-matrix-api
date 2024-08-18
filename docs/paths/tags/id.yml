@@ -45,7 +45,7 @@ delete:
 patch:
   tags:
     - Tag
-  summary: 'Update a tag by id.'
+  summary: 'Patch a tag by id.'
   operationId: patch_tag
   requestBody:
     content:
@@ -54,7 +54,7 @@ patch:
           $ref: ../../requests/tag/patch.yml
   responses:
     200:
-      description: 'The updated tag.'
+      description: 'The tag has been patched.'
       content:
         application/json:
           schema:
@@ -78,8 +78,10 @@ patch:
               errors:
                 type: object
                 properties:
-                  label:
+                  title:
                     type: array
                     items:
                       type: string
-                      example: 'The label field is required.'
+                      example: 'The title field is required.'
+    423:
+      description: 'The tag is locked. Unlock to patch.'

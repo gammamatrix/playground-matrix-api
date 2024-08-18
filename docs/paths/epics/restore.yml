@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Epic
-  summary: 'Restore a epic by id.'
+  summary: 'Restore a epic from the trash by ID.'
   operationId: restore_epic
   responses:
     200:

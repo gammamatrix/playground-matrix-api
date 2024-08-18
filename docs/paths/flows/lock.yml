@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Flow
-  summary: 'Unlock a flow by id.'
-  operationId: lock_flow
+  summary: 'Delete a flow by id.'
+  operationId: unlock_flow
   responses:
     204:
       description: 'The flow has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Flow
-  summary: 'Lock a flow by id.'
-  operationId: unlock_flow
+  summary: 'Lock a flow by ID.'
+  operationId: lock_flow
   responses:
     200:
       description: 'The unlocked flow.'

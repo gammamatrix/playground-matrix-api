@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Release
+  summary: 'Create a release form.'
+  operationId: create_release
+  responses:
+    200:
+      description: 'The create release information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/release.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

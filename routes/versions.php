@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Matrix Routes: Version
+| Matrix API Routes: Version
 |--------------------------------------------------------------------------
 |
 |
 */
+
 Route::group([
     'prefix' => 'api/matrix/version',
     'middleware' => config('playground-matrix-api.middleware.default'),
@@ -33,6 +37,11 @@ Route::group([
         'uses' => 'VersionController@index',
     ])->can('index', Playground\Matrix\Models\Version::class);
 
+    Route::post('/index', [
+        'as' => 'playground.matrix.api.versions.index',
+        'uses' => 'VersionController@index',
+    ])->can('index', Playground\Matrix\Models\Version::class);
+
     // UI
 
     Route::get('/create', [
@@ -43,47 +52,39 @@ Route::group([
     Route::get('/edit/{version}', [
         'as' => 'playground.matrix.api.versions.edit',
         'uses' => 'VersionController@edit',
-    ])->whereUuid('version')
-        ->can('edit', 'version');
+    ])->whereUuid('version')->can('edit', 'version');
 
     // Route::get('/go/{id}', [
-    //     'as'   => 'playground.matrix.api.versions.go',
+    //     'as' => 'playground.matrix.api.versions.go',
     //     'uses' => 'VersionController@go',
     // ]);
 
     Route::get('/{version}', [
         'as' => 'playground.matrix.api.versions.show',
         'uses' => 'VersionController@show',
-    ])->whereUuid('version')
-        ->can('detail', 'version');
+    ])->whereUuid('version')->can('detail', 'version');
 
     // API
 
     Route::put('/lock/{version}', [
         'as' => 'playground.matrix.api.versions.lock',
         'uses' => 'VersionController@lock',
-    ])->whereUuid('version')
-        ->can('lock', 'version');
+    ])->whereUuid('version')->can('lock', 'version');
 
     Route::delete('/lock/{version}', [
         'as' => 'playground.matrix.api.versions.unlock',
         'uses' => 'VersionController@unlock',
-    ])->whereUuid('version')
-        ->can('unlock', 'version');
+    ])->whereUuid('version')->can('unlock', 'version');
 
     Route::delete('/{version}', [
         'as' => 'playground.matrix.api.versions.destroy',
         'uses' => 'VersionController@destroy',
-    ])->whereUuid('version')
-        ->can('delete', 'version')
-        ->withTrashed();
+    ])->whereUuid('version')->can('delete', 'version')->withTrashed();
 
     Route::put('/restore/{version}', [
         'as' => 'playground.matrix.api.versions.restore',
         'uses' => 'VersionController@restore',
-    ])->whereUuid('version')
-        ->can('restore', 'version')
-        ->withTrashed();
+    ])->whereUuid('version')->can('restore', 'version')->withTrashed();
 
     Route::post('/', [
         'as' => 'playground.matrix.api.versions.post',
@@ -91,12 +92,12 @@ Route::group([
     ])->can('store', Playground\Matrix\Models\Version::class);
 
     // Route::put('/', [
-    //     'as'   => 'playground.matrix.api.versions.put',
+    //     'as' => 'playground.matrix.api.versions.put',
     //     'uses' => 'VersionController@store',
-    // ])->can('store', \Playground\Matrix\Models\Version::class);
+    // ])->can('store', Playground\Matrix\Models\Version::class);
     //
     // Route::put('/{version}', [
-    //     'as'   => 'playground.matrix.api.versions.put.id',
+    //     'as' => 'playground.matrix.api.versions.put.id',
     //     'uses' => 'VersionController@store',
     // ])->whereUuid('version')->can('update', 'version');
 

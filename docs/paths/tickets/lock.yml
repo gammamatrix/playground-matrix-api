@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Ticket
-  summary: 'Unlock a ticket by id.'
-  operationId: lock_ticket
+  summary: 'Delete a ticket by id.'
+  operationId: unlock_ticket
   responses:
     204:
       description: 'The ticket has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Ticket
-  summary: 'Lock a ticket by id.'
-  operationId: unlock_ticket
+  summary: 'Lock a ticket by ID.'
+  operationId: lock_ticket
   responses:
     200:
       description: 'The unlocked ticket.'

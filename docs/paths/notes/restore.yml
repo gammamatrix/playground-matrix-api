@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Note
-  summary: 'Restore a note by id.'
+  summary: 'Restore a note from the trash by ID.'
   operationId: restore_note
   responses:
     200:

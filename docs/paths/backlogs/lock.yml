@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Backlog
-  summary: 'Unlock a backlog by id.'
-  operationId: lock_backlog
+  summary: 'Delete a backlog by id.'
+  operationId: unlock_backlog
   responses:
     204:
       description: 'The backlog has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Backlog
-  summary: 'Lock a backlog by id.'
-  operationId: unlock_backlog
+  summary: 'Lock a backlog by ID.'
+  operationId: lock_backlog
   responses:
     200:
       description: 'The unlocked backlog.'

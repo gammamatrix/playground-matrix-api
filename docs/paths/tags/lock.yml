@@ -10,8 +10,8 @@ parameters:
 delete:
   tags:
     - Tag
-  summary: 'Unlock a tag by id.'
-  operationId: lock_tag
+  summary: 'Delete a tag by id.'
+  operationId: unlock_tag
   responses:
     204:
       description: 'The tag has been unlocked.'
@@ -22,8 +22,8 @@ delete:
 put:
   tags:
     - Tag
-  summary: 'Lock a tag by id.'
-  operationId: unlock_tag
+  summary: 'Lock a tag by ID.'
+  operationId: lock_tag
   responses:
     200:
       description: 'The unlocked tag.'

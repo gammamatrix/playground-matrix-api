@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Matrix Routes: Note
+| Matrix API Routes: Note
 |--------------------------------------------------------------------------
 |
 |
 */
+
 Route::group([
     'prefix' => 'api/matrix/note',
     'middleware' => config('playground-matrix-api.middleware.default'),
@@ -33,6 +37,11 @@ Route::group([
         'uses' => 'NoteController@index',
     ])->can('index', Playground\Matrix\Models\Note::class);
 
+    Route::post('/index', [
+        'as' => 'playground.matrix.api.notes.index',
+        'uses' => 'NoteController@index',
+    ])->can('index', Playground\Matrix\Models\Note::class);
+
     // UI
 
     Route::get('/create', [
@@ -43,47 +52,39 @@ Route::group([
     Route::get('/edit/{note}', [
         'as' => 'playground.matrix.api.notes.edit',
         'uses' => 'NoteController@edit',
-    ])->whereUuid('note')
-        ->can('edit', 'note');
+    ])->whereUuid('note')->can('edit', 'note');
 
     // Route::get('/go/{id}', [
-    //     'as'   => 'playground.matrix.api.notes.go',
+    //     'as' => 'playground.matrix.api.notes.go',
     //     'uses' => 'NoteController@go',
     // ]);
 
     Route::get('/{note}', [
         'as' => 'playground.matrix.api.notes.show',
         'uses' => 'NoteController@show',
-    ])->whereUuid('note')
-        ->can('detail', 'note');
+    ])->whereUuid('note')->can('detail', 'note');
 
     // API
 
     Route::put('/lock/{note}', [
         'as' => 'playground.matrix.api.notes.lock',
         'uses' => 'NoteController@lock',
-    ])->whereUuid('note')
-        ->can('lock', 'note');
+    ])->whereUuid('note')->can('lock', 'note');
 
     Route::delete('/lock/{note}', [
         'as' => 'playground.matrix.api.notes.unlock',
         'uses' => 'NoteController@unlock',
-    ])->whereUuid('note')
-        ->can('unlock', 'note');
+    ])->whereUuid('note')->can('unlock', 'note');
 
     Route::delete('/{note}', [
         'as' => 'playground.matrix.api.notes.destroy',
         'uses' => 'NoteController@destroy',
-    ])->whereUuid('note')
-        ->can('delete', 'note')
-        ->withTrashed();
+    ])->whereUuid('note')->can('delete', 'note')->withTrashed();
 
     Route::put('/restore/{note}', [
         'as' => 'playground.matrix.api.notes.restore',
         'uses' => 'NoteController@restore',
-    ])->whereUuid('note')
-        ->can('restore', 'note')
-        ->withTrashed();
+    ])->whereUuid('note')->can('restore', 'note')->withTrashed();
 
     Route::post('/', [
         'as' => 'playground.matrix.api.notes.post',
@@ -91,12 +92,12 @@ Route::group([
     ])->can('store', Playground\Matrix\Models\Note::class);
 
     // Route::put('/', [
-    //     'as'   => 'playground.matrix.api.notes.put',
+    //     'as' => 'playground.matrix.api.notes.put',
     //     'uses' => 'NoteController@store',
-    // ])->can('store', \Playground\Matrix\Models\Note::class);
+    // ])->can('store', Playground\Matrix\Models\Note::class);
     //
     // Route::put('/{note}', [
-    //     'as'   => 'playground.matrix.api.notes.put.id',
+    //     'as' => 'playground.matrix.api.notes.put.id',
     //     'uses' => 'NoteController@store',
     // ])->whereUuid('note')->can('update', 'note');
 

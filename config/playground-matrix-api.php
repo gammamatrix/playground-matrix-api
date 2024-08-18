@@ -1,10 +1,51 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
+/**
+ * Playground: Matrix API Configuration and Environment Variables
+ */
 return [
+
+    /*
+    |--------------------------------------------------------------------------
+    | About Information
+    |--------------------------------------------------------------------------
+    |
+    | By default, information will be displayed about this package when using:
+    |
+    | `artisan about`
+    |
+    */
+
     'about' => (bool) env('PLAYGROUND_MATRIX_API_ABOUT', true),
-    'default_key' => env('PLAYGROUND_MATRIX_API_DEFAULT_KEY', ''),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Loading
+    |--------------------------------------------------------------------------
+    |
+    | By default, translations and views are loaded.
+    |
+    */
+
+    'load' => [
+        'policies' => (bool) env('PLAYGROUND_MATRIX_API_LOAD_POLICIES', true),
+        'routes' => (bool) env('PLAYGROUND_MATRIX_API_LOAD_ROUTES', true),
+        'translations' => (bool) env('PLAYGROUND_MATRIX_API_LOAD_TRANSLATIONS', true),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Middleware
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
     'middleware' => [
         'default' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_DEFAULT', [
             'web',
@@ -24,11 +65,21 @@ return [
             Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         ]),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Policies
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
     'policies' => [
         Playground\Matrix\Models\Backlog::class => Playground\Matrix\Api\Policies\BacklogPolicy::class,
         Playground\Matrix\Models\Board::class => Playground\Matrix\Api\Policies\BoardPolicy::class,
         Playground\Matrix\Models\Epic::class => Playground\Matrix\Api\Policies\EpicPolicy::class,
         Playground\Matrix\Models\Flow::class => Playground\Matrix\Api\Policies\FlowPolicy::class,
+        Playground\Matrix\Models\Matrix::class => Playground\Matrix\Api\Policies\MatrixPolicy::class,
         Playground\Matrix\Models\Milestone::class => Playground\Matrix\Api\Policies\MilestonePolicy::class,
         Playground\Matrix\Models\Note::class => Playground\Matrix\Api\Policies\NotePolicy::class,
         Playground\Matrix\Models\Project::class => Playground\Matrix\Api\Policies\ProjectPolicy::class,
@@ -41,15 +92,21 @@ return [
         Playground\Matrix\Models\Ticket::class => Playground\Matrix\Api\Policies\TicketPolicy::class,
         Playground\Matrix\Models\Version::class => Playground\Matrix\Api\Policies\VersionPolicy::class,
     ],
-    'load' => [
-        'policies' => (bool) env('PLAYGROUND_MATRIX_API_LOAD_POLICIES', true),
-        'routes' => (bool) env('PLAYGROUND_MATRIX_API_LOAD_ROUTES', true),
-    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Routes
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
     'routes' => [
         'backlogs' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_BACKLOGS', true),
         'boards' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_BOARDS', true),
         'epics' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_EPICS', true),
         'flows' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_FLOWS', true),
+        'matrices' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_MATRICES', true),
         'milestones' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_MILESTONES', true),
         'notes' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_NOTES', true),
         'projects' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_PROJECTS', true),
@@ -63,6 +120,14 @@ return [
         'versions' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_VERSIONS', true),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Abilities
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
     'abilities' => [
         'admin' => [
             'playground-matrix-api:*',
@@ -72,6 +137,7 @@ return [
             'playground-matrix-api:board:*',
             'playground-matrix-api:epic:*',
             'playground-matrix-api:flow:*',
+            'playground-matrix-api:matrix:*',
             'playground-matrix-api:milestone:*',
             'playground-matrix-api:note:*',
             'playground-matrix-api:project:*',
@@ -93,6 +159,8 @@ return [
             'playground-matrix-api:epic:viewAny',
             'playground-matrix-api:flow:view',
             'playground-matrix-api:flow:viewAny',
+            'playground-matrix-api:matrix:view',
+            'playground-matrix-api:matrix:viewAny',
             'playground-matrix-api:milestone:view',
             'playground-matrix-api:milestone:viewAny',
             'playground-matrix-api:note:view',
@@ -113,54 +181,8 @@ return [
             'playground-matrix-api:team:viewAny',
             'playground-matrix-api:ticket:view',
             'playground-matrix-api:ticket:viewAny',
-            'playground-matrix-api:ticket:create',
-            'playground-matrix-api:ticket:edit',
-            'playground-matrix-api:ticket:store',
-            'playground-matrix-api:ticket:update',
             'playground-matrix-api:version:view',
             'playground-matrix-api:version:viewAny',
         ],
-        // 'guest' => [
-        //     'deny',
-        // ],
-        // 'guest' => [
-        //     'app:view',
-
-        //     'playground:view',
-
-        //     'playground-auth:logout',
-        //     'playground-auth:reset-password',
-
-        //     'playground-matrix-api:backlog:view',
-        //     'playground-matrix-api:backlog:viewAny',
-        //     'playground-matrix-api:board:view',
-        //     'playground-matrix-api:board:viewAny',
-        //     'playground-matrix-api:epic:view',
-        //     'playground-matrix-api:epic:viewAny',
-        //     'playground-matrix-api:flow:view',
-        //     'playground-matrix-api:flow:viewAny',
-        //     'playground-matrix-api:milestone:view',
-        //     'playground-matrix-api:milestone:viewAny',
-        //     'playground-matrix-api:note:view',
-        //     'playground-matrix-api:note:viewAny',
-        //     'playground-matrix-api:project:view',
-        //     'playground-matrix-api:project:viewAny',
-        //     'playground-matrix-api:release:view',
-        //     'playground-matrix-api:release:viewAny',
-        //     'playground-matrix-api:roadmap:view',
-        //     'playground-matrix-api:roadmap:viewAny',
-        //     'playground-matrix-api:source:view',
-        //     'playground-matrix-api:source:viewAny',
-        //     'playground-matrix-api:sprint:view',
-        //     'playground-matrix-api:sprint:viewAny',
-        //     'playground-matrix-api:tag:view',
-        //     'playground-matrix-api:tag:viewAny',
-        //     'playground-matrix-api:team:view',
-        //     'playground-matrix-api:team:viewAny',
-        //     'playground-matrix-api:ticket:view',
-        //     'playground-matrix-api:ticket:viewAny',
-        //     'playground-matrix-api:version:view',
-        //     'playground-matrix-api:version:viewAny',
-        // ],
     ],
 ];

@@ -1,25 +1,28 @@
 openapi: 3.0.3
+info:
+  title: 'Playground Matrix API'
+  description: 'Playground: Provides an API, without a UI for interacting with Playground Matrix, a Project Management System for Laravel applications.'
+  version: 73.0.0
+externalDocs:
+  url: 'https://gammamatrix-playground.readthedocs.io/en/develop/components/matrix.html'
+  description: 'Read the Docs: Playground Matrix Packages'
 servers:
   -
     url: 'https://api.example.com'
-    description: 'Production server'
+    description: 'Production Server'
   -
     url: 'https://api.staging.example.com'
-    description: 'Staging server'
+    description: 'Staging Server'
   -
     url: 'https://api.dev.example.com'
-    description: 'Dev server'
-info:
-  title: Playground Matrix API
-  description: ''
-  termsOfService: ''
-  # contact:
-  #   email: support@example.com
-  version: 73.0.0
-externalDocs:
-  description: ''
-  url: ''
+    description: 'Dev Server'
+  -
+    url: 'http://localhost'
+    description: 'Local Server'
 tags:
+  -
+    name: Backlog
+    description: 'Manage backlogs in storage.'
   -
     name: Board
     description: 'Manage boards in storage.'
@@ -27,11 +30,11 @@ tags:
     name: Epic
     description: 'Manage epics in storage.'
   -
-    name: Backlog
-    description: 'Manage backlogs in storage.'
-  -
     name: Flow
     description: 'Manage flows in storage.'
+  -
+    name: Matrix
+    description: 'Manage matrices in storage.'
   -
     name: Milestone
     description: 'Manage milestones in storage.'
@@ -66,136 +69,242 @@ tags:
     name: Version
     description: 'Manage versions in storage.'
 paths:
-  '/api/matrix/boards/{id}':
-    $ref: paths/boards/id.yml
-  /api/matrix/boards:
-    $ref: paths/boards/index.yml
-  '/api/matrix/boards/lock/{id}':
-    $ref: paths/boards/lock.yml
-  '/api/matrix/boards/restore/{id}':
-    $ref: paths/boards/restore.yml
-  '/api/matrix/epics/{id}':
-    $ref: paths/epics/id.yml
-  /api/matrix/epics:
-    $ref: paths/epics/index.yml
-  '/api/matrix/epics/lock/{id}':
-    $ref: paths/epics/lock.yml
-  '/api/matrix/epics/restore/{id}':
-    $ref: paths/epics/restore.yml
   '/api/matrix/backlogs/{id}':
     $ref: paths/backlogs/id.yml
   /api/matrix/backlogs:
     $ref: paths/backlogs/index.yml
+  /api/matrix/backlogs/index:
+    $ref: paths/backlogs/index-form.yml
   '/api/matrix/backlogs/lock/{id}':
     $ref: paths/backlogs/lock.yml
   '/api/matrix/backlogs/restore/{id}':
     $ref: paths/backlogs/restore.yml
+  /api/matrix/backlogs/create:
+    $ref: paths/backlogs/create.yml
+  '/api/matrix/backlogs/edit/{id}':
+    $ref: paths/backlogs/edit.yml
+  '/api/matrix/boards/{id}':
+    $ref: paths/boards/id.yml
+  /api/matrix/boards:
+    $ref: paths/boards/index.yml
+  /api/matrix/boards/index:
+    $ref: paths/boards/index-form.yml
+  '/api/matrix/boards/lock/{id}':
+    $ref: paths/boards/lock.yml
+  '/api/matrix/boards/restore/{id}':
+    $ref: paths/boards/restore.yml
+  /api/matrix/boards/create:
+    $ref: paths/boards/create.yml
+  '/api/matrix/boards/edit/{id}':
+    $ref: paths/boards/edit.yml
+  '/api/matrix/epics/{id}':
+    $ref: paths/epics/id.yml
+  /api/matrix/epics:
+    $ref: paths/epics/index.yml
+  /api/matrix/epics/index:
+    $ref: paths/epics/index-form.yml
+  '/api/matrix/epics/lock/{id}':
+    $ref: paths/epics/lock.yml
+  '/api/matrix/epics/restore/{id}':
+    $ref: paths/epics/restore.yml
+  /api/matrix/epics/create:
+    $ref: paths/epics/create.yml
+  '/api/matrix/epics/edit/{id}':
+    $ref: paths/epics/edit.yml
   '/api/matrix/flows/{id}':
     $ref: paths/flows/id.yml
   /api/matrix/flows:
     $ref: paths/flows/index.yml
+  /api/matrix/flows/index:
+    $ref: paths/flows/index-form.yml
   '/api/matrix/flows/lock/{id}':
     $ref: paths/flows/lock.yml
   '/api/matrix/flows/restore/{id}':
     $ref: paths/flows/restore.yml
+  /api/matrix/flows/create:
+    $ref: paths/flows/create.yml
+  '/api/matrix/flows/edit/{id}':
+    $ref: paths/flows/edit.yml
+  '/api/matrix/matrices/{id}':
+    $ref: paths/matrices/id.yml
+  /api/matrix/matrices:
+    $ref: paths/matrices/index.yml
+  /api/matrix/matrices/index:
+    $ref: paths/matrices/index-form.yml
+  '/api/matrix/matrices/lock/{id}':
+    $ref: paths/matrices/lock.yml
+  '/api/matrix/matrices/restore/{id}':
+    $ref: paths/matrices/restore.yml
+  /api/matrix/matrices/create:
+    $ref: paths/matrices/create.yml
+  '/api/matrix/matrices/edit/{id}':
+    $ref: paths/matrices/edit.yml
   '/api/matrix/milestones/{id}':
     $ref: paths/milestones/id.yml
   /api/matrix/milestones:
     $ref: paths/milestones/index.yml
+  /api/matrix/milestones/index:
+    $ref: paths/milestones/index-form.yml
   '/api/matrix/milestones/lock/{id}':
     $ref: paths/milestones/lock.yml
   '/api/matrix/milestones/restore/{id}':
     $ref: paths/milestones/restore.yml
+  /api/matrix/milestones/create:
+    $ref: paths/milestones/create.yml
+  '/api/matrix/milestones/edit/{id}':
+    $ref: paths/milestones/edit.yml
   '/api/matrix/notes/{id}':
     $ref: paths/notes/id.yml
   /api/matrix/notes:
     $ref: paths/notes/index.yml
+  /api/matrix/notes/index:
+    $ref: paths/notes/index-form.yml
   '/api/matrix/notes/lock/{id}':
     $ref: paths/notes/lock.yml
   '/api/matrix/notes/restore/{id}':
     $ref: paths/notes/restore.yml
+  /api/matrix/notes/create:
+    $ref: paths/notes/create.yml
+  '/api/matrix/notes/edit/{id}':
+    $ref: paths/notes/edit.yml
   '/api/matrix/projects/{id}':
     $ref: paths/projects/id.yml
   /api/matrix/projects:
     $ref: paths/projects/index.yml
+  /api/matrix/projects/index:
+    $ref: paths/projects/index-form.yml
   '/api/matrix/projects/lock/{id}':
     $ref: paths/projects/lock.yml
   '/api/matrix/projects/restore/{id}':
     $ref: paths/projects/restore.yml
+  /api/matrix/projects/create:
+    $ref: paths/projects/create.yml
+  '/api/matrix/projects/edit/{id}':
+    $ref: paths/projects/edit.yml
   '/api/matrix/releases/{id}':
     $ref: paths/releases/id.yml
   /api/matrix/releases:
     $ref: paths/releases/index.yml
+  /api/matrix/releases/index:
+    $ref: paths/releases/index-form.yml
   '/api/matrix/releases/lock/{id}':
     $ref: paths/releases/lock.yml
   '/api/matrix/releases/restore/{id}':
     $ref: paths/releases/restore.yml
+  /api/matrix/releases/create:
+    $ref: paths/releases/create.yml
+  '/api/matrix/releases/edit/{id}':
+    $ref: paths/releases/edit.yml
   '/api/matrix/roadmaps/{id}':
     $ref: paths/roadmaps/id.yml
   /api/matrix/roadmaps:
     $ref: paths/roadmaps/index.yml
+  /api/matrix/roadmaps/index:
+    $ref: paths/roadmaps/index-form.yml
   '/api/matrix/roadmaps/lock/{id}':
     $ref: paths/roadmaps/lock.yml
   '/api/matrix/roadmaps/restore/{id}':
     $ref: paths/roadmaps/restore.yml
+  /api/matrix/roadmaps/create:
+    $ref: paths/roadmaps/create.yml
+  '/api/matrix/roadmaps/edit/{id}':
+    $ref: paths/roadmaps/edit.yml
   '/api/matrix/sources/{id}':
     $ref: paths/sources/id.yml
   /api/matrix/sources:
     $ref: paths/sources/index.yml
+  /api/matrix/sources/index:
+    $ref: paths/sources/index-form.yml
   '/api/matrix/sources/lock/{id}':
     $ref: paths/sources/lock.yml
   '/api/matrix/sources/restore/{id}':
     $ref: paths/sources/restore.yml
+  /api/matrix/sources/create:
+    $ref: paths/sources/create.yml
+  '/api/matrix/sources/edit/{id}':
+    $ref: paths/sources/edit.yml
   '/api/matrix/sprints/{id}':
     $ref: paths/sprints/id.yml
   /api/matrix/sprints:
     $ref: paths/sprints/index.yml
+  /api/matrix/sprints/index:
+    $ref: paths/sprints/index-form.yml
   '/api/matrix/sprints/lock/{id}':
     $ref: paths/sprints/lock.yml
   '/api/matrix/sprints/restore/{id}':
     $ref: paths/sprints/restore.yml
+  /api/matrix/sprints/create:
+    $ref: paths/sprints/create.yml
+  '/api/matrix/sprints/edit/{id}':
+    $ref: paths/sprints/edit.yml
   '/api/matrix/tags/{id}':
     $ref: paths/tags/id.yml
   /api/matrix/tags:
     $ref: paths/tags/index.yml
+  /api/matrix/tags/index:
+    $ref: paths/tags/index-form.yml
   '/api/matrix/tags/lock/{id}':
     $ref: paths/tags/lock.yml
   '/api/matrix/tags/restore/{id}':
     $ref: paths/tags/restore.yml
+  /api/matrix/tags/create:
+    $ref: paths/tags/create.yml
+  '/api/matrix/tags/edit/{id}':
+    $ref: paths/tags/edit.yml
   '/api/matrix/teams/{id}':
     $ref: paths/teams/id.yml
   /api/matrix/teams:
     $ref: paths/teams/index.yml
+  /api/matrix/teams/index:
+    $ref: paths/teams/index-form.yml
   '/api/matrix/teams/lock/{id}':
     $ref: paths/teams/lock.yml
   '/api/matrix/teams/restore/{id}':
     $ref: paths/teams/restore.yml
+  /api/matrix/teams/create:
+    $ref: paths/teams/create.yml
+  '/api/matrix/teams/edit/{id}':
+    $ref: paths/teams/edit.yml
   '/api/matrix/tickets/{id}':
     $ref: paths/tickets/id.yml
   /api/matrix/tickets:
     $ref: paths/tickets/index.yml
+  /api/matrix/tickets/index:
+    $ref: paths/tickets/index-form.yml
   '/api/matrix/tickets/lock/{id}':
     $ref: paths/tickets/lock.yml
   '/api/matrix/tickets/restore/{id}':
     $ref: paths/tickets/restore.yml
+  /api/matrix/tickets/create:
+    $ref: paths/tickets/create.yml
+  '/api/matrix/tickets/edit/{id}':
+    $ref: paths/tickets/edit.yml
   '/api/matrix/versions/{id}':
     $ref: paths/versions/id.yml
   /api/matrix/versions:
     $ref: paths/versions/index.yml
+  /api/matrix/versions/index:
+    $ref: paths/versions/index-form.yml
   '/api/matrix/versions/lock/{id}':
     $ref: paths/versions/lock.yml
   '/api/matrix/versions/restore/{id}':
     $ref: paths/versions/restore.yml
+  /api/matrix/versions/create:
+    $ref: paths/versions/create.yml
+  '/api/matrix/versions/edit/{id}':
+    $ref: paths/versions/edit.yml
 components:
   schemas:
+    Backlog:
+      $ref: models/backlog.yml
     Board:
       $ref: models/board.yml
     Epic:
       $ref: models/epic.yml
-    Backlog:
-      $ref: models/backlog.yml
     Flow:
       $ref: models/flow.yml
+    Matrix:
+      $ref: models/matrix.yml
     Milestone:
       $ref: models/milestone.yml
     Note:

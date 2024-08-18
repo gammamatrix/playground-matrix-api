@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Matrix Routes: Ticket
+| Matrix API Routes: Ticket
 |--------------------------------------------------------------------------
 |
 |
 */
+
 Route::group([
     'prefix' => 'api/matrix/ticket',
     'middleware' => config('playground-matrix-api.middleware.default'),
@@ -33,6 +37,11 @@ Route::group([
         'uses' => 'TicketController@index',
     ])->can('index', Playground\Matrix\Models\Ticket::class);
 
+    Route::post('/index', [
+        'as' => 'playground.matrix.api.tickets.index',
+        'uses' => 'TicketController@index',
+    ])->can('index', Playground\Matrix\Models\Ticket::class);
+
     // UI
 
     Route::get('/create', [
@@ -43,47 +52,39 @@ Route::group([
     Route::get('/edit/{ticket}', [
         'as' => 'playground.matrix.api.tickets.edit',
         'uses' => 'TicketController@edit',
-    ])->whereUuid('ticket')
-        ->can('edit', 'ticket');
+    ])->whereUuid('ticket')->can('edit', 'ticket');
 
     // Route::get('/go/{id}', [
-    //     'as'   => 'playground.matrix.api.tickets.go',
+    //     'as' => 'playground.matrix.api.tickets.go',
     //     'uses' => 'TicketController@go',
     // ]);
 
     Route::get('/{ticket}', [
         'as' => 'playground.matrix.api.tickets.show',
         'uses' => 'TicketController@show',
-    ])->whereUuid('ticket')
-        ->can('detail', 'ticket');
+    ])->whereUuid('ticket')->can('detail', 'ticket');
 
     // API
 
     Route::put('/lock/{ticket}', [
         'as' => 'playground.matrix.api.tickets.lock',
         'uses' => 'TicketController@lock',
-    ])->whereUuid('ticket')
-        ->can('lock', 'ticket');
+    ])->whereUuid('ticket')->can('lock', 'ticket');
 
     Route::delete('/lock/{ticket}', [
         'as' => 'playground.matrix.api.tickets.unlock',
         'uses' => 'TicketController@unlock',
-    ])->whereUuid('ticket')
-        ->can('unlock', 'ticket');
+    ])->whereUuid('ticket')->can('unlock', 'ticket');
 
     Route::delete('/{ticket}', [
         'as' => 'playground.matrix.api.tickets.destroy',
         'uses' => 'TicketController@destroy',
-    ])->whereUuid('ticket')
-        ->can('delete', 'ticket')
-        ->withTrashed();
+    ])->whereUuid('ticket')->can('delete', 'ticket')->withTrashed();
 
     Route::put('/restore/{ticket}', [
         'as' => 'playground.matrix.api.tickets.restore',
         'uses' => 'TicketController@restore',
-    ])->whereUuid('ticket')
-        ->can('restore', 'ticket')
-        ->withTrashed();
+    ])->whereUuid('ticket')->can('restore', 'ticket')->withTrashed();
 
     Route::post('/', [
         'as' => 'playground.matrix.api.tickets.post',
@@ -91,12 +92,12 @@ Route::group([
     ])->can('store', Playground\Matrix\Models\Ticket::class);
 
     // Route::put('/', [
-    //     'as'   => 'playground.matrix.api.tickets.put',
+    //     'as' => 'playground.matrix.api.tickets.put',
     //     'uses' => 'TicketController@store',
-    // ])->can('store', \Playground\Matrix\Models\Ticket::class);
+    // ])->can('store', Playground\Matrix\Models\Ticket::class);
     //
     // Route::put('/{ticket}', [
-    //     'as'   => 'playground.matrix.api.tickets.put.id',
+    //     'as' => 'playground.matrix.api.tickets.put.id',
     //     'uses' => 'TicketController@store',
     // ])->whereUuid('ticket')->can('update', 'ticket');
 

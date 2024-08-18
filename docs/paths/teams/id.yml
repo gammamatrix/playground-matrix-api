@@ -45,7 +45,7 @@ delete:
 patch:
   tags:
     - Team
-  summary: 'Update a team by id.'
+  summary: 'Patch a team by id.'
   operationId: patch_team
   requestBody:
     content:
@@ -54,7 +54,7 @@ patch:
           $ref: ../../requests/team/patch.yml
   responses:
     200:
-      description: 'The updated team.'
+      description: 'The team has been patched.'
       content:
         application/json:
           schema:
@@ -78,8 +78,10 @@ patch:
               errors:
                 type: object
                 properties:
-                  label:
+                  title:
                     type: array
                     items:
                       type: string
-                      example: 'The label field is required.'
+                      example: 'The title field is required.'
+    423:
+      description: 'The team is locked. Unlock to patch.'

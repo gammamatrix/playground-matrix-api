@@ -8,18 +8,9 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Playground\Matrix\Api\Http\Requests\Source\CreateRequest;
-use Playground\Matrix\Api\Http\Requests\Source\DestroyRequest;
-use Playground\Matrix\Api\Http\Requests\Source\EditRequest;
-use Playground\Matrix\Api\Http\Requests\Source\IndexRequest;
-use Playground\Matrix\Api\Http\Requests\Source\LockRequest;
-use Playground\Matrix\Api\Http\Requests\Source\RestoreRequest;
-use Playground\Matrix\Api\Http\Requests\Source\ShowRequest;
-use Playground\Matrix\Api\Http\Requests\Source\StoreRequest;
-use Playground\Matrix\Api\Http\Requests\Source\UnlockRequest;
-use Playground\Matrix\Api\Http\Requests\Source\UpdateRequest;
-use Playground\Matrix\Api\Http\Resources\Source as SourceResource;
-use Playground\Matrix\Api\Http\Resources\SourceCollection;
+use Illuminate\Support\Carbon;
+use Playground\Matrix\Api\Http\Requests;
+use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Source;
 
 /**
@@ -31,7 +22,7 @@ class SourceController extends Controller
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Source',
         'model_label_plural' => 'Sources',
         'model_route' => 'playground.matrix.api.sources',
@@ -46,34 +37,35 @@ class SourceController extends Controller
     ];
 
     /**
-     * Create information for the Source resource in storage.
+     * Create the Source resource in storage.
      *
      * @route GET /api/matrix/sources/create playground.matrix.api.sources.create
      */
     public function create(
-        CreateRequest $request
-    ): JsonResponse|SourceResource {
+        Requests\Source\CreateRequest $request
+    ): JsonResponse|Resources\Source {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
         $source = new Source($validated);
 
-        return (new SourceResource($source))->additional(['meta' => [
+        return (new Resources\Source($source))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
     /**
-     * Edit information for the Source resource in storage.
+     * Edit the Source resource in storage.
      *
      * @route GET /api/matrix/sources/edit playground.matrix.api.sources.edit
      */
     public function edit(
         Source $source,
-        EditRequest $request
-    ): JsonResponse|SourceResource {
-        return (new SourceResource($source))->additional(['meta' => [
+        Requests\Source\EditRequest $request
+    ): JsonResponse|Resources\Source {
+        return (new Resources\Source($source))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -85,9 +77,16 @@ class SourceController extends Controller
      */
     public function destroy(
         Source $source,
-        DestroyRequest $request
+        Requests\Source\DestroyRequest $request
     ): Response {
+
         $validated = $request->validated();
+
+        $user = $request->user();
+
+        if ($user?->id) {
+            $source->modified_by_id = $user->id;
+        }
 
         if (empty($validated['force'])) {
             $source->delete();
@@ -105,17 +104,22 @@ class SourceController extends Controller
      */
     public function lock(
         Source $source,
-        LockRequest $request
-    ): JsonResponse|SourceResource {
+        Requests\Source\LockRequest $request
+    ): JsonResponse|Resources\Source {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $source->setAttribute('locked', true);
+        if ($user?->id) {
+            $source->modified_by_id = $user->id;
+        }
+
+        $source->locked = true;
 
         $source->save();
 
-        return (new SourceResource($source))->additional(['meta' => [
+        return (new Resources\Source($source))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -126,8 +130,9 @@ class SourceController extends Controller
      * @route GET /api/matrix/sources playground.matrix.api.sources
      */
     public function index(
-        IndexRequest $request
-    ): JsonResponse|SourceCollection {
+        Requests\Source\IndexRequest $request
+    ): JsonResponse|Resources\SourceCollection {
+
         $user = $request->user();
 
         $validated = $request->validated();
@@ -137,6 +142,7 @@ class SourceController extends Controller
         $query->sort($validated['sort'] ?? null);
 
         if (! empty($validated['filter']) && is_array($validated['filter'])) {
+
             $query->filterTrash($validated['filter']['trash'] ?? null);
 
             $query->filterIds(
@@ -161,13 +167,11 @@ class SourceController extends Controller
         }
 
         $perPage = ! empty($validated['perPage']) && is_int($validated['perPage']) ? $validated['perPage'] : null;
-        $paginator = $query->paginate( $perPage);
+        $paginator = $query->paginate($perPage);
 
         $paginator->appends($validated);
 
-        return (new SourceCollection($paginator))->additional(['meta' => [
-            'info' => $this->packageInfo,
-        ]])->response($request);
+        return (new Resources\SourceCollection($paginator))->response($request);
     }
 
     /**
@@ -177,15 +181,18 @@ class SourceController extends Controller
      */
     public function restore(
         Source $source,
-        RestoreRequest $request
-    ): JsonResponse|SourceResource {
-        $validated = $request->validated();
+        Requests\Source\RestoreRequest $request
+    ): JsonResponse|Resources\Source {
 
         $user = $request->user();
 
+        if ($user?->id) {
+            $source->modified_by_id = $user->id;
+        }
+
         $source->restore();
 
-        return (new SourceResource($source))->additional(['meta' => [
+        return (new Resources\Source($source))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -197,25 +204,21 @@ class SourceController extends Controller
      */
     public function show(
         Source $source,
-        ShowRequest $request
-    ): JsonResponse|SourceResource {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        return (new SourceResource($source))->additional(['meta' => [
+        Requests\Source\ShowRequest $request
+    ): JsonResponse|Resources\Source {
+        return (new Resources\Source($source))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
-    /**
+   /**
      * Store a newly created API Source resource in storage.
      *
      * @route POST /api/matrix/sources playground.matrix.api.sources.post
      */
     public function store(
-        StoreRequest $request
-    ): Response|JsonResponse|SourceResource {
+        Requests\Source\StoreRequest $request
+    ): Response|JsonResponse|Resources\Source {
         $validated = $request->validated();
 
         $user = $request->user();
@@ -226,9 +229,9 @@ class SourceController extends Controller
 
         $source->save();
 
-        return (new SourceResource($source))->additional(['meta' => [
+        return (new Resources\Source($source))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ]])->response($request);
+        ]])->response($request)->setStatusCode(201);
     }
 
     /**
@@ -238,17 +241,22 @@ class SourceController extends Controller
      */
     public function unlock(
         Source $source,
-        UnlockRequest $request
-    ): JsonResponse|SourceResource {
+        Requests\Source\UnlockRequest $request
+    ): JsonResponse|Resources\Source {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $source->setAttribute('locked', false);
+        $source->locked = false;
+
+        if ($user?->id) {
+            $source->modified_by_id = $user->id;
+        }
 
         $source->save();
 
-        return (new SourceResource($source))->additional(['meta' => [
+        return (new Resources\Source($source))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -260,17 +268,20 @@ class SourceController extends Controller
      */
     public function update(
         Source $source,
-        UpdateRequest $request
-    ): JsonResponse|SourceResource {
+        Requests\Source\UpdateRequest $request
+    ): JsonResponse {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $source->modified_by_id = $user?->id;
+        if ($user?->id) {
+            $source->modified_by_id = $user->id;
+        }
 
         $source->update($validated);
 
-        return (new SourceResource($source))->additional(['meta' => [
+        return (new Resources\Source($source))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }

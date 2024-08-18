@@ -9,18 +9,8 @@ namespace Playground\Matrix\Api\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Illuminate\Support\Carbon;
-use Playground\Matrix\Api\Http\Requests\Note\CreateRequest;
-use Playground\Matrix\Api\Http\Requests\Note\DestroyRequest;
-use Playground\Matrix\Api\Http\Requests\Note\EditRequest;
-use Playground\Matrix\Api\Http\Requests\Note\IndexRequest;
-use Playground\Matrix\Api\Http\Requests\Note\LockRequest;
-use Playground\Matrix\Api\Http\Requests\Note\RestoreRequest;
-use Playground\Matrix\Api\Http\Requests\Note\ShowRequest;
-use Playground\Matrix\Api\Http\Requests\Note\StoreRequest;
-use Playground\Matrix\Api\Http\Requests\Note\UnlockRequest;
-use Playground\Matrix\Api\Http\Requests\Note\UpdateRequest;
-use Playground\Matrix\Api\Http\Resources\Note as NoteResource;
-use Playground\Matrix\Api\Http\Resources\NoteCollection;
+use Playground\Matrix\Api\Http\Requests;
+use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Note;
 
 /**
@@ -32,7 +22,7 @@ class NoteController extends Controller
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Note',
         'model_label_plural' => 'Notes',
         'model_route' => 'playground.matrix.api.notes',
@@ -47,34 +37,35 @@ class NoteController extends Controller
     ];
 
     /**
-     * Create information for the Note resource in storage.
+     * Create the Note resource in storage.
      *
      * @route GET /api/matrix/notes/create playground.matrix.api.notes.create
      */
     public function create(
-        CreateRequest $request
-    ): JsonResponse|NoteResource {
+        Requests\Note\CreateRequest $request
+    ): JsonResponse|Resources\Note {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
         $note = new Note($validated);
 
-        return (new NoteResource($note))->additional(['meta' => [
+        return (new Resources\Note($note))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
     /**
-     * Edit information for the Note resource in storage.
+     * Edit the Note resource in storage.
      *
      * @route GET /api/matrix/notes/edit playground.matrix.api.notes.edit
      */
     public function edit(
         Note $note,
-        EditRequest $request
-    ): JsonResponse|NoteResource {
-        return (new NoteResource($note))->additional(['meta' => [
+        Requests\Note\EditRequest $request
+    ): JsonResponse|Resources\Note {
+        return (new Resources\Note($note))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -86,9 +77,16 @@ class NoteController extends Controller
      */
     public function destroy(
         Note $note,
-        DestroyRequest $request
+        Requests\Note\DestroyRequest $request
     ): Response {
+
         $validated = $request->validated();
+
+        $user = $request->user();
+
+        if ($user?->id) {
+            $note->modified_by_id = $user->id;
+        }
 
         if (empty($validated['force'])) {
             $note->delete();
@@ -106,24 +104,22 @@ class NoteController extends Controller
      */
     public function lock(
         Note $note,
-        LockRequest $request
-    ): JsonResponse|NoteResource {
+        Requests\Note\LockRequest $request
+    ): JsonResponse|Resources\Note {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $note->setAttribute('locked', true);
+        if ($user?->id) {
+            $note->modified_by_id = $user->id;
+        }
+
+        $note->locked = true;
 
         $note->save();
 
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $note->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'info' => $this->packageInfo,
-        ];
-
-        return (new NoteResource($note))->additional(['meta' => [
+        return (new Resources\Note($note))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -134,8 +130,9 @@ class NoteController extends Controller
      * @route GET /api/matrix/notes playground.matrix.api.notes
      */
     public function index(
-        IndexRequest $request
-    ): JsonResponse|NoteCollection {
+        Requests\Note\IndexRequest $request
+    ): JsonResponse|Resources\NoteCollection {
+
         $user = $request->user();
 
         $validated = $request->validated();
@@ -145,6 +142,7 @@ class NoteController extends Controller
         $query->sort($validated['sort'] ?? null);
 
         if (! empty($validated['filter']) && is_array($validated['filter'])) {
+
             $query->filterTrash($validated['filter']['trash'] ?? null);
 
             $query->filterIds(
@@ -169,13 +167,11 @@ class NoteController extends Controller
         }
 
         $perPage = ! empty($validated['perPage']) && is_int($validated['perPage']) ? $validated['perPage'] : null;
-        $paginator = $query->paginate( $perPage);
+        $paginator = $query->paginate($perPage);
 
         $paginator->appends($validated);
 
-        return (new NoteCollection($paginator))->additional(['meta' => [
-            'info' => $this->packageInfo,
-        ]])->response($request);
+        return (new Resources\NoteCollection($paginator))->response($request);
     }
 
     /**
@@ -185,15 +181,18 @@ class NoteController extends Controller
      */
     public function restore(
         Note $note,
-        RestoreRequest $request
-    ): JsonResponse|NoteResource {
-        $validated = $request->validated();
+        Requests\Note\RestoreRequest $request
+    ): JsonResponse|Resources\Note {
 
         $user = $request->user();
 
+        if ($user?->id) {
+            $note->modified_by_id = $user->id;
+        }
+
         $note->restore();
 
-        return (new NoteResource($note))->additional(['meta' => [
+        return (new Resources\Note($note))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -205,33 +204,21 @@ class NoteController extends Controller
      */
     public function show(
         Note $note,
-        ShowRequest $request
-    ): JsonResponse|NoteResource {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        $meta = [
-            'session_user_id' => $user?->id,
-            'id' => $note->id,
-            'timestamp' => Carbon::now()->toJson(),
-            'validated' => $validated,
-            'info' => $this->packageInfo,
-        ];
-
-        return (new NoteResource($note))->additional(['meta' => [
+        Requests\Note\ShowRequest $request
+    ): JsonResponse|Resources\Note {
+        return (new Resources\Note($note))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
-    /**
+   /**
      * Store a newly created API Note resource in storage.
      *
      * @route POST /api/matrix/notes playground.matrix.api.notes.post
      */
     public function store(
-        StoreRequest $request
-    ): Response|JsonResponse|NoteResource {
+        Requests\Note\StoreRequest $request
+    ): Response|JsonResponse|Resources\Note {
         $validated = $request->validated();
 
         $user = $request->user();
@@ -242,9 +229,9 @@ class NoteController extends Controller
 
         $note->save();
 
-        return (new NoteResource($note))->additional(['meta' => [
+        return (new Resources\Note($note))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ]])->response($request);
+        ]])->response($request)->setStatusCode(201);
     }
 
     /**
@@ -254,17 +241,22 @@ class NoteController extends Controller
      */
     public function unlock(
         Note $note,
-        UnlockRequest $request
-    ): JsonResponse|NoteResource {
+        Requests\Note\UnlockRequest $request
+    ): JsonResponse|Resources\Note {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $note->setAttribute('locked', false);
+        $note->locked = false;
+
+        if ($user?->id) {
+            $note->modified_by_id = $user->id;
+        }
 
         $note->save();
 
-        return (new NoteResource($note))->additional(['meta' => [
+        return (new Resources\Note($note))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -276,17 +268,20 @@ class NoteController extends Controller
      */
     public function update(
         Note $note,
-        UpdateRequest $request
-    ): JsonResponse|NoteResource {
+        Requests\Note\UpdateRequest $request
+    ): JsonResponse {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $note->modified_by_id = $user?->id;
+        if ($user?->id) {
+            $note->modified_by_id = $user->id;
+        }
 
         $note->update($validated);
 
-        return (new NoteResource($note))->additional(['meta' => [
+        return (new Resources\Note($note))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }

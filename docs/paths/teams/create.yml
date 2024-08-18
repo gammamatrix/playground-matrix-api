@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Team
+  summary: 'Create a team form.'
+  operationId: create_team
+  responses:
+    200:
+      description: 'The create team information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/team.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

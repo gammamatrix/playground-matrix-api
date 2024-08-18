@@ -6,6 +6,8 @@
 declare(strict_types=1);
 namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\TagTestCase
  */
@@ -25,6 +27,12 @@ class TagTestCase extends TestCase
 
     protected int $status_code_json_guest_restore = 401;
 
+    protected int $status_code_json_guest_restore_revision = 401;
+
+    protected int $status_code_guest_json_revision = 401;
+
+    protected int $status_code_guest_json_revisions = 401;
+
     protected int $status_code_json_guest_show = 401;
 
     protected int $status_code_guest_json_store = 401;
@@ -37,7 +45,7 @@ class TagTestCase extends TestCase
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Tag',
         'model_label_plural' => 'Tags',
         'model_route' => 'playground.matrix.api.tags',
@@ -49,7 +57,6 @@ class TagTestCase extends TestCase
         'module_slug' => 'matrix',
         'privilege' => 'playground-matrix-api:tag',
         'table' => 'matrix_tags',
-        'view' => 'playground-matrix-api::tag',
     ];
 
     /**
@@ -57,42 +64,15 @@ class TagTestCase extends TestCase
      */
     protected $structure_model = [
         'id',
+        'tag_type',
         'created_by_id',
         'modified_by_id',
         'owned_by_id',
         'parent_id',
-        'tag_type',
-        'backlog_id',
-        'board_id',
-        'epic_id',
-        'flow_id',
-        'milestone_id',
-        'note_id',
-        'project_id',
-        'release_id',
-        'roadmap_id',
-        'source_id',
-        'sprint_id',
-        'team_id',
-        'ticket_id',
-        'version_id',
+        'matrix_id',
         'created_at',
-        'deleted_at',
         'updated_at',
-        'start_at',
-        'planned_start_at',
-        'end_at',
-        'planned_end_at',
-        'canceled_at',
-        'closed_at',
-        'embargo_at',
-        'fixed_at',
-        'postponed_at',
-        'published_at',
-        'released_at',
-        'resumed_at',
-        'resolved_at',
-        'suspended_at',
+        'deleted_at',
         'gids',
         'po',
         'pg',
@@ -104,24 +84,27 @@ class TagTestCase extends TestCase
         'status',
         'rank',
         'size',
+        'matrix',
+        'x',
+        'y',
+        'z',
+        'r',
+        'theta',
+        'rho',
+        'phi',
+        'elevation',
+        'latitude',
+        'longitude',
         'active',
-        'canceled',
-        'closed',
-        'completed',
-        'duplicate',
-        'fixed',
+        'cron',
+        'featured',
         'flagged',
         'internal',
         'locked',
-        'pending',
-        'planned',
-        'problem',
-        'published',
-        'released',
         'retired',
-        'resolved',
-        'suspended',
+        'special',
         'unknown',
+        'locale',
         'label',
         'title',
         'byline',
@@ -136,12 +119,9 @@ class TagTestCase extends TestCase
         'avatar',
         'ui',
         'assets',
-        'backlog',
-        'board',
-        'flow',
         'meta',
+        'notes',
         'options',
-        'roadmap',
         'sources',
     ];
 }

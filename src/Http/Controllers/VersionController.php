@@ -8,18 +8,9 @@ namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Playground\Matrix\Api\Http\Requests\Version\CreateRequest;
-use Playground\Matrix\Api\Http\Requests\Version\DestroyRequest;
-use Playground\Matrix\Api\Http\Requests\Version\EditRequest;
-use Playground\Matrix\Api\Http\Requests\Version\IndexRequest;
-use Playground\Matrix\Api\Http\Requests\Version\LockRequest;
-use Playground\Matrix\Api\Http\Requests\Version\RestoreRequest;
-use Playground\Matrix\Api\Http\Requests\Version\ShowRequest;
-use Playground\Matrix\Api\Http\Requests\Version\StoreRequest;
-use Playground\Matrix\Api\Http\Requests\Version\UnlockRequest;
-use Playground\Matrix\Api\Http\Requests\Version\UpdateRequest;
-use Playground\Matrix\Api\Http\Resources\Version as VersionResource;
-use Playground\Matrix\Api\Http\Resources\VersionCollection;
+use Illuminate\Support\Carbon;
+use Playground\Matrix\Api\Http\Requests;
+use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Version;
 
 /**
@@ -31,7 +22,7 @@ class VersionController extends Controller
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Version',
         'model_label_plural' => 'Versions',
         'model_route' => 'playground.matrix.api.versions',
@@ -46,34 +37,35 @@ class VersionController extends Controller
     ];
 
     /**
-     * Create information for the Version resource in storage.
+     * Create the Version resource in storage.
      *
      * @route GET /api/matrix/versions/create playground.matrix.api.versions.create
      */
     public function create(
-        CreateRequest $request
-    ): JsonResponse|VersionResource {
+        Requests\Version\CreateRequest $request
+    ): JsonResponse|Resources\Version {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
         $version = new Version($validated);
 
-        return (new VersionResource($version))->additional(['meta' => [
+        return (new Resources\Version($version))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
     /**
-     * Edit information for the Version resource in storage.
+     * Edit the Version resource in storage.
      *
      * @route GET /api/matrix/versions/edit playground.matrix.api.versions.edit
      */
     public function edit(
         Version $version,
-        EditRequest $request
-    ): JsonResponse|VersionResource {
-        return (new VersionResource($version))->additional(['meta' => [
+        Requests\Version\EditRequest $request
+    ): JsonResponse|Resources\Version {
+        return (new Resources\Version($version))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -85,9 +77,16 @@ class VersionController extends Controller
      */
     public function destroy(
         Version $version,
-        DestroyRequest $request
+        Requests\Version\DestroyRequest $request
     ): Response {
+
         $validated = $request->validated();
+
+        $user = $request->user();
+
+        if ($user?->id) {
+            $version->modified_by_id = $user->id;
+        }
 
         if (empty($validated['force'])) {
             $version->delete();
@@ -105,17 +104,22 @@ class VersionController extends Controller
      */
     public function lock(
         Version $version,
-        LockRequest $request
-    ): JsonResponse|VersionResource {
+        Requests\Version\LockRequest $request
+    ): JsonResponse|Resources\Version {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $version->setAttribute('locked', true);
+        if ($user?->id) {
+            $version->modified_by_id = $user->id;
+        }
+
+        $version->locked = true;
 
         $version->save();
 
-        return (new VersionResource($version))->additional(['meta' => [
+        return (new Resources\Version($version))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -126,8 +130,9 @@ class VersionController extends Controller
      * @route GET /api/matrix/versions playground.matrix.api.versions
      */
     public function index(
-        IndexRequest $request
-    ): JsonResponse {
+        Requests\Version\IndexRequest $request
+    ): JsonResponse|Resources\VersionCollection {
+
         $user = $request->user();
 
         $validated = $request->validated();
@@ -137,6 +142,7 @@ class VersionController extends Controller
         $query->sort($validated['sort'] ?? null);
 
         if (! empty($validated['filter']) && is_array($validated['filter'])) {
+
             $query->filterTrash($validated['filter']['trash'] ?? null);
 
             $query->filterIds(
@@ -161,13 +167,11 @@ class VersionController extends Controller
         }
 
         $perPage = ! empty($validated['perPage']) && is_int($validated['perPage']) ? $validated['perPage'] : null;
-        $paginator = $query->paginate( $perPage);
+        $paginator = $query->paginate($perPage);
 
         $paginator->appends($validated);
 
-        return (new VersionCollection($paginator))->additional(['meta' => [
-            'info' => $this->packageInfo,
-        ]])->response($request);
+        return (new Resources\VersionCollection($paginator))->response($request);
     }
 
     /**
@@ -177,15 +181,18 @@ class VersionController extends Controller
      */
     public function restore(
         Version $version,
-        RestoreRequest $request
-    ): JsonResponse|VersionResource {
-        $validated = $request->validated();
+        Requests\Version\RestoreRequest $request
+    ): JsonResponse|Resources\Version {
 
         $user = $request->user();
 
+        if ($user?->id) {
+            $version->modified_by_id = $user->id;
+        }
+
         $version->restore();
 
-        return (new VersionResource($version))->additional(['meta' => [
+        return (new Resources\Version($version))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -197,25 +204,21 @@ class VersionController extends Controller
      */
     public function show(
         Version $version,
-        ShowRequest $request
-    ): JsonResponse|VersionResource {
-        $validated = $request->validated();
-
-        $user = $request->user();
-
-        return (new VersionResource($version))->additional(['meta' => [
+        Requests\Version\ShowRequest $request
+    ): JsonResponse|Resources\Version {
+        return (new Resources\Version($version))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
 
-    /**
+   /**
      * Store a newly created API Version resource in storage.
      *
      * @route POST /api/matrix/versions playground.matrix.api.versions.post
      */
     public function store(
-        StoreRequest $request
-    ): Response|JsonResponse|VersionResource {
+        Requests\Version\StoreRequest $request
+    ): Response|JsonResponse|Resources\Version {
         $validated = $request->validated();
 
         $user = $request->user();
@@ -226,9 +229,9 @@ class VersionController extends Controller
 
         $version->save();
 
-        return (new VersionResource($version))->additional(['meta' => [
+        return (new Resources\Version($version))->additional(['meta' => [
             'info' => $this->packageInfo,
-        ]])->response($request);
+        ]])->response($request)->setStatusCode(201);
     }
 
     /**
@@ -238,17 +241,22 @@ class VersionController extends Controller
      */
     public function unlock(
         Version $version,
-        UnlockRequest $request
-    ): JsonResponse|VersionResource {
+        Requests\Version\UnlockRequest $request
+    ): JsonResponse|Resources\Version {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $version->setAttribute('locked', false);
+        $version->locked = false;
+
+        if ($user?->id) {
+            $version->modified_by_id = $user->id;
+        }
 
         $version->save();
 
-        return (new VersionResource($version))->additional(['meta' => [
+        return (new Resources\Version($version))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }
@@ -260,17 +268,20 @@ class VersionController extends Controller
      */
     public function update(
         Version $version,
-        UpdateRequest $request
-    ): JsonResponse|VersionResource {
+        Requests\Version\UpdateRequest $request
+    ): JsonResponse {
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        $version->modified_by_id = $user?->id;
+        if ($user?->id) {
+            $version->modified_by_id = $user->id;
+        }
 
         $version->update($validated);
 
-        return (new VersionResource($version))->additional(['meta' => [
+        return (new Resources\Version($version))->additional(['meta' => [
             'info' => $this->packageInfo,
         ]])->response($request);
     }

@@ -11,7 +11,7 @@ use Playground\Test\Feature\Http\Controllers\Resource;
 use Tests\Feature\Playground\Matrix\Api\TestCase as BaseTestCase;
 
 /**
- * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\BacklogTestCase
+ * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\TestCase
  */
 class TestCase extends BaseTestCase
 {
@@ -32,7 +32,7 @@ class TestCase extends BaseTestCase
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => '',
         'model_label_plural' => '',
         'model_route' => '',
@@ -42,8 +42,9 @@ class TestCase extends BaseTestCase
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',
         'module_slug' => 'matrix',
-        'privilege' => '',
+        'privilege' => 'playground-matrix-api:',
         'table' => '',
+        'view' => 'playground-matrix-api::',
     ];
 
     /**

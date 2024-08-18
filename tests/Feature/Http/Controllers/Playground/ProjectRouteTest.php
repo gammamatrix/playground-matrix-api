@@ -14,6 +14,4 @@ use Tests\Feature\Playground\Matrix\Api\Http\Controllers\ProjectTestCase;
 class ProjectRouteTest extends ProjectTestCase
 {
     protected bool $load_migrations_playground = true;
-
-    protected bool $load_migrations_matrix = true;
 }

@@ -1,0 +1,21 @@
+get:
+  tags:
+    - Matrix
+  summary: 'Create a matrix form.'
+  operationId: create_matrix
+  responses:
+    200:
+      description: 'The create matrix information.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: ../../models/matrix.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

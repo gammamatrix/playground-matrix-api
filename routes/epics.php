@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Matrix Routes: Epic
+| Matrix API Routes: Epic
 |--------------------------------------------------------------------------
 |
 |
 */
+
 Route::group([
     'prefix' => 'api/matrix/epic',
     'middleware' => config('playground-matrix-api.middleware.default'),
@@ -33,6 +37,11 @@ Route::group([
         'uses' => 'EpicController@index',
     ])->can('index', Playground\Matrix\Models\Epic::class);
 
+    Route::post('/index', [
+        'as' => 'playground.matrix.api.epics.index',
+        'uses' => 'EpicController@index',
+    ])->can('index', Playground\Matrix\Models\Epic::class);
+
     // UI
 
     Route::get('/create', [
@@ -43,47 +52,39 @@ Route::group([
     Route::get('/edit/{epic}', [
         'as' => 'playground.matrix.api.epics.edit',
         'uses' => 'EpicController@edit',
-    ])->whereUuid('epic')
-        ->can('edit', 'epic');
+    ])->whereUuid('epic')->can('edit', 'epic');
 
     // Route::get('/go/{id}', [
-    //     'as'   => 'playground.matrix.api.epics.go',
+    //     'as' => 'playground.matrix.api.epics.go',
     //     'uses' => 'EpicController@go',
     // ]);
 
     Route::get('/{epic}', [
         'as' => 'playground.matrix.api.epics.show',
         'uses' => 'EpicController@show',
-    ])->whereUuid('epic')
-        ->can('detail', 'epic');
+    ])->whereUuid('epic')->can('detail', 'epic');
 
     // API
 
     Route::put('/lock/{epic}', [
         'as' => 'playground.matrix.api.epics.lock',
         'uses' => 'EpicController@lock',
-    ])->whereUuid('epic')
-        ->can('lock', 'epic');
+    ])->whereUuid('epic')->can('lock', 'epic');
 
     Route::delete('/lock/{epic}', [
         'as' => 'playground.matrix.api.epics.unlock',
         'uses' => 'EpicController@unlock',
-    ])->whereUuid('epic')
-        ->can('unlock', 'epic');
+    ])->whereUuid('epic')->can('unlock', 'epic');
 
     Route::delete('/{epic}', [
         'as' => 'playground.matrix.api.epics.destroy',
         'uses' => 'EpicController@destroy',
-    ])->whereUuid('epic')
-        ->can('delete', 'epic')
-        ->withTrashed();
+    ])->whereUuid('epic')->can('delete', 'epic')->withTrashed();
 
     Route::put('/restore/{epic}', [
         'as' => 'playground.matrix.api.epics.restore',
         'uses' => 'EpicController@restore',
-    ])->whereUuid('epic')
-        ->can('restore', 'epic')
-        ->withTrashed();
+    ])->whereUuid('epic')->can('restore', 'epic')->withTrashed();
 
     Route::post('/', [
         'as' => 'playground.matrix.api.epics.post',
@@ -91,12 +92,12 @@ Route::group([
     ])->can('store', Playground\Matrix\Models\Epic::class);
 
     // Route::put('/', [
-    //     'as'   => 'playground.matrix.api.epics.put',
+    //     'as' => 'playground.matrix.api.epics.put',
     //     'uses' => 'EpicController@store',
-    // ])->can('store', \Playground\Matrix\Models\Epic::class);
+    // ])->can('store', Playground\Matrix\Models\Epic::class);
     //
     // Route::put('/{epic}', [
-    //     'as'   => 'playground.matrix.api.epics.put.id',
+    //     'as' => 'playground.matrix.api.epics.put.id',
     //     'uses' => 'EpicController@store',
     // ])->whereUuid('epic')->can('update', 'epic');
 

@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Roadmap
-  summary: 'Restore a roadmap by id.'
+  summary: 'Restore a roadmap from the trash by ID.'
   operationId: restore_roadmap
   responses:
     200:

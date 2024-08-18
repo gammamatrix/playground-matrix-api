@@ -1,4 +1,7 @@
 <?php
+/**
+ * Playground
+ */
 
 declare(strict_types=1);
 
@@ -6,11 +9,12 @@ use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
-| Matrix Routes: Backlog
+| Matrix API Routes: Backlog
 |--------------------------------------------------------------------------
 |
 |
 */
+
 Route::group([
     'prefix' => 'api/matrix/backlog',
     'middleware' => config('playground-matrix-api.middleware.default'),
@@ -33,6 +37,11 @@ Route::group([
         'uses' => 'BacklogController@index',
     ])->can('index', Playground\Matrix\Models\Backlog::class);
 
+    Route::post('/index', [
+        'as' => 'playground.matrix.api.backlogs.index',
+        'uses' => 'BacklogController@index',
+    ])->can('index', Playground\Matrix\Models\Backlog::class);
+
     // UI
 
     Route::get('/create', [
@@ -43,47 +52,39 @@ Route::group([
     Route::get('/edit/{backlog}', [
         'as' => 'playground.matrix.api.backlogs.edit',
         'uses' => 'BacklogController@edit',
-    ])->whereUuid('backlog')
-        ->can('edit', 'backlog');
+    ])->whereUuid('backlog')->can('edit', 'backlog');
 
     // Route::get('/go/{id}', [
-    //     'as'   => 'playground.matrix.api.backlogs.go',
+    //     'as' => 'playground.matrix.api.backlogs.go',
     //     'uses' => 'BacklogController@go',
     // ]);
 
     Route::get('/{backlog}', [
         'as' => 'playground.matrix.api.backlogs.show',
         'uses' => 'BacklogController@show',
-    ])->whereUuid('backlog')
-        ->can('detail', 'backlog');
+    ])->whereUuid('backlog')->can('detail', 'backlog');
 
     // API
 
     Route::put('/lock/{backlog}', [
         'as' => 'playground.matrix.api.backlogs.lock',
         'uses' => 'BacklogController@lock',
-    ])->whereUuid('backlog')
-        ->can('lock', 'backlog');
+    ])->whereUuid('backlog')->can('lock', 'backlog');
 
     Route::delete('/lock/{backlog}', [
         'as' => 'playground.matrix.api.backlogs.unlock',
         'uses' => 'BacklogController@unlock',
-    ])->whereUuid('backlog')
-        ->can('unlock', 'backlog');
+    ])->whereUuid('backlog')->can('unlock', 'backlog');
 
     Route::delete('/{backlog}', [
         'as' => 'playground.matrix.api.backlogs.destroy',
         'uses' => 'BacklogController@destroy',
-    ])->whereUuid('backlog')
-        ->can('delete', 'backlog')
-        ->withTrashed();
+    ])->whereUuid('backlog')->can('delete', 'backlog')->withTrashed();
 
     Route::put('/restore/{backlog}', [
         'as' => 'playground.matrix.api.backlogs.restore',
         'uses' => 'BacklogController@restore',
-    ])->whereUuid('backlog')
-        ->can('restore', 'backlog')
-        ->withTrashed();
+    ])->whereUuid('backlog')->can('restore', 'backlog')->withTrashed();
 
     Route::post('/', [
         'as' => 'playground.matrix.api.backlogs.post',
@@ -91,12 +92,12 @@ Route::group([
     ])->can('store', Playground\Matrix\Models\Backlog::class);
 
     // Route::put('/', [
-    //     'as'   => 'playground.matrix.api.backlogs.put',
+    //     'as' => 'playground.matrix.api.backlogs.put',
     //     'uses' => 'BacklogController@store',
-    // ])->can('store', \Playground\Matrix\Models\Backlog::class);
+    // ])->can('store', Playground\Matrix\Models\Backlog::class);
     //
     // Route::put('/{backlog}', [
-    //     'as'   => 'playground.matrix.api.backlogs.put.id',
+    //     'as' => 'playground.matrix.api.backlogs.put.id',
     //     'uses' => 'BacklogController@store',
     // ])->whereUuid('backlog')->can('update', 'backlog');
 

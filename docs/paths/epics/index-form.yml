@@ -1,0 +1,28 @@
+post:
+  tags:
+    - Epic
+  summary: 'Get epics from the index using POST.'
+  operationId: post_epics_index
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: ../../requests/epic/form.yml
+  responses:
+    200:
+      description: 'Get the epics from the index.'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: ../../models/epic.yml
+              meta:
+                type: object
+    401:
+      description: Unauthorized
+    403:
+      description: Forbidden

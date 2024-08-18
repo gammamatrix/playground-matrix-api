@@ -6,6 +6,8 @@
 declare(strict_types=1);
 namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
+
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\EpicTestCase
  */
@@ -25,6 +27,12 @@ class EpicTestCase extends TestCase
 
     protected int $status_code_json_guest_restore = 401;
 
+    protected int $status_code_json_guest_restore_revision = 401;
+
+    protected int $status_code_guest_json_revision = 401;
+
+    protected int $status_code_guest_json_revisions = 401;
+
     protected int $status_code_json_guest_show = 401;
 
     protected int $status_code_guest_json_store = 401;
@@ -37,7 +45,7 @@ class EpicTestCase extends TestCase
      * @var array<string, string>
      */
     public array $packageInfo = [
-        'model_attribute' => 'label',
+        'model_attribute' => 'title',
         'model_label' => 'Epic',
         'model_label_plural' => 'Epics',
         'model_route' => 'playground.matrix.api.epics',
@@ -49,7 +57,6 @@ class EpicTestCase extends TestCase
         'module_slug' => 'matrix',
         'privilege' => 'playground-matrix-api:epic',
         'table' => 'matrix_epics',
-        'view' => 'playground-matrix-api::epic',
     ];
 
     /**
@@ -57,14 +64,15 @@ class EpicTestCase extends TestCase
      */
     protected $structure_model = [
         'id',
+        'epic_type',
         'created_by_id',
         'modified_by_id',
         'owned_by_id',
         'parent_id',
-        'epic_type',
-        'board_id',
         'backlog_id',
+        'board_id',
         'flow_id',
+        'matrix_id',
         'milestone_id',
         'note_id',
         'project_id',
@@ -77,22 +85,20 @@ class EpicTestCase extends TestCase
         'ticket_id',
         'version_id',
         'created_at',
-        'deleted_at',
         'updated_at',
-        'start_at',
-        'planned_start_at',
-        'end_at',
-        'planned_end_at',
+        'deleted_at',
         'canceled_at',
         'closed_at',
         'embargo_at',
-        'fixed_at',
+        'planned_end_at',
+        'planned_start_at',
         'postponed_at',
         'published_at',
-        'released_at',
-        'resumed_at',
         'resolved_at',
+        'resumed_at',
         'suspended_at',
+        'timer_end_at',
+        'timer_start_at',
         'gids',
         'po',
         'pg',
@@ -104,24 +110,37 @@ class EpicTestCase extends TestCase
         'status',
         'rank',
         'size',
+        'matrix',
+        'x',
+        'y',
+        'z',
+        'r',
+        'theta',
+        'rho',
+        'phi',
+        'elevation',
+        'latitude',
+        'longitude',
         'active',
         'canceled',
         'closed',
         'completed',
-        'duplicate',
-        'fixed',
+        'cron',
+        'featured',
         'flagged',
         'internal',
         'locked',
         'pending',
         'planned',
+        'prioritized',
         'problem',
         'published',
         'released',
         'retired',
-        'resolved',
+        'special',
         'suspended',
         'unknown',
+        'locale',
         'label',
         'title',
         'byline',
@@ -139,7 +158,9 @@ class EpicTestCase extends TestCase
         'backlog',
         'board',
         'flow',
+        'history',
         'meta',
+        'notes',
         'options',
         'roadmap',
         'sources',

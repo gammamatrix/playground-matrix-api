@@ -45,7 +45,7 @@ delete:
 patch:
   tags:
     - Roadmap
-  summary: 'Update a roadmap by id.'
+  summary: 'Patch a roadmap by id.'
   operationId: patch_roadmap
   requestBody:
     content:
@@ -54,7 +54,7 @@ patch:
           $ref: ../../requests/roadmap/patch.yml
   responses:
     200:
-      description: 'The updated roadmap.'
+      description: 'The roadmap has been patched.'
       content:
         application/json:
           schema:
@@ -78,8 +78,10 @@ patch:
               errors:
                 type: object
                 properties:
-                  label:
+                  title:
                     type: array
                     items:
                       type: string
-                      example: 'The label field is required.'
+                      example: 'The title field is required.'
+    423:
+      description: 'The roadmap is locked. Unlock to patch.'

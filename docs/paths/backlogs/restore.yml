@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Backlog
-  summary: 'Restore a backlog by id.'
+  summary: 'Restore a backlog from the trash by ID.'
   operationId: restore_backlog
   responses:
     200:

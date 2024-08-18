@@ -10,7 +10,7 @@ parameters:
 put:
   tags:
     - Version
-  summary: 'Restore a version by id.'
+  summary: 'Restore a version from the trash by ID.'
   operationId: restore_version
   responses:
     200:

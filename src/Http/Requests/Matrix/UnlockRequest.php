@@ -1,0 +1,22 @@
+<?php
+/**
+ * Playground
+ */
+
+declare(strict_types=1);
+namespace Playground\Matrix\Api\Http\Requests\Matrix;
+
+use Playground\Matrix\Api\Http\Requests\FormRequest;
+
+/**
+ * \Playground\Matrix\Api\Http\Requests\Matrix\UnlockRequest
+ */
+class UnlockRequest extends FormRequest
+{
+    /**
+     * @var array<string, string|array<mixed>>
+     */
+    public const RULES = [
+        '_return_url' => ['nullable', 'url'],
+    ];
+}

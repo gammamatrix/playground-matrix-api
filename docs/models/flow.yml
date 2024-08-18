@@ -1,4 +1,4 @@
-description: 'The Matrix Flow model.'
+description: 'The Matrix flow model.'
 type: object
 properties:
   id:
@@ -6,6 +6,10 @@ properties:
     type: string
     format: uuid
     readOnly: true
+  flow_type:
+    description: 'The flow type of this flow.'
+    type: string
+    nullable: true
   created_by_id:
     description: 'Foreign key: links a created by user to this flow.'
     type: string
@@ -22,13 +26,14 @@ properties:
     format: uuid
     nullable: true
   parent_id:
-    description: 'Foreign key: links a parent to this flow.'
+    description: 'ID: a parent of this flow.'
     type: string
     format: uuid
     nullable: true
-  flow_type:
-    description: 'The flow type of this flow.'
+  matrix_id:
+    description: 'Foreign key: links a matrix to this flow.'
     type: string
+    format: uuid
     nullable: true
   note_id:
     description: 'Foreign key: links a note to this flow.'
@@ -60,26 +65,6 @@ properties:
     type: string
     format: date-time
     nullable: true
-  start_at:
-    description: 'The start at date for this flow.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_start_at:
-    description: 'The planned start at date for this flow.'
-    type: string
-    format: date-time
-    nullable: true
-  end_at:
-    description: 'The end at date for this flow.'
-    type: string
-    format: date-time
-    nullable: true
-  planned_end_at:
-    description: 'The planned end at date for this flow.'
-    type: string
-    format: date-time
-    nullable: true
   canceled_at:
     description: 'The canceled at date for this flow.'
     type: string
@@ -95,6 +80,16 @@ properties:
     type: string
     format: date-time
     nullable: true
+  planned_end_at:
+    description: 'The planned end at date for this flow.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_start_at:
+    description: 'The planned start at date for this flow.'
+    type: string
+    format: date-time
+    nullable: true
   postponed_at:
     description: 'The postponed at date for this flow.'
     type: string
@@ -105,8 +100,8 @@ properties:
     type: string
     format: date-time
     nullable: true
-  released_at:
-    description: 'The released at date for this flow.'
+  resolved_at:
+    description: 'The resolved at date for this flow.'
     type: string
     format: date-time
     nullable: true
@@ -117,6 +112,16 @@ properties:
     nullable: true
   suspended_at:
     description: 'The suspended at date for this flow.'
+    type: string
+    format: date-time
+    nullable: true
+  timer_end_at:
+    description: 'The timer end at date for this flow.'
+    type: string
+    format: date-time
+    nullable: true
+  timer_start_at:
+    description: 'The timer start at date for this flow.'
     type: string
     format: date-time
     nullable: true
@@ -188,11 +193,11 @@ properties:
   completed:
     description: 'Flags: completed'
     type: boolean
-  duplicate:
-    description: 'Flags: duplicate'
+  cron:
+    description: 'Flags: cron'
     type: boolean
-  fixed:
-    description: 'Flags: fixed'
+  featured:
+    description: 'Flags: featured'
     type: boolean
   flagged:
     description: 'Flags: flagged'
@@ -209,6 +214,9 @@ properties:
   planned:
     description: 'Flags: planned'
     type: boolean
+  prioritized:
+    description: 'Flags: prioritized'
+    type: boolean
   problem:
     description: 'Flags: problem'
     type: boolean
@@ -221,8 +229,8 @@ properties:
   retired:
     description: 'Flags: retired'
     type: boolean
-  resolved:
-    description: 'Flags: resolved'
+  special:
+    description: 'Flags: special'
     type: boolean
   suspended:
     description: 'Flags: suspended'
@@ -230,6 +238,10 @@ properties:
   unknown:
     description: 'Flags: unknown'
     type: boolean
+  locale:
+    description: 'The locale of the flow.'
+    type: string
+    maxLength: 255
   label:
     description: 'The label of the flow.'
     type: string
@@ -271,10 +283,6 @@ properties:
     description: 'JSON: assets'
     type: object
     nullable: true
-  flow:
-    description: 'JSON: flow'
-    type: object
-    nullable: true
   meta:
     description: 'JSON: meta'
     type: object
@@ -287,5 +295,9 @@ properties:
     nullable: true
   options:
     description: 'JSON: options'
+    type: object
+    nullable: true
+  sources:
+    description: 'JSON: sources'
     type: object
     nullable: true
