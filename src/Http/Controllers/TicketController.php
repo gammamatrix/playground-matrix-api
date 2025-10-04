@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
+use Playground\Matrix\Concerns\Creating;
 use Playground\Matrix\Models\Ticket;
 
 /**
