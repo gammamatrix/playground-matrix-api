@@ -1,0 +1,28 @@
+{
+    "class": "PackageProviders",
+    "config": "playground-matrix-api",
+    "extends": "",
+    "fqdn": "Tests/Unit/Playground/Matrix/Api/PackageProviders",
+    "model": "",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "PackageProviders",
+    "namespace": "Tests/Unit/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "unit",
+    "type": "providers-api",
+    "uses": [],
+    "models": [],
+    "package_providers": [
+        "\\Playground\\Test\\ServiceProvider::class",
+        "\\Playground\\ServiceProvider::class",
+        "\\Playground\\Auth\\ServiceProvider::class",
+        "\\Playground\\Http\\ServiceProvider::class",
+        "\\Playground\\Matrix\\ServiceProvider::class",
+        "\\Playground\\Matrix\\Api\\ServiceProvider::class",
+        "\\Laravel\\Sanctum\\SanctumServiceProvider::class"
+    ]
+}

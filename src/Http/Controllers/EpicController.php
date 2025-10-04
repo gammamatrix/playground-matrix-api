@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Epic;
@@ -45,28 +46,31 @@ class EpicController extends Controller
         Requests\Epic\CreateRequest $request
     ): JsonResponse|Resources\Epic {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $epic = new Epic($validated);
 
-        return (new Resources\Epic($epic))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Epic($epic)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Epic resource in storage.
      *
-     * @route GET /api/matrix/epics/edit playground.matrix.api.epics.edit
+     * @route GET /api/matrix/epics/edit/{epic} playground.matrix.api.epics.edit
      */
     public function edit(
         Epic $epic,
         Requests\Epic\EditRequest $request
     ): JsonResponse|Resources\Epic {
-        return (new Resources\Epic($epic))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Epic($epic)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -107,7 +111,7 @@ class EpicController extends Controller
         Requests\Epic\LockRequest $request
     ): JsonResponse|Resources\Epic {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -119,8 +123,8 @@ class EpicController extends Controller
 
         $epic->save();
 
-        return (new Resources\Epic($epic))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Epic($epic)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -133,11 +137,20 @@ class EpicController extends Controller
         Requests\Epic\IndexRequest $request
     ): JsonResponse|Resources\EpicCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Epic::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Epic::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -171,7 +184,7 @@ class EpicController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\EpicCollection($paginator))->response($request);
+        return new Resources\EpicCollection($paginator)->response($request);
     }
 
     /**
@@ -184,16 +197,16 @@ class EpicController extends Controller
         Requests\Epic\RestoreRequest $request
     ): JsonResponse|Resources\Epic {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $epic->modified_by_id = $user->id;
-        }
+        $epic->modified_by_id = $user?->id;
 
         $epic->restore();
 
-        return (new Resources\Epic($epic))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Epic($epic)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -206,12 +219,15 @@ class EpicController extends Controller
         Epic $epic,
         Requests\Epic\ShowRequest $request
     ): JsonResponse|Resources\Epic {
-        return (new Resources\Epic($epic))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Epic($epic)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Epic resource in storage.
      *
      * @route POST /api/matrix/epics playground.matrix.api.epics.post
@@ -219,6 +235,9 @@ class EpicController extends Controller
     public function store(
         Requests\Epic\StoreRequest $request
     ): Response|JsonResponse|Resources\Epic {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -229,8 +248,8 @@ class EpicController extends Controller
 
         $epic->save();
 
-        return (new Resources\Epic($epic))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Epic($epic)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -244,20 +263,18 @@ class EpicController extends Controller
         Requests\Epic\UnlockRequest $request
     ): JsonResponse|Resources\Epic {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $epic->locked = false;
 
-        if ($user?->id) {
-            $epic->modified_by_id = $user->id;
-        }
+        $epic->modified_by_id = $user?->id;
 
         $epic->save();
 
-        return (new Resources\Epic($epic))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Epic($epic)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -271,18 +288,18 @@ class EpicController extends Controller
         Requests\Epic\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $epic->modified_by_id = $user->id;
-        }
+        $epic->modified_by_id = $user?->id;
 
         $epic->update($validated);
 
-        return (new Resources\Epic($epic))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Epic($epic)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

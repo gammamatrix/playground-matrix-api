@@ -1,0 +1,23 @@
+{
+    "class": "TestCase",
+    "config": "playground-matrix-api",
+    "extends": "",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/Http/Controllers/TestCase",
+    "model": "",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "ControllerTestCase",
+    "namespace": "Tests/Feature/Playground/Matrix/Api/Http/Controllers",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-api-controller-test-case",
+    "uses": [
+        "Playground/Test/Feature/Http/Controllers/Resource",
+        "Tests/Feature/Playground/Matrix/Api/TestCase as BaseTestCase"
+    ],
+    "models": [],
+    "package_providers": []
+}

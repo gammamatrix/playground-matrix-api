@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Matrix;
@@ -45,28 +46,31 @@ class MatrixController extends Controller
         Requests\Matrix\CreateRequest $request
     ): JsonResponse|Resources\Matrix {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $matrix = new Matrix($validated);
 
-        return (new Resources\Matrix($matrix))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Matrix($matrix)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Matrix resource in storage.
      *
-     * @route GET /api/matrix/matrices/edit playground.matrix.api.matrices.edit
+     * @route GET /api/matrix/matrices/edit/{matrix} playground.matrix.api.matrices.edit
      */
     public function edit(
         Matrix $matrix,
         Requests\Matrix\EditRequest $request
     ): JsonResponse|Resources\Matrix {
-        return (new Resources\Matrix($matrix))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Matrix($matrix)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -107,7 +111,7 @@ class MatrixController extends Controller
         Requests\Matrix\LockRequest $request
     ): JsonResponse|Resources\Matrix {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -119,8 +123,8 @@ class MatrixController extends Controller
 
         $matrix->save();
 
-        return (new Resources\Matrix($matrix))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Matrix($matrix)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -133,11 +137,20 @@ class MatrixController extends Controller
         Requests\Matrix\IndexRequest $request
     ): JsonResponse|Resources\MatrixCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Matrix::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Matrix::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -171,7 +184,7 @@ class MatrixController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\MatrixCollection($paginator))->response($request);
+        return new Resources\MatrixCollection($paginator)->response($request);
     }
 
     /**
@@ -184,16 +197,16 @@ class MatrixController extends Controller
         Requests\Matrix\RestoreRequest $request
     ): JsonResponse|Resources\Matrix {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $matrix->modified_by_id = $user->id;
-        }
+        $matrix->modified_by_id = $user?->id;
 
         $matrix->restore();
 
-        return (new Resources\Matrix($matrix))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Matrix($matrix)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -206,12 +219,15 @@ class MatrixController extends Controller
         Matrix $matrix,
         Requests\Matrix\ShowRequest $request
     ): JsonResponse|Resources\Matrix {
-        return (new Resources\Matrix($matrix))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Matrix($matrix)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Matrix resource in storage.
      *
      * @route POST /api/matrix/matrices playground.matrix.api.matrices.post
@@ -219,6 +235,9 @@ class MatrixController extends Controller
     public function store(
         Requests\Matrix\StoreRequest $request
     ): Response|JsonResponse|Resources\Matrix {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -229,8 +248,8 @@ class MatrixController extends Controller
 
         $matrix->save();
 
-        return (new Resources\Matrix($matrix))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Matrix($matrix)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -244,20 +263,18 @@ class MatrixController extends Controller
         Requests\Matrix\UnlockRequest $request
     ): JsonResponse|Resources\Matrix {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $matrix->locked = false;
 
-        if ($user?->id) {
-            $matrix->modified_by_id = $user->id;
-        }
+        $matrix->modified_by_id = $user?->id;
 
         $matrix->save();
 
-        return (new Resources\Matrix($matrix))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Matrix($matrix)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -271,18 +288,18 @@ class MatrixController extends Controller
         Requests\Matrix\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $matrix->modified_by_id = $user->id;
-        }
+        $matrix->modified_by_id = $user?->id;
 
         $matrix->update($validated);
 
-        return (new Resources\Matrix($matrix))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Matrix($matrix)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

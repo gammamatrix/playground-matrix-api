@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Backlog;
@@ -45,28 +46,31 @@ class BacklogController extends Controller
         Requests\Backlog\CreateRequest $request
     ): JsonResponse|Resources\Backlog {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $backlog = new Backlog($validated);
 
-        return (new Resources\Backlog($backlog))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Backlog($backlog)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Backlog resource in storage.
      *
-     * @route GET /api/matrix/backlogs/edit playground.matrix.api.backlogs.edit
+     * @route GET /api/matrix/backlogs/edit/{backlog} playground.matrix.api.backlogs.edit
      */
     public function edit(
         Backlog $backlog,
         Requests\Backlog\EditRequest $request
     ): JsonResponse|Resources\Backlog {
-        return (new Resources\Backlog($backlog))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Backlog($backlog)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -107,7 +111,7 @@ class BacklogController extends Controller
         Requests\Backlog\LockRequest $request
     ): JsonResponse|Resources\Backlog {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -119,8 +123,8 @@ class BacklogController extends Controller
 
         $backlog->save();
 
-        return (new Resources\Backlog($backlog))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Backlog($backlog)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -133,11 +137,20 @@ class BacklogController extends Controller
         Requests\Backlog\IndexRequest $request
     ): JsonResponse|Resources\BacklogCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Backlog::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Backlog::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -171,7 +184,7 @@ class BacklogController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\BacklogCollection($paginator))->response($request);
+        return new Resources\BacklogCollection($paginator)->response($request);
     }
 
     /**
@@ -184,16 +197,16 @@ class BacklogController extends Controller
         Requests\Backlog\RestoreRequest $request
     ): JsonResponse|Resources\Backlog {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $backlog->modified_by_id = $user->id;
-        }
+        $backlog->modified_by_id = $user?->id;
 
         $backlog->restore();
 
-        return (new Resources\Backlog($backlog))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Backlog($backlog)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -206,12 +219,15 @@ class BacklogController extends Controller
         Backlog $backlog,
         Requests\Backlog\ShowRequest $request
     ): JsonResponse|Resources\Backlog {
-        return (new Resources\Backlog($backlog))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Backlog($backlog)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Backlog resource in storage.
      *
      * @route POST /api/matrix/backlogs playground.matrix.api.backlogs.post
@@ -219,6 +235,9 @@ class BacklogController extends Controller
     public function store(
         Requests\Backlog\StoreRequest $request
     ): Response|JsonResponse|Resources\Backlog {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -229,8 +248,8 @@ class BacklogController extends Controller
 
         $backlog->save();
 
-        return (new Resources\Backlog($backlog))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Backlog($backlog)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -244,20 +263,18 @@ class BacklogController extends Controller
         Requests\Backlog\UnlockRequest $request
     ): JsonResponse|Resources\Backlog {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $backlog->locked = false;
 
-        if ($user?->id) {
-            $backlog->modified_by_id = $user->id;
-        }
+        $backlog->modified_by_id = $user?->id;
 
         $backlog->save();
 
-        return (new Resources\Backlog($backlog))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Backlog($backlog)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -271,18 +288,18 @@ class BacklogController extends Controller
         Requests\Backlog\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $backlog->modified_by_id = $user->id;
-        }
+        $backlog->modified_by_id = $user?->id;
 
         $backlog->update($validated);
 
-        return (new Resources\Backlog($backlog))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Backlog($backlog)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

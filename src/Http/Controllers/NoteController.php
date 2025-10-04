@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Note;
@@ -45,28 +46,31 @@ class NoteController extends Controller
         Requests\Note\CreateRequest $request
     ): JsonResponse|Resources\Note {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $note = new Note($validated);
 
-        return (new Resources\Note($note))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Note($note)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Note resource in storage.
      *
-     * @route GET /api/matrix/notes/edit playground.matrix.api.notes.edit
+     * @route GET /api/matrix/notes/edit/{note} playground.matrix.api.notes.edit
      */
     public function edit(
         Note $note,
         Requests\Note\EditRequest $request
     ): JsonResponse|Resources\Note {
-        return (new Resources\Note($note))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Note($note)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -107,7 +111,7 @@ class NoteController extends Controller
         Requests\Note\LockRequest $request
     ): JsonResponse|Resources\Note {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -119,8 +123,8 @@ class NoteController extends Controller
 
         $note->save();
 
-        return (new Resources\Note($note))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Note($note)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -133,11 +137,20 @@ class NoteController extends Controller
         Requests\Note\IndexRequest $request
     ): JsonResponse|Resources\NoteCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Note::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Note::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -171,7 +184,7 @@ class NoteController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\NoteCollection($paginator))->response($request);
+        return new Resources\NoteCollection($paginator)->response($request);
     }
 
     /**
@@ -184,16 +197,16 @@ class NoteController extends Controller
         Requests\Note\RestoreRequest $request
     ): JsonResponse|Resources\Note {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $note->modified_by_id = $user->id;
-        }
+        $note->modified_by_id = $user?->id;
 
         $note->restore();
 
-        return (new Resources\Note($note))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Note($note)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -206,12 +219,15 @@ class NoteController extends Controller
         Note $note,
         Requests\Note\ShowRequest $request
     ): JsonResponse|Resources\Note {
-        return (new Resources\Note($note))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Note($note)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Note resource in storage.
      *
      * @route POST /api/matrix/notes playground.matrix.api.notes.post
@@ -219,6 +235,9 @@ class NoteController extends Controller
     public function store(
         Requests\Note\StoreRequest $request
     ): Response|JsonResponse|Resources\Note {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -229,8 +248,8 @@ class NoteController extends Controller
 
         $note->save();
 
-        return (new Resources\Note($note))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Note($note)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -244,20 +263,18 @@ class NoteController extends Controller
         Requests\Note\UnlockRequest $request
     ): JsonResponse|Resources\Note {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $note->locked = false;
 
-        if ($user?->id) {
-            $note->modified_by_id = $user->id;
-        }
+        $note->modified_by_id = $user?->id;
 
         $note->save();
 
-        return (new Resources\Note($note))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Note($note)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -271,18 +288,18 @@ class NoteController extends Controller
         Requests\Note\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $note->modified_by_id = $user->id;
-        }
+        $note->modified_by_id = $user?->id;
 
         $note->update($validated);
 
-        return (new Resources\Note($note))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Note($note)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

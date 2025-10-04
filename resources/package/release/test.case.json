@@ -1,0 +1,22 @@
+{
+    "class": "ReleaseTestCase",
+    "config": "playground-matrix-api",
+    "extends": "TestCase",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/Http/Controllers/ReleaseTestCase",
+    "model": "Release",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "ReleaseTestCase",
+    "namespace": "Tests/Feature/Playground/Matrix/Api/Http/Controllers",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-api-controller-model-case",
+    "uses": [],
+    "models": {
+        "Release": "resources/configurations/playground-matrix/model.release.json"
+    },
+    "package_providers": []
+}

@@ -1,18 +1,18 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Ticket;
-use Playground\Matrix\Concerns\Creating;
 
 /**
  * \Playground\Matrix\Api\Http\Controllers\TicketController
@@ -48,28 +48,31 @@ class TicketController extends Controller
         Requests\Ticket\CreateRequest $request
     ): JsonResponse|Resources\Ticket {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $ticket = new Ticket($validated);
 
-        return (new Resources\Ticket($ticket))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Ticket($ticket)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Ticket resource in storage.
      *
-     * @route GET /api/matrix/tickets/edit playground.matrix.api.tickets.edit
+     * @route GET /api/matrix/tickets/edit/{ticket} playground.matrix.api.tickets.edit
      */
     public function edit(
         Ticket $ticket,
         Requests\Ticket\EditRequest $request
     ): JsonResponse|Resources\Ticket {
-        return (new Resources\Ticket($ticket))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Ticket($ticket)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -110,7 +113,7 @@ class TicketController extends Controller
         Requests\Ticket\LockRequest $request
     ): JsonResponse|Resources\Ticket {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -122,8 +125,8 @@ class TicketController extends Controller
 
         $ticket->save();
 
-        return (new Resources\Ticket($ticket))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Ticket($ticket)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -136,11 +139,20 @@ class TicketController extends Controller
         Requests\Ticket\IndexRequest $request
     ): JsonResponse|Resources\TicketCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Ticket::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Ticket::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -174,7 +186,7 @@ class TicketController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\TicketCollection($paginator))->response($request);
+        return new Resources\TicketCollection($paginator)->response($request);
     }
 
     /**
@@ -187,16 +199,16 @@ class TicketController extends Controller
         Requests\Ticket\RestoreRequest $request
     ): JsonResponse|Resources\Ticket {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $ticket->modified_by_id = $user->id;
-        }
+        $ticket->modified_by_id = $user?->id;
 
         $ticket->restore();
 
-        return (new Resources\Ticket($ticket))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Ticket($ticket)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -209,12 +221,15 @@ class TicketController extends Controller
         Ticket $ticket,
         Requests\Ticket\ShowRequest $request
     ): JsonResponse|Resources\Ticket {
-        return (new Resources\Ticket($ticket))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Ticket($ticket)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Ticket resource in storage.
      *
      * @route POST /api/matrix/tickets playground.matrix.api.tickets.post
@@ -222,6 +237,9 @@ class TicketController extends Controller
     public function store(
         Requests\Ticket\StoreRequest $request
     ): Response|JsonResponse|Resources\Ticket {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -234,8 +252,8 @@ class TicketController extends Controller
 
         $ticket->save();
 
-        return (new Resources\Ticket($ticket))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Ticket($ticket)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -249,20 +267,18 @@ class TicketController extends Controller
         Requests\Ticket\UnlockRequest $request
     ): JsonResponse|Resources\Ticket {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $ticket->locked = false;
 
-        if ($user?->id) {
-            $ticket->modified_by_id = $user->id;
-        }
+        $ticket->modified_by_id = $user?->id;
 
         $ticket->save();
 
-        return (new Resources\Ticket($ticket))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Ticket($ticket)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -276,18 +292,18 @@ class TicketController extends Controller
         Requests\Ticket\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $ticket->modified_by_id = $user->id;
-        }
+        $ticket->modified_by_id = $user?->id;
 
         $ticket->update($validated);
 
-        return (new Resources\Ticket($ticket))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Ticket($ticket)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

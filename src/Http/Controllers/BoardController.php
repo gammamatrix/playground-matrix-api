@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Board;
@@ -45,28 +46,31 @@ class BoardController extends Controller
         Requests\Board\CreateRequest $request
     ): JsonResponse|Resources\Board {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $board = new Board($validated);
 
-        return (new Resources\Board($board))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Board($board)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Board resource in storage.
      *
-     * @route GET /api/matrix/boards/edit playground.matrix.api.boards.edit
+     * @route GET /api/matrix/boards/edit/{board} playground.matrix.api.boards.edit
      */
     public function edit(
         Board $board,
         Requests\Board\EditRequest $request
     ): JsonResponse|Resources\Board {
-        return (new Resources\Board($board))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Board($board)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -107,7 +111,7 @@ class BoardController extends Controller
         Requests\Board\LockRequest $request
     ): JsonResponse|Resources\Board {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -119,8 +123,8 @@ class BoardController extends Controller
 
         $board->save();
 
-        return (new Resources\Board($board))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Board($board)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -133,11 +137,20 @@ class BoardController extends Controller
         Requests\Board\IndexRequest $request
     ): JsonResponse|Resources\BoardCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Board::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Board::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -171,7 +184,7 @@ class BoardController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\BoardCollection($paginator))->response($request);
+        return new Resources\BoardCollection($paginator)->response($request);
     }
 
     /**
@@ -184,16 +197,16 @@ class BoardController extends Controller
         Requests\Board\RestoreRequest $request
     ): JsonResponse|Resources\Board {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $board->modified_by_id = $user->id;
-        }
+        $board->modified_by_id = $user?->id;
 
         $board->restore();
 
-        return (new Resources\Board($board))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Board($board)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -206,12 +219,15 @@ class BoardController extends Controller
         Board $board,
         Requests\Board\ShowRequest $request
     ): JsonResponse|Resources\Board {
-        return (new Resources\Board($board))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Board($board)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Board resource in storage.
      *
      * @route POST /api/matrix/boards playground.matrix.api.boards.post
@@ -219,6 +235,9 @@ class BoardController extends Controller
     public function store(
         Requests\Board\StoreRequest $request
     ): Response|JsonResponse|Resources\Board {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -229,8 +248,8 @@ class BoardController extends Controller
 
         $board->save();
 
-        return (new Resources\Board($board))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Board($board)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -244,20 +263,18 @@ class BoardController extends Controller
         Requests\Board\UnlockRequest $request
     ): JsonResponse|Resources\Board {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $board->locked = false;
 
-        if ($user?->id) {
-            $board->modified_by_id = $user->id;
-        }
+        $board->modified_by_id = $user?->id;
 
         $board->save();
 
-        return (new Resources\Board($board))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Board($board)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -271,18 +288,18 @@ class BoardController extends Controller
         Requests\Board\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $board->modified_by_id = $user->id;
-        }
+        $board->modified_by_id = $user?->id;
 
         $board->update($validated);
 
-        return (new Resources\Board($board))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Board($board)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

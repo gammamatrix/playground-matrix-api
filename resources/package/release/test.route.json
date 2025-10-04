@@ -1,0 +1,22 @@
+{
+    "class": "ReleaseRouteTest",
+    "config": "playground-matrix-api",
+    "extends": "",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/ReleaseRouteTest",
+    "model": "Release",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "ReleaseRouteTest",
+    "namespace": "Tests/Feature/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-api-controller-model-user",
+    "uses": [],
+    "models": {
+        "Release": "resources/configurations/playground-matrix/model.release.json"
+    },
+    "package_providers": []
+}

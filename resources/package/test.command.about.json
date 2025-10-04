@@ -1,0 +1,20 @@
+{
+    "class": "CommandTest",
+    "config": "playground-matrix-api",
+    "extends": "",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/CommandTest",
+    "model": "",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "MatrixAPI",
+    "namespace": "Tests/Feature/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "command-about",
+    "uses": [],
+    "models": [],
+    "package_providers": []
+}

@@ -1,0 +1,22 @@
+{
+    "class": "TicketRouteTest",
+    "config": "playground-matrix-api",
+    "extends": "",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/TicketRouteTest",
+    "model": "Ticket",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "TicketRouteTest",
+    "namespace": "Tests/Feature/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-api-controller-model-user",
+    "uses": [],
+    "models": {
+        "Ticket": "resources/configurations/playground-matrix/model.ticket.json"
+    },
+    "package_providers": []
+}

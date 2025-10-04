@@ -1,0 +1,22 @@
+{
+    "class": "TestCase",
+    "config": "playground-matrix-api",
+    "extends": "OrchestraTestCase",
+    "fqdn": "Tests/Unit/Playground/Matrix/Api/TestCase",
+    "model": "",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "TestCase",
+    "namespace": "Tests/Unit/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "unit",
+    "type": "playground-api-test-case",
+    "uses": [
+        "Playground/Test/OrchestraTestCase"
+    ],
+    "models": [],
+    "package_providers": []
+}

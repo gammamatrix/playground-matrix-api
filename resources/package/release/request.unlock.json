@@ -1,0 +1,22 @@
+{
+    "class": "UnlockRequest",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Requests/Release/Release",
+    "model": "Release",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "Release",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "abstract": false,
+    "pagination": false,
+    "playground": false,
+    "store": false,
+    "slug": false,
+    "type": "unlock",
+    "extends": "FormRequest",
+    "extends_use": "Playground/Matrix/Api/Http/Requests/FormRequest",
+    "models": []
+}

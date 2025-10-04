@@ -1,0 +1,22 @@
+{
+    "class": "BacklogRouteTest",
+    "config": "playground-matrix-api",
+    "extends": "",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/BacklogRouteTest",
+    "model": "Backlog",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "BacklogRouteTest",
+    "namespace": "Tests/Feature/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-api-controller-model-user",
+    "uses": [],
+    "models": {
+        "Backlog": "resources/configurations/playground-matrix/model.backlog.json"
+    },
+    "package_providers": []
+}

@@ -1,0 +1,17 @@
+{
+    "class": "Release",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Resources/Release",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "Release",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "collection": false,
+    "model": "Release",
+    "model_fqdn": "Playground/Matrix/Models/Release",
+    "model_slug": "release",
+    "type": "",
+    "models": []
+}

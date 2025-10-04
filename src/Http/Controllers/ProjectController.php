@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Project;
@@ -45,28 +46,31 @@ class ProjectController extends Controller
         Requests\Project\CreateRequest $request
     ): JsonResponse|Resources\Project {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $project = new Project($validated);
 
-        return (new Resources\Project($project))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Project($project)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Project resource in storage.
      *
-     * @route GET /api/matrix/projects/edit playground.matrix.api.projects.edit
+     * @route GET /api/matrix/projects/edit/{project} playground.matrix.api.projects.edit
      */
     public function edit(
         Project $project,
         Requests\Project\EditRequest $request
     ): JsonResponse|Resources\Project {
-        return (new Resources\Project($project))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Project($project)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -107,7 +111,7 @@ class ProjectController extends Controller
         Requests\Project\LockRequest $request
     ): JsonResponse|Resources\Project {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -119,8 +123,8 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return (new Resources\Project($project))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Project($project)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -133,11 +137,20 @@ class ProjectController extends Controller
         Requests\Project\IndexRequest $request
     ): JsonResponse|Resources\ProjectCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Project::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Project::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -171,7 +184,7 @@ class ProjectController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\ProjectCollection($paginator))->response($request);
+        return new Resources\ProjectCollection($paginator)->response($request);
     }
 
     /**
@@ -184,16 +197,16 @@ class ProjectController extends Controller
         Requests\Project\RestoreRequest $request
     ): JsonResponse|Resources\Project {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $project->modified_by_id = $user->id;
-        }
+        $project->modified_by_id = $user?->id;
 
         $project->restore();
 
-        return (new Resources\Project($project))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Project($project)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -206,12 +219,15 @@ class ProjectController extends Controller
         Project $project,
         Requests\Project\ShowRequest $request
     ): JsonResponse|Resources\Project {
-        return (new Resources\Project($project))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Project($project)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Project resource in storage.
      *
      * @route POST /api/matrix/projects playground.matrix.api.projects.post
@@ -219,6 +235,9 @@ class ProjectController extends Controller
     public function store(
         Requests\Project\StoreRequest $request
     ): Response|JsonResponse|Resources\Project {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -229,8 +248,8 @@ class ProjectController extends Controller
 
         $project->save();
 
-        return (new Resources\Project($project))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Project($project)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -244,20 +263,18 @@ class ProjectController extends Controller
         Requests\Project\UnlockRequest $request
     ): JsonResponse|Resources\Project {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $project->locked = false;
 
-        if ($user?->id) {
-            $project->modified_by_id = $user->id;
-        }
+        $project->modified_by_id = $user?->id;
 
         $project->save();
 
-        return (new Resources\Project($project))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Project($project)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -271,18 +288,18 @@ class ProjectController extends Controller
         Requests\Project\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $project->modified_by_id = $user->id;
-        }
+        $project->modified_by_id = $user?->id;
 
         $project->update($validated);
 
-        return (new Resources\Project($project))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Project($project)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

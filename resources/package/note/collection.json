@@ -1,0 +1,17 @@
+{
+    "class": "NoteCollection",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Resources/NoteCollection",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "NoteCollection",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "collection": true,
+    "model": "Note",
+    "model_fqdn": "Playground/Matrix/Models/Note",
+    "model_slug": "note",
+    "type": "",
+    "models": []
+}

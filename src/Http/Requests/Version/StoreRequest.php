@@ -1,9 +1,11 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Requests\Version;
 
 use Playground\Http\Requests\StoreRequest as BaseStoreRequest;
@@ -102,27 +104,6 @@ class StoreRequest extends BaseStoreRequest
     ];
 
     protected string $slug_table = 'matrix_versions';
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        $rules = parent::rules();
-
-        /**
-         * @var array<string, bool> $revisions
-         */
-        $revisions = config('playground-matrix-api.revisions');
-
-        if (! empty($revisions['optional'])) {
-            $rules['revision'] = 'bool';
-        }
-
-        return $rules;
-    }
 
     /**
      * Prepare the data for validation.

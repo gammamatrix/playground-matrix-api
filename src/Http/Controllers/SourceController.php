@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Source;
@@ -45,28 +46,31 @@ class SourceController extends Controller
         Requests\Source\CreateRequest $request
     ): JsonResponse|Resources\Source {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $source = new Source($validated);
 
-        return (new Resources\Source($source))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Source($source)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Source resource in storage.
      *
-     * @route GET /api/matrix/sources/edit playground.matrix.api.sources.edit
+     * @route GET /api/matrix/sources/edit/{source} playground.matrix.api.sources.edit
      */
     public function edit(
         Source $source,
         Requests\Source\EditRequest $request
     ): JsonResponse|Resources\Source {
-        return (new Resources\Source($source))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Source($source)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -107,7 +111,7 @@ class SourceController extends Controller
         Requests\Source\LockRequest $request
     ): JsonResponse|Resources\Source {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -119,8 +123,8 @@ class SourceController extends Controller
 
         $source->save();
 
-        return (new Resources\Source($source))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Source($source)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -133,11 +137,20 @@ class SourceController extends Controller
         Requests\Source\IndexRequest $request
     ): JsonResponse|Resources\SourceCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Source::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Source::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -171,7 +184,7 @@ class SourceController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\SourceCollection($paginator))->response($request);
+        return new Resources\SourceCollection($paginator)->response($request);
     }
 
     /**
@@ -184,16 +197,16 @@ class SourceController extends Controller
         Requests\Source\RestoreRequest $request
     ): JsonResponse|Resources\Source {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $source->modified_by_id = $user->id;
-        }
+        $source->modified_by_id = $user?->id;
 
         $source->restore();
 
-        return (new Resources\Source($source))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Source($source)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -206,12 +219,15 @@ class SourceController extends Controller
         Source $source,
         Requests\Source\ShowRequest $request
     ): JsonResponse|Resources\Source {
-        return (new Resources\Source($source))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Source($source)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Source resource in storage.
      *
      * @route POST /api/matrix/sources playground.matrix.api.sources.post
@@ -219,6 +235,9 @@ class SourceController extends Controller
     public function store(
         Requests\Source\StoreRequest $request
     ): Response|JsonResponse|Resources\Source {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -229,8 +248,8 @@ class SourceController extends Controller
 
         $source->save();
 
-        return (new Resources\Source($source))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Source($source)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -244,20 +263,18 @@ class SourceController extends Controller
         Requests\Source\UnlockRequest $request
     ): JsonResponse|Resources\Source {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $source->locked = false;
 
-        if ($user?->id) {
-            $source->modified_by_id = $user->id;
-        }
+        $source->modified_by_id = $user?->id;
 
         $source->save();
 
-        return (new Resources\Source($source))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Source($source)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -271,18 +288,18 @@ class SourceController extends Controller
         Requests\Source\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $source->modified_by_id = $user->id;
-        }
+        $source->modified_by_id = $user?->id;
 
         $source->update($validated);
 
-        return (new Resources\Source($source))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Source($source)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

@@ -1,0 +1,23 @@
+{
+    "class": "InstanceTest",
+    "config": "playground-matrix-api",
+    "extends": "RequestCase",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/InstanceTest",
+    "model": "",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "FormRequestRequestTest",
+    "namespace": "Tests/Feature/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-request-form",
+    "uses": [
+        "Tests/Unit/Playground/Matrix/Api/PackageProviders",
+        "Playground/Test/Unit/Http/Requests/RequestCase"
+    ],
+    "models": [],
+    "package_providers": []
+}

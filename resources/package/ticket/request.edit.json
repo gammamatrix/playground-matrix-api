@@ -1,0 +1,22 @@
+{
+    "class": "EditRequest",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Requests/Ticket/Ticket",
+    "model": "Ticket",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "Ticket",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "abstract": false,
+    "pagination": false,
+    "playground": false,
+    "store": false,
+    "slug": false,
+    "type": "edit",
+    "extends": "FormRequest",
+    "extends_use": "Playground/Matrix/Api/Http/Requests/FormRequest",
+    "models": []
+}

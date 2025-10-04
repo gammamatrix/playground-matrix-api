@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Sprint;
@@ -45,28 +46,31 @@ class SprintController extends Controller
         Requests\Sprint\CreateRequest $request
     ): JsonResponse|Resources\Sprint {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $sprint = new Sprint($validated);
 
-        return (new Resources\Sprint($sprint))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Sprint($sprint)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Sprint resource in storage.
      *
-     * @route GET /api/matrix/sprints/edit playground.matrix.api.sprints.edit
+     * @route GET /api/matrix/sprints/edit/{sprint} playground.matrix.api.sprints.edit
      */
     public function edit(
         Sprint $sprint,
         Requests\Sprint\EditRequest $request
     ): JsonResponse|Resources\Sprint {
-        return (new Resources\Sprint($sprint))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Sprint($sprint)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -107,7 +111,7 @@ class SprintController extends Controller
         Requests\Sprint\LockRequest $request
     ): JsonResponse|Resources\Sprint {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -119,8 +123,8 @@ class SprintController extends Controller
 
         $sprint->save();
 
-        return (new Resources\Sprint($sprint))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Sprint($sprint)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -133,11 +137,20 @@ class SprintController extends Controller
         Requests\Sprint\IndexRequest $request
     ): JsonResponse|Resources\SprintCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Sprint::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Sprint::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -171,7 +184,7 @@ class SprintController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\SprintCollection($paginator))->response($request);
+        return new Resources\SprintCollection($paginator)->response($request);
     }
 
     /**
@@ -184,16 +197,16 @@ class SprintController extends Controller
         Requests\Sprint\RestoreRequest $request
     ): JsonResponse|Resources\Sprint {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $sprint->modified_by_id = $user->id;
-        }
+        $sprint->modified_by_id = $user?->id;
 
         $sprint->restore();
 
-        return (new Resources\Sprint($sprint))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Sprint($sprint)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -206,12 +219,15 @@ class SprintController extends Controller
         Sprint $sprint,
         Requests\Sprint\ShowRequest $request
     ): JsonResponse|Resources\Sprint {
-        return (new Resources\Sprint($sprint))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Sprint($sprint)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Sprint resource in storage.
      *
      * @route POST /api/matrix/sprints playground.matrix.api.sprints.post
@@ -219,6 +235,9 @@ class SprintController extends Controller
     public function store(
         Requests\Sprint\StoreRequest $request
     ): Response|JsonResponse|Resources\Sprint {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -229,8 +248,8 @@ class SprintController extends Controller
 
         $sprint->save();
 
-        return (new Resources\Sprint($sprint))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Sprint($sprint)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -244,20 +263,18 @@ class SprintController extends Controller
         Requests\Sprint\UnlockRequest $request
     ): JsonResponse|Resources\Sprint {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $sprint->locked = false;
 
-        if ($user?->id) {
-            $sprint->modified_by_id = $user->id;
-        }
+        $sprint->modified_by_id = $user?->id;
 
         $sprint->save();
 
-        return (new Resources\Sprint($sprint))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Sprint($sprint)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -271,18 +288,18 @@ class SprintController extends Controller
         Requests\Sprint\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $sprint->modified_by_id = $user->id;
-        }
+        $sprint->modified_by_id = $user?->id;
 
         $sprint->update($validated);
 
-        return (new Resources\Sprint($sprint))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Sprint($sprint)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

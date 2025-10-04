@@ -1,0 +1,22 @@
+{
+    "class": "StoreRequest",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Requests/Backlog/Backlog",
+    "model": "Backlog",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "Backlog",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "abstract": false,
+    "pagination": false,
+    "playground": false,
+    "store": false,
+    "slug": false,
+    "type": "store",
+    "extends": "BaseStoreRequest",
+    "extends_use": "Playground/Http/Requests/StoreRequest as BaseStoreRequest",
+    "models": []
+}

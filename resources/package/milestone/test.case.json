@@ -1,0 +1,22 @@
+{
+    "class": "MilestoneTestCase",
+    "config": "playground-matrix-api",
+    "extends": "TestCase",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/Http/Controllers/MilestoneTestCase",
+    "model": "Milestone",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "MilestoneTestCase",
+    "namespace": "Tests/Feature/Playground/Matrix/Api/Http/Controllers",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-api-controller-model-case",
+    "uses": [],
+    "models": {
+        "Milestone": "resources/configurations/playground-matrix/model.milestone.json"
+    },
+    "package_providers": []
+}

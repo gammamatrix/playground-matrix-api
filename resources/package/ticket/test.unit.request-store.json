@@ -1,0 +1,23 @@
+{
+    "class": "StoreRequestTest",
+    "config": "playground-matrix-api",
+    "extends": "RequestCase",
+    "fqdn": "Tests/Unit/Playground/Matrix/Api/StoreRequestTest",
+    "model": "Ticket",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "StoreRequestTest",
+    "namespace": "Tests/Unit/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "unit",
+    "type": "playground-request-model-store",
+    "uses": [
+        "Tests/Unit/Playground/Matrix/Api/PackageProviders",
+        "Playground/Test/Unit/Http/Requests/RequestCase"
+    ],
+    "models": [],
+    "package_providers": []
+}

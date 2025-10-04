@@ -1,0 +1,22 @@
+{
+    "class": "SprintTestCase",
+    "config": "playground-matrix-api",
+    "extends": "TestCase",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/Http/Controllers/SprintTestCase",
+    "model": "Sprint",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "SprintTestCase",
+    "namespace": "Tests/Feature/Playground/Matrix/Api/Http/Controllers",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-api-controller-model-case",
+    "uses": [],
+    "models": {
+        "Sprint": "resources/configurations/playground-matrix/model.sprint.json"
+    },
+    "package_providers": []
+}

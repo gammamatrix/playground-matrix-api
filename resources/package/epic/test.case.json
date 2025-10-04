@@ -1,0 +1,22 @@
+{
+    "class": "EpicTestCase",
+    "config": "playground-matrix-api",
+    "extends": "TestCase",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/Http/Controllers/EpicTestCase",
+    "model": "Epic",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "EpicTestCase",
+    "namespace": "Tests/Feature/Playground/Matrix/Api/Http/Controllers",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-api-controller-model-case",
+    "uses": [],
+    "models": {
+        "Epic": "resources/configurations/playground-matrix/model.epic.json"
+    },
+    "package_providers": []
+}

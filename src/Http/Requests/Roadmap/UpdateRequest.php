@@ -1,9 +1,11 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Requests\Roadmap;
 
 use Playground\Http\Requests\UpdateRequest as BaseUpdateRequest;
@@ -90,7 +92,7 @@ class UpdateRequest extends BaseUpdateRequest
         'unknown' => ['boolean'],
         'locale' => ['string'],
         'label' => ['string'],
-        'title' => ['string', 'required'],
+        'title' => ['string'],
         'byline' => ['string'],
         'slug' => ['nullable', 'string'],
         'url' => ['string'],
@@ -115,27 +117,6 @@ class UpdateRequest extends BaseUpdateRequest
     ];
 
     protected string $slug_table = 'matrix_roadmaps';
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
-    public function rules(): array
-    {
-        $rules = parent::rules();
-
-        /**
-         * @var array<string, bool> $revisions
-         */
-        $revisions = config('playground-matrix-api.revisions');
-
-        if (! empty($revisions['optional'])) {
-            $rules['revision'] = 'bool';
-        }
-
-        return $rules;
-    }
 
     /**
      * Prepare the data for validation.

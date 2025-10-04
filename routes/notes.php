@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Playground
  */
@@ -62,7 +63,7 @@ Route::group([
     Route::get('/{note}', [
         'as' => 'playground.matrix.api.notes.show',
         'uses' => 'NoteController@show',
-    ])->whereUuid('note')->can('detail', 'note');
+    ])->whereUuid('note')->can('detail', 'note')->withTrashed();
 
     // API
 

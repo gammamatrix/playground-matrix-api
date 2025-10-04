@@ -1,9 +1,11 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Requests\Matrix;
 
 use Playground\Http\Requests\IndexRequest as BaseIndexRequest;

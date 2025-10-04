@@ -1,0 +1,22 @@
+{
+    "class": "VersionTestCase",
+    "config": "playground-matrix-api",
+    "extends": "TestCase",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/Http/Controllers/VersionTestCase",
+    "model": "Version",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "VersionTestCase",
+    "namespace": "Tests/Feature/Playground/Matrix/Api/Http/Controllers",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-api-controller-model-case",
+    "uses": [],
+    "models": {
+        "Version": "resources/configurations/playground-matrix/model.version.json"
+    },
+    "package_providers": []
+}

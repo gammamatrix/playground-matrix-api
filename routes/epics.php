@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Playground
  */
@@ -62,7 +63,7 @@ Route::group([
     Route::get('/{epic}', [
         'as' => 'playground.matrix.api.epics.show',
         'uses' => 'EpicController@show',
-    ])->whereUuid('epic')->can('detail', 'epic');
+    ])->whereUuid('epic')->can('detail', 'epic')->withTrashed();
 
     // API
 

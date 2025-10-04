@@ -1,0 +1,23 @@
+{
+    "class": "IndexRequestTest",
+    "config": "playground-matrix-api",
+    "extends": "RequestCase",
+    "fqdn": "Tests/Unit/Playground/Matrix/Api/IndexRequestTest",
+    "model": "Backlog",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "IndexRequestTest",
+    "namespace": "Tests/Unit/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "unit",
+    "type": "playground-request-model",
+    "uses": [
+        "Tests/Unit/Playground/Matrix/Api/PackageProviders",
+        "Playground/Test/Unit/Http/Requests/RequestCase"
+    ],
+    "models": [],
+    "package_providers": []
+}

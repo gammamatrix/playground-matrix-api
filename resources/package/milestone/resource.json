@@ -1,0 +1,17 @@
+{
+    "class": "Milestone",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Resources/Milestone",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "Milestone",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "collection": false,
+    "model": "Milestone",
+    "model_fqdn": "Playground/Matrix/Models/Milestone",
+    "model_slug": "milestone",
+    "type": "",
+    "models": []
+}

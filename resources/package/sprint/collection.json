@@ -1,0 +1,17 @@
+{
+    "class": "SprintCollection",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Resources/SprintCollection",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "SprintCollection",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "collection": true,
+    "model": "Sprint",
+    "model_fqdn": "Playground/Matrix/Models/Sprint",
+    "model_slug": "sprint",
+    "type": "",
+    "models": []
+}

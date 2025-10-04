@@ -1,0 +1,22 @@
+{
+    "class": "DestroyRequest",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Requests/Milestone/Milestone",
+    "model": "Milestone",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "Milestone",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "abstract": false,
+    "pagination": false,
+    "playground": false,
+    "store": false,
+    "slug": false,
+    "type": "destroy",
+    "extends": "FormRequest",
+    "extends_use": "Playground/Matrix/Api/Http/Requests/FormRequest",
+    "models": []
+}

@@ -390,23 +390,23 @@ properties:
     type: integer
     format: int64
   actual:
-    description: 'The actual of the ticket.'
+    description: 'The actual of the ticket. Allows HTML.'
     type: string
     nullable: true
   expected:
-    description: 'The expected of the ticket.'
+    description: 'The expected of the ticket. Allows HTML.'
     type: string
     nullable: true
   story:
-    description: 'The story of the ticket.'
+    description: 'The story of the ticket. Allows HTML.'
     type: string
     nullable: true
   steps:
-    description: 'The steps of the ticket.'
+    description: 'The steps of the ticket. Allows HTML.'
     type: string
     nullable: true
   criteria:
-    description: 'The criteria of the ticket.'
+    description: 'The criteria of the ticket. Allows HTML.'
     type: string
     nullable: true
   reproducibility:

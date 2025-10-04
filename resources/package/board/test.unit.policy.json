@@ -1,0 +1,23 @@
+{
+    "class": "PolicyTest",
+    "config": "playground-matrix-api",
+    "extends": "",
+    "fqdn": "Tests/Unit/Playground/Matrix/Api/Policies/BoardPolicy/PolicyTest",
+    "model": "Board",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "PolicyTest",
+    "namespace": "Tests/Unit/Playground/Matrix/Api/Policies/BoardPolicy",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "unit",
+    "type": "policy",
+    "uses": [
+        "Tests/Unit/Playground/Matrix/Api/TestCase",
+        "Playground/Matrix/Api/Policies/BoardPolicy"
+    ],
+    "models": [],
+    "package_providers": []
+}

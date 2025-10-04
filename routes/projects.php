@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Playground
  */
@@ -62,7 +63,7 @@ Route::group([
     Route::get('/{project}', [
         'as' => 'playground.matrix.api.projects.show',
         'uses' => 'ProjectController@show',
-    ])->whereUuid('project')->can('detail', 'project');
+    ])->whereUuid('project')->can('detail', 'project')->withTrashed();
 
     // API
 

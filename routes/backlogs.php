@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Playground
  */
@@ -62,7 +63,7 @@ Route::group([
     Route::get('/{backlog}', [
         'as' => 'playground.matrix.api.backlogs.show',
         'uses' => 'BacklogController@show',
-    ])->whereUuid('backlog')->can('detail', 'backlog');
+    ])->whereUuid('backlog')->can('detail', 'backlog')->withTrashed();
 
     // API
 

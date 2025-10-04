@@ -1,0 +1,22 @@
+{
+    "class": "SourceRouteTest",
+    "config": "playground-matrix-api",
+    "extends": "",
+    "fqdn": "Tests/Feature/Playground/Matrix/Api/SourceRouteTest",
+    "model": "Source",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "SourceRouteTest",
+    "namespace": "Tests/Feature/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "feature",
+    "type": "playground-api-controller-model-user",
+    "uses": [],
+    "models": {
+        "Source": "resources/configurations/playground-matrix/model.source.json"
+    },
+    "package_providers": []
+}

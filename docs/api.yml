@@ -1,8 +1,8 @@
 openapi: 3.0.3
 info:
   title: 'Playground Matrix API'
-  description: 'Playground: Provides an API, without a UI for interacting with Playground Matrix, a Project Management System for Laravel applications.'
-  version: 73.0.0
+  description: 'Playground: Provides an API, without a UI for interacting with Playground Matrix, a Matrix System for Laravel applications.'
+  version: 74.0.0
 externalDocs:
   url: 'https://gammamatrix-playground.readthedocs.io/en/develop/components/matrix.html'
   description: 'Read the Docs: Playground Matrix Packages'

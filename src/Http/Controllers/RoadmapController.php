@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Roadmap;
@@ -45,28 +46,31 @@ class RoadmapController extends Controller
         Requests\Roadmap\CreateRequest $request
     ): JsonResponse|Resources\Roadmap {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $roadmap = new Roadmap($validated);
 
-        return (new Resources\Roadmap($roadmap))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Roadmap($roadmap)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Roadmap resource in storage.
      *
-     * @route GET /api/matrix/roadmaps/edit playground.matrix.api.roadmaps.edit
+     * @route GET /api/matrix/roadmaps/edit/{roadmap} playground.matrix.api.roadmaps.edit
      */
     public function edit(
         Roadmap $roadmap,
         Requests\Roadmap\EditRequest $request
     ): JsonResponse|Resources\Roadmap {
-        return (new Resources\Roadmap($roadmap))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Roadmap($roadmap)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -107,7 +111,7 @@ class RoadmapController extends Controller
         Requests\Roadmap\LockRequest $request
     ): JsonResponse|Resources\Roadmap {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -119,8 +123,8 @@ class RoadmapController extends Controller
 
         $roadmap->save();
 
-        return (new Resources\Roadmap($roadmap))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Roadmap($roadmap)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -133,11 +137,20 @@ class RoadmapController extends Controller
         Requests\Roadmap\IndexRequest $request
     ): JsonResponse|Resources\RoadmapCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Roadmap::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Roadmap::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -171,7 +184,7 @@ class RoadmapController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\RoadmapCollection($paginator))->response($request);
+        return new Resources\RoadmapCollection($paginator)->response($request);
     }
 
     /**
@@ -184,16 +197,16 @@ class RoadmapController extends Controller
         Requests\Roadmap\RestoreRequest $request
     ): JsonResponse|Resources\Roadmap {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $roadmap->modified_by_id = $user->id;
-        }
+        $roadmap->modified_by_id = $user?->id;
 
         $roadmap->restore();
 
-        return (new Resources\Roadmap($roadmap))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Roadmap($roadmap)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -206,12 +219,15 @@ class RoadmapController extends Controller
         Roadmap $roadmap,
         Requests\Roadmap\ShowRequest $request
     ): JsonResponse|Resources\Roadmap {
-        return (new Resources\Roadmap($roadmap))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Roadmap($roadmap)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Roadmap resource in storage.
      *
      * @route POST /api/matrix/roadmaps playground.matrix.api.roadmaps.post
@@ -219,6 +235,9 @@ class RoadmapController extends Controller
     public function store(
         Requests\Roadmap\StoreRequest $request
     ): Response|JsonResponse|Resources\Roadmap {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -229,8 +248,8 @@ class RoadmapController extends Controller
 
         $roadmap->save();
 
-        return (new Resources\Roadmap($roadmap))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Roadmap($roadmap)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -244,20 +263,18 @@ class RoadmapController extends Controller
         Requests\Roadmap\UnlockRequest $request
     ): JsonResponse|Resources\Roadmap {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $roadmap->locked = false;
 
-        if ($user?->id) {
-            $roadmap->modified_by_id = $user->id;
-        }
+        $roadmap->modified_by_id = $user?->id;
 
         $roadmap->save();
 
-        return (new Resources\Roadmap($roadmap))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Roadmap($roadmap)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -271,18 +288,18 @@ class RoadmapController extends Controller
         Requests\Roadmap\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $roadmap->modified_by_id = $user->id;
-        }
+        $roadmap->modified_by_id = $user?->id;
 
         $roadmap->update($validated);
 
-        return (new Resources\Roadmap($roadmap))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Roadmap($roadmap)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

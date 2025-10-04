@@ -1,0 +1,20 @@
+{
+    "class": "InstanceTest",
+    "config": "playground-matrix-api",
+    "extends": "",
+    "fqdn": "Tests/Unit/Playground/Matrix/Api/ServiceProvider/InstanceTest",
+    "model": "",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "InstanceTest",
+    "namespace": "Tests/Unit/Playground/Matrix/Api/ServiceProvider",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "unit",
+    "type": "playground-service-provider-policies",
+    "uses": [],
+    "models": [],
+    "package_providers": []
+}

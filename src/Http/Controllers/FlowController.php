@@ -1,14 +1,15 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api\Http\Controllers;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Support\Carbon;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
 use Playground\Matrix\Models\Flow;
@@ -45,28 +46,31 @@ class FlowController extends Controller
         Requests\Flow\CreateRequest $request
     ): JsonResponse|Resources\Flow {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
-        $user = $request->user();
+        $validated = $request->validated();
 
         $flow = new Flow($validated);
 
-        return (new Resources\Flow($flow))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Flow($flow)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
     /**
      * Edit the Flow resource in storage.
      *
-     * @route GET /api/matrix/flows/edit playground.matrix.api.flows.edit
+     * @route GET /api/matrix/flows/edit/{flow} playground.matrix.api.flows.edit
      */
     public function edit(
         Flow $flow,
         Requests\Flow\EditRequest $request
     ): JsonResponse|Resources\Flow {
-        return (new Resources\Flow($flow))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Flow($flow)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -107,7 +111,7 @@ class FlowController extends Controller
         Requests\Flow\LockRequest $request
     ): JsonResponse|Resources\Flow {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
@@ -119,8 +123,8 @@ class FlowController extends Controller
 
         $flow->save();
 
-        return (new Resources\Flow($flow))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Flow($flow)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -133,11 +137,20 @@ class FlowController extends Controller
         Requests\Flow\IndexRequest $request
     ): JsonResponse|Resources\FlowCollection {
 
-        $user = $request->user();
+        $packageInfo = $this->packageInfo();
 
+        /**
+         * @var array{
+         *     sort: string|array<mixed>,
+         *     filter: array{
+         *         trash: string
+         *     },
+         *     perPage: int
+         * } $validated
+         */
         $validated = $request->validated();
 
-        $query = Flow::addSelect(sprintf('%1$s.*', $this->packageInfo['table']));
+        $query = Flow::addSelect(sprintf('%1$s.*', $packageInfo->table()));
 
         $query->sort($validated['sort'] ?? null);
 
@@ -171,7 +184,7 @@ class FlowController extends Controller
 
         $paginator->appends($validated);
 
-        return (new Resources\FlowCollection($paginator))->response($request);
+        return new Resources\FlowCollection($paginator)->response($request);
     }
 
     /**
@@ -184,16 +197,16 @@ class FlowController extends Controller
         Requests\Flow\RestoreRequest $request
     ): JsonResponse|Resources\Flow {
 
+        $packageInfo = $this->packageInfo();
+
         $user = $request->user();
 
-        if ($user?->id) {
-            $flow->modified_by_id = $user->id;
-        }
+        $flow->modified_by_id = $user?->id;
 
         $flow->restore();
 
-        return (new Resources\Flow($flow))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Flow($flow)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -206,12 +219,15 @@ class FlowController extends Controller
         Flow $flow,
         Requests\Flow\ShowRequest $request
     ): JsonResponse|Resources\Flow {
-        return (new Resources\Flow($flow))->additional(['meta' => [
-            'info' => $this->packageInfo,
+
+        $packageInfo = $this->packageInfo();
+
+        return new Resources\Flow($flow)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
-   /**
+    /**
      * Store a newly created API Flow resource in storage.
      *
      * @route POST /api/matrix/flows playground.matrix.api.flows.post
@@ -219,6 +235,9 @@ class FlowController extends Controller
     public function store(
         Requests\Flow\StoreRequest $request
     ): Response|JsonResponse|Resources\Flow {
+
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
@@ -229,8 +248,8 @@ class FlowController extends Controller
 
         $flow->save();
 
-        return (new Resources\Flow($flow))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Flow($flow)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request)->setStatusCode(201);
     }
 
@@ -244,20 +263,18 @@ class FlowController extends Controller
         Requests\Flow\UnlockRequest $request
     ): JsonResponse|Resources\Flow {
 
-        $validated = $request->validated();
+        $packageInfo = $this->packageInfo();
 
         $user = $request->user();
 
         $flow->locked = false;
 
-        if ($user?->id) {
-            $flow->modified_by_id = $user->id;
-        }
+        $flow->modified_by_id = $user?->id;
 
         $flow->save();
 
-        return (new Resources\Flow($flow))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Flow($flow)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 
@@ -271,18 +288,18 @@ class FlowController extends Controller
         Requests\Flow\UpdateRequest $request
     ): JsonResponse {
 
+        $packageInfo = $this->packageInfo();
+
         $validated = $request->validated();
 
         $user = $request->user();
 
-        if ($user?->id) {
-            $flow->modified_by_id = $user->id;
-        }
+        $flow->modified_by_id = $user?->id;
 
         $flow->update($validated);
 
-        return (new Resources\Flow($flow))->additional(['meta' => [
-            'info' => $this->packageInfo,
+        return new Resources\Flow($flow)->additional(['meta' => [
+            'info' => $packageInfo,
         ]])->response($request);
     }
 }

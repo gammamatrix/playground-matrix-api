@@ -1,0 +1,23 @@
+{
+    "class": "DestroyRequestTest",
+    "config": "playground-matrix-api",
+    "extends": "RequestCase",
+    "fqdn": "Tests/Unit/Playground/Matrix/Api/DestroyRequestTest",
+    "model": "Note",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "DestroyRequestTest",
+    "namespace": "Tests/Unit/Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "playground": true,
+    "suite": "unit",
+    "type": "playground-request-model",
+    "uses": [
+        "Tests/Unit/Playground/Matrix/Api/PackageProviders",
+        "Playground/Test/Unit/Http/Requests/RequestCase"
+    ],
+    "models": [],
+    "package_providers": []
+}

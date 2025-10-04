@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Playground
  */
@@ -62,7 +63,7 @@ Route::group([
     Route::get('/{version}', [
         'as' => 'playground.matrix.api.versions.show',
         'uses' => 'VersionController@show',
-    ])->whereUuid('version')->can('detail', 'version');
+    ])->whereUuid('version')->can('detail', 'version')->withTrashed();
 
     // API
 

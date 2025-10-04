@@ -15,23 +15,28 @@
     "withFactories": false,
     "withMigrations": false,
     "withModels": false,
+    "withOpenAPI": true,
     "withPolicies": true,
     "withRequests": true,
     "withRoutes": true,
-    "withSwagger": true,
     "withTests": true,
+    "withTranslations": false,
     "playground": true,
     "revision": false,
+    "docs_name": "Playground: Matrix API at Read the Docs: Playground Documentation",
+    "docs_url": "https://gammamatrix-playground.readthedocs.io/en/develop/built-components/matrix.html",
     "package_name": "Playground: Matrix API",
+    "model_package": "playground-matrix",
+    "model_package_name": "Playground: Matrix",
     "package_description": "Playground: Provides an API, without a UI for interacting with Playground Matrix, a Project Management System for Laravel applications.",
     "package_homepage": "https://github.com/gammamatrix/playground-matrix-api",
-    "package_keywords": [
-        "gammamatrix",
-        "laravel",
-        "matrix",
-        "playground"
-    ],
     "package_license": "MIT",
+    "packagist": "gammamatrix/playground-matrix-api",
+    "postman_collection": "Postman: GammaMatrix Playground Workspace",
+    "postman_url": "https://www.postman.com/gammamatrix/workspace/playground/documentation/1185343-1e4a5656-d4e0-45b2-8f4e-daad7a6ee2b1",
+    "service_provider": "",
+    "type": "playground-api",
+    "version": "74.0.0",
     "package_authors": [
         {
             "name": "Jeremy Postlethwaite",
@@ -39,33 +44,78 @@
             "role": "Developer"
         }
     ],
-    "package_require": {
-        "php": "^8.2",
-        "gammamatrix/playground": "*",
-        "gammamatrix/playground-auth": "*",
-        "gammamatrix/playground-http": "*",
-        "gammamatrix/playground-matrix": "*"
-    },
-    "package_require_dev": {
-        "gammamatrix/playground-test": "*",
-        "laravel/sanctum": "^4.0"
-    },
-    "package_suggest": [],
     "package_autoload_psr4": [],
     "package_autoload_dev_psr4": [],
-    "package_providers": [],
+    "package_keywords": [
+        "agile",
+        "gammamatrix",
+        "laravel",
+        "matrix",
+        "playground",
+        "projects",
+        "sprints"
+    ],
     "package_laravel_providers": [
         "Playground/Matrix/Api/ServiceProvider"
     ],
-    "packagist": "gammamatrix/playground-matrix-api",
-    "controllers": [],
+    "package_providers": [],
+    "package_require": {
+        "php": "^8.4",
+        "gammamatrix/playground": "*",
+        "gammamatrix/playground-auth": "*",
+        "gammamatrix/playground-http": "*",
+        "gammamatrix/playground-matrix": "*",
+        "illuminate/support": "^12.0"
+    },
+    "package_require_dev": {
+        "gammamatrix/playground-test": "*",
+        "laravel/sanctum": "^4.0",
+        "illuminate/testing": "^12.0"
+    },
+    "package_suggest": [],
+    "controllers": [
+        "resources/package/controller.base.json",
+        "resources/package/backlog/controller.json",
+        "resources/package/board/controller.json",
+        "resources/package/epic/controller.json",
+        "resources/package/flow/controller.json",
+        "resources/package/matrix/controller.json",
+        "resources/package/milestone/controller.json",
+        "resources/package/note/controller.json",
+        "resources/package/project/controller.json",
+        "resources/package/release/controller.json",
+        "resources/package/roadmap/controller.json",
+        "resources/package/source/controller.json",
+        "resources/package/sprint/controller.json",
+        "resources/package/tag/controller.json",
+        "resources/package/team/controller.json",
+        "resources/package/ticket/controller.json",
+        "resources/package/version/controller.json"
+    ],
     "models": [],
     "policies": [],
-    "requests": [],
-    "routes": [],
+    "requests": [
+        "resources/package/form.request.json"
+    ],
+    "routes": {
+        "backlogs": "resources/package/backlog/route.json",
+        "boards": "resources/package/board/route.json",
+        "epics": "resources/package/epic/route.json",
+        "flows": "resources/package/flow/route.json",
+        "matrices": "resources/package/matrix/route.json",
+        "milestones": "resources/package/milestone/route.json",
+        "notes": "resources/package/note/route.json",
+        "projects": "resources/package/project/route.json",
+        "releases": "resources/package/release/route.json",
+        "roadmaps": "resources/package/roadmap/route.json",
+        "sources": "resources/package/source/route.json",
+        "sprints": "resources/package/sprint/route.json",
+        "tags": "resources/package/tag/route.json",
+        "teams": "resources/package/team/route.json",
+        "tickets": "resources/package/ticket/route.json",
+        "versions": "resources/package/version/route.json"
+    },
     "transformers": [],
-    "uses": [],
-    "service_provider": "",
-    "type": "playground-api",
-    "version": "73.0.0"
+    "translations": [],
+    "uses": []
 }

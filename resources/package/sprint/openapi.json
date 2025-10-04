@@ -1,0 +1,19 @@
+{
+    "class": "",
+    "config": "playground-matrix-api",
+    "fqdn": "",
+    "model": "Sprint",
+    "model_fqdn": "",
+    "model_column": "",
+    "model_label": "",
+    "model_slug_plural": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "Sprint",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "models": [],
+    "folder": "",
+    "type": "playground-api"
+}

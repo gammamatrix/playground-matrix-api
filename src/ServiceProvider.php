@@ -1,13 +1,16 @@
 <?php
+
 /**
  * Playground
  */
 
 declare(strict_types=1);
+
 namespace Playground\Matrix\Api;
 
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
 
 /**
@@ -15,7 +18,7 @@ use Illuminate\Support\Facades\Log;
  */
 class ServiceProvider extends AuthServiceProvider
 {
-    public const VERSION = '73.0.0';
+    public const string VERSION = '74.0.0';
 
     public string $package = 'playground-matrix-api';
 
@@ -26,18 +29,54 @@ class ServiceProvider extends AuthServiceProvider
     public function boot(): void
     {
         /**
-         * @var array<string, mixed> $config
+         * @var array{
+         *        about: bool,
+         *        layout: string,
+         *        load: array{
+         *            policies: bool,
+         *            routes: bool,
+         *            translations: bool
+         *        },
+         *        middleware: array{
+         *            default: string|string[],
+         *            auth: string|string[],
+         *            guest: string|string[]
+         *        },
+         *        policies: array<
+         *            class-string<\Illuminate\Database\Eloquent\Model>,
+         *            class-string<\Playground\Auth\Policies\Policy>
+         *        >,
+         *        routes: array{
+         *             backlogs: bool,
+         *             boards: bool,
+         *             epics: bool,
+         *             flows: bool,
+         *             matrices: bool,
+         *             milestones: bool,
+         *             notes: bool,
+         *             projects: bool,
+         *             releases: bool,
+         *             roadmaps: bool,
+         *             sources: bool,
+         *             sprints: bool,
+         *             tags: bool,
+         *             teams: bool,
+         *             tickets: bool,
+         *             versions: bool,
+         *        },
+         *        abilities: array<string, string[]>,
+         *    } $config
          */
         $config = config($this->package);
 
         if (! empty($config['load']) && is_array($config['load'])) {
 
-            // if (! empty($config['load']['translations'])) {
-            //     $this->loadTranslationsFrom(
-            //         dirname(__DIR__).'/lang',
-            //         $this->package
-            //     );
-            // }
+            if (! empty($config['load']['translations'])) {
+                $this->loadTranslationsFrom(
+                    dirname(__DIR__).'/lang',
+                    $this->package
+                );
+            }
 
             if (! empty($config['load']['policies'])
                 && ! empty($config['policies'])
@@ -55,7 +94,7 @@ class ServiceProvider extends AuthServiceProvider
             }
         }
 
-        if ($this->app->runningInConsole()) {
+        if (App::runningInConsole()) {
             // Publish configuration
             $this->publishes([
                 sprintf('%1$s/config/%2$s.php', dirname(__DIR__), $this->package) => config_path(sprintf('%1$s.php', $this->package)),
@@ -86,7 +125,7 @@ class ServiceProvider extends AuthServiceProvider
     /**
      * Set the application's policies from the configuration.
      *
-     * @param array<class-string, class-string> $policies
+     * @param  array<class-string, class-string>  $policies
      */
     public function setPolicies(array $policies): void
     {
@@ -104,7 +143,7 @@ class ServiceProvider extends AuthServiceProvider
             if (! is_string($policy) || ! class_exists($policy)) {
                 Log::error('Expecting the policy to exist for the model.', [
                     '__METHOD__' => __METHOD__,
-                    'model' => is_string($model) ? $model : gettype($model),
+                    'model' => $model,
                     'policy' => is_string($policy) ? $policy : gettype($policy),
                     'policies' => $policies,
                 ]);
@@ -116,7 +155,7 @@ class ServiceProvider extends AuthServiceProvider
     }
 
     /**
-     * @param array<string, mixed> $config
+     * @param  array<string, mixed>  $config
      */
     public function routes(array $config): void
     {
@@ -187,7 +226,7 @@ class ServiceProvider extends AuthServiceProvider
 
             '<fg=yellow;options=bold>Load</> Policies' => ! empty($load['policies']) ? '<fg=green;options=bold>ENABLED</>' : '<fg=yellow;options=bold>DISABLED</>',
             '<fg=yellow;options=bold>Load</> Routes' => ! empty($load['routes']) ? '<fg=green;options=bold>ENABLED</>' : '<fg=yellow;options=bold>DISABLED</>',
-            // '<fg=yellow;options=bold>Load</> Translations' => ! empty($load['translations']) ? '<fg=green;options=bold>ENABLED</>' : '<fg=yellow;options=bold>DISABLED</>',
+            '<fg=yellow;options=bold>Load</> Translations' => ! empty($load['translations']) ? '<fg=green;options=bold>ENABLED</>' : '<fg=yellow;options=bold>DISABLED</>',
 
             '<fg=yellow;options=bold>Middleware</> auth' => ! empty($middleware['auth']) ? sprintf('%s', json_encode($middleware['auth'])) : '',
             '<fg=yellow;options=bold>Middleware</> default' => ! empty($middleware['default']) ? sprintf('%s', json_encode($middleware['default'])) : '',

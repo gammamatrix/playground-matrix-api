@@ -1,0 +1,17 @@
+{
+    "class": "MatrixCollection",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Resources/MatrixCollection",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "MatrixCollection",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "collection": true,
+    "model": "Matrix",
+    "model_fqdn": "Playground/Matrix/Models/Matrix",
+    "model_slug": "matrix",
+    "type": "",
+    "models": []
+}

@@ -1,0 +1,22 @@
+{
+    "class": "ShowRequest",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Requests/Tag/Tag",
+    "model": "Tag",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "Tag",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "abstract": false,
+    "pagination": false,
+    "playground": false,
+    "store": false,
+    "slug": false,
+    "type": "show",
+    "extends": "FormRequest",
+    "extends_use": "Playground/Matrix/Api/Http/Requests/FormRequest",
+    "models": []
+}

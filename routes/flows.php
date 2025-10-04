@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Playground
  */
@@ -62,7 +63,7 @@ Route::group([
     Route::get('/{flow}', [
         'as' => 'playground.matrix.api.flows.show',
         'uses' => 'FlowController@show',
-    ])->whereUuid('flow')->can('detail', 'flow');
+    ])->whereUuid('flow')->can('detail', 'flow')->withTrashed();
 
     // API
 

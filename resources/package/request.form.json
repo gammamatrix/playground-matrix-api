@@ -1,0 +1,22 @@
+{
+    "class": "FormRequest",
+    "config": "playground-matrix-api",
+    "fqdn": "Playground/Matrix/Api/Http/Requests/FormRequest",
+    "model": "",
+    "model_fqdn": "",
+    "module": "Matrix",
+    "module_slug": "matrix",
+    "name": "FormRequest",
+    "namespace": "Playground/Matrix/Api",
+    "organization": "Playground",
+    "package": "playground-matrix-api",
+    "abstract": false,
+    "pagination": false,
+    "playground": false,
+    "store": false,
+    "slug": false,
+    "type": "form-request",
+    "extends": "FormRequest",
+    "extends_use": "Illuminate/Foundation/Http/FormRequest",
+    "models": []
+}
