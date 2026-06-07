@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Playground\Matrix\Api\Http\Requests\Team;
 
+use Playground\Matrix\Api\Http\Requests\Team\DestroyRequest;
 use Tests\Unit\Playground\Matrix\Api\Http\Requests\RequestTestCase;
 
 /**
@@ -15,5 +16,5 @@ use Tests\Unit\Playground\Matrix\Api\Http\Requests\RequestTestCase;
  */
 class DestroyRequestTest extends RequestTestCase
 {
-    protected string $requestClass = \Playground\Matrix\Api\Http\Requests\Team\DestroyRequest::class;
+    protected string $requestClass = DestroyRequest::class;
 }

@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Source;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.sources',
         'uses' => 'SourceController@index',
-    ])->can('index', Playground\Matrix\Models\Source::class);
+    ])->can('index', Source::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.sources.index',
         'uses' => 'SourceController@index',
-    ])->can('index', Playground\Matrix\Models\Source::class);
+    ])->can('index', Source::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.sources.create',
         'uses' => 'SourceController@create',
-    ])->can('create', Playground\Matrix\Models\Source::class);
+    ])->can('create', Source::class);
 
     Route::get('/edit/{source}', [
         'as' => 'playground.matrix.api.sources.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.sources.post',
         'uses' => 'SourceController@store',
-    ])->can('store', Playground\Matrix\Models\Source::class);
+    ])->can('store', Source::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.sources.put',

@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Release;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.releases',
         'uses' => 'ReleaseController@index',
-    ])->can('index', Playground\Matrix\Models\Release::class);
+    ])->can('index', Release::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.releases.index',
         'uses' => 'ReleaseController@index',
-    ])->can('index', Playground\Matrix\Models\Release::class);
+    ])->can('index', Release::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.releases.create',
         'uses' => 'ReleaseController@create',
-    ])->can('create', Playground\Matrix\Models\Release::class);
+    ])->can('create', Release::class);
 
     Route::get('/edit/{release}', [
         'as' => 'playground.matrix.api.releases.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.releases.post',
         'uses' => 'ReleaseController@store',
-    ])->can('store', Playground\Matrix\Models\Release::class);
+    ])->can('store', Release::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.releases.put',

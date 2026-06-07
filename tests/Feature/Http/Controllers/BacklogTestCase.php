@@ -8,12 +8,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers;
 
+use Playground\Matrix\Models\Backlog;
+
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\BacklogTestCase
  */
 class BacklogTestCase extends TestCase
 {
-    public string $fqdn = \Playground\Matrix\Models\Backlog::class;
+    public string $fqdn = Backlog::class;
 
     protected int $status_code_json_guest_create = 401;
 

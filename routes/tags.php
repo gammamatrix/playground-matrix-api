@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Tag;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.tags',
         'uses' => 'TagController@index',
-    ])->can('index', Playground\Matrix\Models\Tag::class);
+    ])->can('index', Tag::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.tags.index',
         'uses' => 'TagController@index',
-    ])->can('index', Playground\Matrix\Models\Tag::class);
+    ])->can('index', Tag::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.tags.create',
         'uses' => 'TagController@create',
-    ])->can('create', Playground\Matrix\Models\Tag::class);
+    ])->can('create', Tag::class);
 
     Route::get('/edit/{tag}', [
         'as' => 'playground.matrix.api.tags.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.tags.post',
         'uses' => 'TagController@store',
-    ])->can('store', Playground\Matrix\Models\Tag::class);
+    ])->can('store', Tag::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.tags.put',

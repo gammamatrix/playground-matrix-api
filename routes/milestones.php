@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Milestone;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.milestones',
         'uses' => 'MilestoneController@index',
-    ])->can('index', Playground\Matrix\Models\Milestone::class);
+    ])->can('index', Milestone::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.milestones.index',
         'uses' => 'MilestoneController@index',
-    ])->can('index', Playground\Matrix\Models\Milestone::class);
+    ])->can('index', Milestone::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.milestones.create',
         'uses' => 'MilestoneController@create',
-    ])->can('create', Playground\Matrix\Models\Milestone::class);
+    ])->can('create', Milestone::class);
 
     Route::get('/edit/{milestone}', [
         'as' => 'playground.matrix.api.milestones.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.milestones.post',
         'uses' => 'MilestoneController@store',
-    ])->can('store', Playground\Matrix\Models\Milestone::class);
+    ])->can('store', Milestone::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.milestones.put',

@@ -25,12 +25,12 @@
         "gammamatrix/playground-auth": "*",
         "gammamatrix/playground-http": "*",
         "gammamatrix/playground-matrix": "*",
-        "illuminate/support": "^12.0"
+        "illuminate/support": "^13.0"
     },
     "require-dev": {
         "gammamatrix/playground-test": "*",
         "laravel/sanctum": "^4.0",
-        "illuminate/testing": "^12.0"
+        "illuminate/testing": "^13.0"
     },
     "autoload": {
         "psr-4": {
@@ -52,7 +52,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-develop": "74.x-dev"
+            "dev-develop": "75.x-dev"
         },
         "laravel": {
             "providers": [

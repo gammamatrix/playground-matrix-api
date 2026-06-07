@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Flow;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.flows',
         'uses' => 'FlowController@index',
-    ])->can('index', Playground\Matrix\Models\Flow::class);
+    ])->can('index', Flow::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.flows.index',
         'uses' => 'FlowController@index',
-    ])->can('index', Playground\Matrix\Models\Flow::class);
+    ])->can('index', Flow::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.flows.create',
         'uses' => 'FlowController@create',
-    ])->can('create', Playground\Matrix\Models\Flow::class);
+    ])->can('create', Flow::class);
 
     Route::get('/edit/{flow}', [
         'as' => 'playground.matrix.api.flows.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.flows.post',
         'uses' => 'FlowController@store',
-    ])->can('store', Playground\Matrix\Models\Flow::class);
+    ])->can('store', Flow::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.flows.put',

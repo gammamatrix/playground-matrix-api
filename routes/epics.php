@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Epic;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.epics',
         'uses' => 'EpicController@index',
-    ])->can('index', Playground\Matrix\Models\Epic::class);
+    ])->can('index', Epic::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.epics.index',
         'uses' => 'EpicController@index',
-    ])->can('index', Playground\Matrix\Models\Epic::class);
+    ])->can('index', Epic::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.epics.create',
         'uses' => 'EpicController@create',
-    ])->can('create', Playground\Matrix\Models\Epic::class);
+    ])->can('create', Epic::class);
 
     Route::get('/edit/{epic}', [
         'as' => 'playground.matrix.api.epics.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.epics.post',
         'uses' => 'EpicController@store',
-    ])->can('store', Playground\Matrix\Models\Epic::class);
+    ])->can('store', Epic::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.epics.put',

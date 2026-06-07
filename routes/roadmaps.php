@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Roadmap;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.roadmaps',
         'uses' => 'RoadmapController@index',
-    ])->can('index', Playground\Matrix\Models\Roadmap::class);
+    ])->can('index', Roadmap::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.roadmaps.index',
         'uses' => 'RoadmapController@index',
-    ])->can('index', Playground\Matrix\Models\Roadmap::class);
+    ])->can('index', Roadmap::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.roadmaps.create',
         'uses' => 'RoadmapController@create',
-    ])->can('create', Playground\Matrix\Models\Roadmap::class);
+    ])->can('create', Roadmap::class);
 
     Route::get('/edit/{roadmap}', [
         'as' => 'playground.matrix.api.roadmaps.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.roadmaps.post',
         'uses' => 'RoadmapController@store',
-    ])->can('store', Playground\Matrix\Models\Roadmap::class);
+    ])->can('store', Roadmap::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.roadmaps.put',

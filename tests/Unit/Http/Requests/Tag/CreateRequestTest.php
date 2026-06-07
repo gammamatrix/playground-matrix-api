@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Playground\Matrix\Api\Http\Requests\Tag;
 
+use Playground\Matrix\Api\Http\Requests\Tag\CreateRequest;
 use Tests\Unit\Playground\Matrix\Api\Http\Requests\RequestTestCase;
 
 /**
@@ -15,5 +16,5 @@ use Tests\Unit\Playground\Matrix\Api\Http\Requests\RequestTestCase;
  */
 class CreateRequestTest extends RequestTestCase
 {
-    protected string $requestClass = \Playground\Matrix\Api\Http\Requests\Tag\CreateRequest::class;
+    protected string $requestClass = CreateRequest::class;
 }

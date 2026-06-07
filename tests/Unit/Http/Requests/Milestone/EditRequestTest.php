@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Playground\Matrix\Api\Http\Requests\Milestone;
 
+use Playground\Matrix\Api\Http\Requests\Milestone\EditRequest;
 use Tests\Unit\Playground\Matrix\Api\Http\Requests\RequestTestCase;
 
 /**
@@ -15,5 +16,5 @@ use Tests\Unit\Playground\Matrix\Api\Http\Requests\RequestTestCase;
  */
 class EditRequestTest extends RequestTestCase
 {
-    protected string $requestClass = \Playground\Matrix\Api\Http\Requests\Milestone\EditRequest::class;
+    protected string $requestClass = EditRequest::class;
 }

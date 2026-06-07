@@ -8,12 +8,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers;
 
+use Playground\Matrix\Models\Source;
+
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\SourceTestCase
  */
 class SourceTestCase extends TestCase
 {
-    public string $fqdn = \Playground\Matrix\Models\Source::class;
+    public string $fqdn = Source::class;
 
     protected int $status_code_json_guest_create = 401;
 

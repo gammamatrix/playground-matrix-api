@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Project;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.projects',
         'uses' => 'ProjectController@index',
-    ])->can('index', Playground\Matrix\Models\Project::class);
+    ])->can('index', Project::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.projects.index',
         'uses' => 'ProjectController@index',
-    ])->can('index', Playground\Matrix\Models\Project::class);
+    ])->can('index', Project::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.projects.create',
         'uses' => 'ProjectController@create',
-    ])->can('create', Playground\Matrix\Models\Project::class);
+    ])->can('create', Project::class);
 
     Route::get('/edit/{project}', [
         'as' => 'playground.matrix.api.projects.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.projects.post',
         'uses' => 'ProjectController@store',
-    ])->can('store', Playground\Matrix\Models\Project::class);
+    ])->can('store', Project::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.projects.put',

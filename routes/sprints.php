@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Sprint;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.sprints',
         'uses' => 'SprintController@index',
-    ])->can('index', Playground\Matrix\Models\Sprint::class);
+    ])->can('index', Sprint::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.sprints.index',
         'uses' => 'SprintController@index',
-    ])->can('index', Playground\Matrix\Models\Sprint::class);
+    ])->can('index', Sprint::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.sprints.create',
         'uses' => 'SprintController@create',
-    ])->can('create', Playground\Matrix\Models\Sprint::class);
+    ])->can('create', Sprint::class);
 
     Route::get('/edit/{sprint}', [
         'as' => 'playground.matrix.api.sprints.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.sprints.post',
         'uses' => 'SprintController@store',
-    ])->can('store', Playground\Matrix\Models\Sprint::class);
+    ])->can('store', Sprint::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.sprints.put',

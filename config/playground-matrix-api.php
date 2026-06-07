@@ -5,6 +5,40 @@
  */
 
 declare(strict_types=1);
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+use Playground\Matrix\Api\Policies\BacklogPolicy;
+use Playground\Matrix\Api\Policies\BoardPolicy;
+use Playground\Matrix\Api\Policies\EpicPolicy;
+use Playground\Matrix\Api\Policies\FlowPolicy;
+use Playground\Matrix\Api\Policies\MatrixPolicy;
+use Playground\Matrix\Api\Policies\MilestonePolicy;
+use Playground\Matrix\Api\Policies\NotePolicy;
+use Playground\Matrix\Api\Policies\ProjectPolicy;
+use Playground\Matrix\Api\Policies\ReleasePolicy;
+use Playground\Matrix\Api\Policies\RoadmapPolicy;
+use Playground\Matrix\Api\Policies\SourcePolicy;
+use Playground\Matrix\Api\Policies\SprintPolicy;
+use Playground\Matrix\Api\Policies\TagPolicy;
+use Playground\Matrix\Api\Policies\TeamPolicy;
+use Playground\Matrix\Api\Policies\TicketPolicy;
+use Playground\Matrix\Api\Policies\VersionPolicy;
+use Playground\Matrix\Models\Backlog;
+use Playground\Matrix\Models\Board;
+use Playground\Matrix\Models\Epic;
+use Playground\Matrix\Models\Flow;
+use Playground\Matrix\Models\Matrix;
+use Playground\Matrix\Models\Milestone;
+use Playground\Matrix\Models\Note;
+use Playground\Matrix\Models\Project;
+use Playground\Matrix\Models\Release;
+use Playground\Matrix\Models\Roadmap;
+use Playground\Matrix\Models\Source;
+use Playground\Matrix\Models\Sprint;
+use Playground\Matrix\Models\Tag;
+use Playground\Matrix\Models\Team;
+use Playground\Matrix\Models\Ticket;
+use Playground\Matrix\Models\Version;
 
 /**
  * Playground: Matrix API Configuration and Environment Variables
@@ -50,20 +84,20 @@ return [
     'middleware' => [
         'default' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_DEFAULT', [
             'web',
-            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            SubstituteBindings::class,
             'auth:sanctum',
-            Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            EnsureFrontendRequestsAreStateful::class,
         ]),
         'auth' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_AUTH', [
             'web',
-            Illuminate\Routing\Middleware\SubstituteBindings::class,
+            SubstituteBindings::class,
             'auth:sanctum',
-            Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            EnsureFrontendRequestsAreStateful::class,
         ]),
         'guest' => env('PLAYGROUND_MATRIX_API_MIDDLEWARE_GUEST', [
             'web',
-            Illuminate\Routing\Middleware\SubstituteBindings::class,
-            Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
+            SubstituteBindings::class,
+            EnsureFrontendRequestsAreStateful::class,
         ]),
     ],
 
@@ -76,22 +110,22 @@ return [
     */
 
     'policies' => [
-        Playground\Matrix\Models\Backlog::class => Playground\Matrix\Api\Policies\BacklogPolicy::class,
-        Playground\Matrix\Models\Board::class => Playground\Matrix\Api\Policies\BoardPolicy::class,
-        Playground\Matrix\Models\Epic::class => Playground\Matrix\Api\Policies\EpicPolicy::class,
-        Playground\Matrix\Models\Flow::class => Playground\Matrix\Api\Policies\FlowPolicy::class,
-        Playground\Matrix\Models\Matrix::class => Playground\Matrix\Api\Policies\MatrixPolicy::class,
-        Playground\Matrix\Models\Milestone::class => Playground\Matrix\Api\Policies\MilestonePolicy::class,
-        Playground\Matrix\Models\Note::class => Playground\Matrix\Api\Policies\NotePolicy::class,
-        Playground\Matrix\Models\Project::class => Playground\Matrix\Api\Policies\ProjectPolicy::class,
-        Playground\Matrix\Models\Release::class => Playground\Matrix\Api\Policies\ReleasePolicy::class,
-        Playground\Matrix\Models\Roadmap::class => Playground\Matrix\Api\Policies\RoadmapPolicy::class,
-        Playground\Matrix\Models\Source::class => Playground\Matrix\Api\Policies\SourcePolicy::class,
-        Playground\Matrix\Models\Sprint::class => Playground\Matrix\Api\Policies\SprintPolicy::class,
-        Playground\Matrix\Models\Tag::class => Playground\Matrix\Api\Policies\TagPolicy::class,
-        Playground\Matrix\Models\Team::class => Playground\Matrix\Api\Policies\TeamPolicy::class,
-        Playground\Matrix\Models\Ticket::class => Playground\Matrix\Api\Policies\TicketPolicy::class,
-        Playground\Matrix\Models\Version::class => Playground\Matrix\Api\Policies\VersionPolicy::class,
+        Backlog::class => BacklogPolicy::class,
+        Board::class => BoardPolicy::class,
+        Epic::class => EpicPolicy::class,
+        Flow::class => FlowPolicy::class,
+        Matrix::class => MatrixPolicy::class,
+        Milestone::class => MilestonePolicy::class,
+        Note::class => NotePolicy::class,
+        Project::class => ProjectPolicy::class,
+        Release::class => ReleasePolicy::class,
+        Roadmap::class => RoadmapPolicy::class,
+        Source::class => SourcePolicy::class,
+        Sprint::class => SprintPolicy::class,
+        Tag::class => TagPolicy::class,
+        Team::class => TeamPolicy::class,
+        Ticket::class => TicketPolicy::class,
+        Version::class => VersionPolicy::class,
     ],
 
     /*

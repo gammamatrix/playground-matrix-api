@@ -8,12 +8,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers;
 
+use Playground\Matrix\Models\Milestone;
+
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\MilestoneTestCase
  */
 class MilestoneTestCase extends TestCase
 {
-    public string $fqdn = \Playground\Matrix\Models\Milestone::class;
+    public string $fqdn = Milestone::class;
 
     protected int $status_code_json_guest_create = 401;
 

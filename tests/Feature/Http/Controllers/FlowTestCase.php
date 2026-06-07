@@ -8,12 +8,14 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Playground\Matrix\Api\Http\Controllers;
 
+use Playground\Matrix\Models\Flow;
+
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\FlowTestCase
  */
 class FlowTestCase extends TestCase
 {
-    public string $fqdn = \Playground\Matrix\Models\Flow::class;
+    public string $fqdn = Flow::class;
 
     protected int $status_code_json_guest_create = 401;
 

@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Note;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.notes',
         'uses' => 'NoteController@index',
-    ])->can('index', Playground\Matrix\Models\Note::class);
+    ])->can('index', Note::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.notes.index',
         'uses' => 'NoteController@index',
-    ])->can('index', Playground\Matrix\Models\Note::class);
+    ])->can('index', Note::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.notes.create',
         'uses' => 'NoteController@create',
-    ])->can('create', Playground\Matrix\Models\Note::class);
+    ])->can('create', Note::class);
 
     Route::get('/edit/{note}', [
         'as' => 'playground.matrix.api.notes.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.notes.post',
         'uses' => 'NoteController@store',
-    ])->can('store', Playground\Matrix\Models\Note::class);
+    ])->can('store', Note::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.notes.put',

@@ -7,6 +7,7 @@
 declare(strict_types=1);
 
 use Illuminate\Support\Facades\Route;
+use Playground\Matrix\Models\Backlog;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,19 @@ Route::group([
     Route::get('/', [
         'as' => 'playground.matrix.api.backlogs',
         'uses' => 'BacklogController@index',
-    ])->can('index', Playground\Matrix\Models\Backlog::class);
+    ])->can('index', Backlog::class);
 
     Route::post('/index', [
         'as' => 'playground.matrix.api.backlogs.index',
         'uses' => 'BacklogController@index',
-    ])->can('index', Playground\Matrix\Models\Backlog::class);
+    ])->can('index', Backlog::class);
 
     // UI
 
     Route::get('/create', [
         'as' => 'playground.matrix.api.backlogs.create',
         'uses' => 'BacklogController@create',
-    ])->can('create', Playground\Matrix\Models\Backlog::class);
+    ])->can('create', Backlog::class);
 
     Route::get('/edit/{backlog}', [
         'as' => 'playground.matrix.api.backlogs.edit',
@@ -90,7 +91,7 @@ Route::group([
     Route::post('/', [
         'as' => 'playground.matrix.api.backlogs.post',
         'uses' => 'BacklogController@store',
-    ])->can('store', Playground\Matrix\Models\Backlog::class);
+    ])->can('store', Backlog::class);
 
     // Route::put('/', [
     //     'as' => 'playground.matrix.api.backlogs.put',
