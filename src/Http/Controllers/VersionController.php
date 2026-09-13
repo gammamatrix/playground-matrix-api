@@ -29,6 +29,8 @@ class VersionController extends Controller
         'model_route' => 'playground.matrix.api.versions',
         'model_slug' => 'version',
         'model_slug_plural' => 'versions',
+        'model_variable' => 'version',
+        'model_variable_plural' => 'versions',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',

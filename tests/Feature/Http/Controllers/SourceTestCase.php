@@ -53,6 +53,8 @@ class SourceTestCase extends TestCase
         'model_route' => 'playground.matrix.api.sources',
         'model_slug' => 'source',
         'model_slug_plural' => 'sources',
+        'model_variable' => 'source',
+        'model_variable_plural' => 'sources',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',

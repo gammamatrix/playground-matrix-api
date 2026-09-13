@@ -29,6 +29,8 @@ class TagController extends Controller
         'model_route' => 'playground.matrix.api.tags',
         'model_slug' => 'tag',
         'model_slug_plural' => 'tags',
+        'model_variable' => 'tag',
+        'model_variable_plural' => 'tags',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',

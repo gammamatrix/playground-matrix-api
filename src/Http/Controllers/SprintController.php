@@ -29,6 +29,8 @@ class SprintController extends Controller
         'model_route' => 'playground.matrix.api.sprints',
         'model_slug' => 'sprint',
         'model_slug_plural' => 'sprints',
+        'model_variable' => 'sprint',
+        'model_variable_plural' => 'sprints',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',

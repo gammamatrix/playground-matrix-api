@@ -29,6 +29,8 @@ class FlowController extends Controller
         'model_route' => 'playground.matrix.api.flows',
         'model_slug' => 'flow',
         'model_slug_plural' => 'flows',
+        'model_variable' => 'flow',
+        'model_variable_plural' => 'flows',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',

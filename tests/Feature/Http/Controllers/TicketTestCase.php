@@ -53,6 +53,8 @@ class TicketTestCase extends TestCase
         'model_route' => 'playground.matrix.api.tickets',
         'model_slug' => 'ticket',
         'model_slug_plural' => 'tickets',
+        'model_variable' => 'ticket',
+        'model_variable_plural' => 'tickets',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',

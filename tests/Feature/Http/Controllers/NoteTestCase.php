@@ -53,6 +53,8 @@ class NoteTestCase extends TestCase
         'model_route' => 'playground.matrix.api.notes',
         'model_slug' => 'note',
         'model_slug_plural' => 'notes',
+        'model_variable' => 'note',
+        'model_variable_plural' => 'notes',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',

@@ -53,6 +53,8 @@ class RoadmapTestCase extends TestCase
         'model_route' => 'playground.matrix.api.roadmaps',
         'model_slug' => 'roadmap',
         'model_slug_plural' => 'roadmaps',
+        'model_variable' => 'roadmap',
+        'model_variable_plural' => 'roadmaps',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',

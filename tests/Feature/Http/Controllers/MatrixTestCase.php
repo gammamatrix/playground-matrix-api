@@ -53,6 +53,8 @@ class MatrixTestCase extends TestCase
         'model_route' => 'playground.matrix.api.matrices',
         'model_slug' => 'matrix',
         'model_slug_plural' => 'matrices',
+        'model_variable' => 'matrix',
+        'model_variable_plural' => 'matrices',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',

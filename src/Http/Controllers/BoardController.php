@@ -29,6 +29,8 @@ class BoardController extends Controller
         'model_route' => 'playground.matrix.api.boards',
         'model_slug' => 'board',
         'model_slug_plural' => 'boards',
+        'model_variable' => 'board',
+        'model_variable_plural' => 'boards',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
         'module_route' => 'playground.matrix.api',
