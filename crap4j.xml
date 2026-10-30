@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <crap_result>
   <project/>
-  <timestamp>2026-09-13 20:15:13</timestamp>
+  <timestamp>2026-10-30 17:29:43</timestamp>
   <stats>
     <name>Method Crap Stats</name>
-    <methodCount>249</methodCount>
+    <methodCount>254</methodCount>
     <crapMethodCount>0</crapMethodCount>
     <crapLoad>0</crapLoad>
-    <totalCrap>478</totalCrap>
+    <totalCrap>493</totalCrap>
     <crapMethodPercent>0</crapMethodPercent>
   </stats>
   <methods>
@@ -1454,6 +1454,28 @@
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Controllers</package>
+      <className>Playground\Matrix\Api\Http\Controllers\TaggedController</className>
+      <methodName>destroy</methodName>
+      <methodSignature>destroy(Tagged $tagged, Requests\Tagged\DestroyRequest $request): Response</methodSignature>
+      <fullMethod>destroy(Tagged $tagged, Requests\Tagged\DestroyRequest $request): Response</fullMethod>
+      <crap>1</crap>
+      <complexity>1</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
+    </method>
+    <method>
+      <package>Playground\Matrix\Api\Http\Controllers</package>
+      <className>Playground\Matrix\Api\Http\Controllers\TaggedController</className>
+      <methodName>store</methodName>
+      <methodSignature>store(Requests\Tagged\StoreRequest $request): Response|JsonResponse|Resources\Tagged</methodSignature>
+      <fullMethod>store(Requests\Tagged\StoreRequest $request): Response|JsonResponse|Resources\Tagged</fullMethod>
+      <crap>2</crap>
+      <complexity>1</complexity>
+      <coverage>0</coverage>
+      <crapLoad>0</crapLoad>
+    </method>
+    <method>
+      <package>Playground\Matrix\Api\Http\Controllers</package>
       <className>Playground\Matrix\Api\Http\Controllers\TeamController</className>
       <methodName>create</methodName>
       <methodSignature>create(Requests\Team\CreateRequest $request): JsonResponse|Resources\Team</methodSignature>
@@ -2245,6 +2267,28 @@
       <crapLoad>0</crapLoad>
     </method>
     <method>
+      <package>Playground\Matrix\Api\Http\Requests\Tagged</package>
+      <className>Playground\Matrix\Api\Http\Requests\Tagged\DestroyRequest</className>
+      <methodName>rules</methodName>
+      <methodSignature>rules(): array</methodSignature>
+      <fullMethod>rules(): array</fullMethod>
+      <crap>2</crap>
+      <complexity>2</complexity>
+      <coverage>100</coverage>
+      <crapLoad>0</crapLoad>
+    </method>
+    <method>
+      <package>Playground\Matrix\Api\Http\Requests\Tagged</package>
+      <className>Playground\Matrix\Api\Http\Requests\Tagged\StoreRequest</className>
+      <methodName>prepareForValidation</methodName>
+      <methodSignature>prepareForValidation()</methodSignature>
+      <fullMethod>prepareForValidation()</fullMethod>
+      <crap>6</crap>
+      <complexity>2</complexity>
+      <coverage>0</coverage>
+      <crapLoad>0</crapLoad>
+    </method>
+    <method>
       <package>Playground\Matrix\Api\Http\Requests\Team</package>
       <className>Playground\Matrix\Api\Http\Requests\Team\DestroyRequest</className>
       <methodName>rules</methodName>
@@ -2631,6 +2675,17 @@
     </method>
     <method>
       <package>Playground\Matrix\Api\Http\Resources</package>
+      <className>Playground\Matrix\Api\Http\Resources\Tagged</className>
+      <methodName>with</methodName>
+      <methodSignature>with(Request $request): array</methodSignature>
+      <fullMethod>with(Request $request): array</fullMethod>
+      <crap>2</crap>
+      <complexity>1</complexity>
+      <coverage>0</coverage>
+      <crapLoad>0</crapLoad>
+    </method>
+    <method>
+      <package>Playground\Matrix\Api\Http\Resources</package>
       <className>Playground\Matrix\Api\Http\Resources\Team</className>
       <methodName>with</methodName>
       <methodSignature>with(Request $request): array</methodSignature>
@@ -2734,8 +2789,8 @@
       <methodName>routes</methodName>
       <methodSignature>routes(array $config): void</methodSignature>
       <fullMethod>routes(array $config): void</fullMethod>
-      <crap>17</crap>
-      <complexity>17</complexity>
+      <crap>18</crap>
+      <complexity>18</complexity>
       <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
@@ -2745,8 +2800,8 @@
       <methodName>about</methodName>
       <methodSignature>about(): void</methodSignature>
       <fullMethod>about(): void</fullMethod>
-      <crap>32</crap>
-      <complexity>32</complexity>
+      <crap>33</crap>
+      <complexity>33</complexity>
       <coverage>100</coverage>
       <crapLoad>0</crapLoad>
     </method>
