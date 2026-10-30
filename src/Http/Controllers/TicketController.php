@@ -12,7 +12,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Playground\Matrix\Api\Http\Requests;
 use Playground\Matrix\Api\Http\Resources;
-use Playground\Matrix\Concerns\Creating;
 use Playground\Matrix\Models\Ticket;
 
 /**
@@ -20,8 +19,6 @@ use Playground\Matrix\Models\Ticket;
  */
 class TicketController extends Controller
 {
-    use Creating;
-
     /**
      * @var array<string, string>
      */
@@ -266,8 +263,6 @@ class TicketController extends Controller
         $ticket = new Ticket($validated);
 
         $ticket->created_by_id = $user?->id;
-
-        $this->handleTicketCode($ticket);
 
         $ticket->save();
 
