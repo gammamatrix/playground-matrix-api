@@ -13,7 +13,7 @@ use Playground\Matrix\Models\Project;
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\ProjectTestCase
  */
-class ProjectTestCase extends TestCase
+class ProjectTestCase extends PlaygroundCase
 {
     public string $fqdn = Project::class;
 
@@ -29,12 +29,6 @@ class ProjectTestCase extends TestCase
 
     protected int $status_code_json_guest_restore = 401;
 
-    protected int $status_code_json_guest_restore_revision = 401;
-
-    protected int $status_code_guest_json_revision = 401;
-
-    protected int $status_code_guest_json_revisions = 401;
-
     protected int $status_code_json_guest_show = 401;
 
     protected int $status_code_guest_json_store = 401;
@@ -48,17 +42,33 @@ class ProjectTestCase extends TestCase
      */
     public array $packageInfo = [
         'model_attribute' => 'title',
+        'model_camel' => 'project',
+        'model_camels' => 'projects',
+        'model_kebab' => 'project',
+        'model_kebabs' => 'projects',
+        'model_lower' => 'project',
+        'model_lowers' => 'projects',
         'model_label' => 'Project',
         'model_label_plural' => 'Projects',
+        'model_labels' => 'Projects',
         'model_route' => 'playground.matrix.api.projects',
+        'model_route_param' => 'project',
         'model_slug' => 'project',
+        'model_slugs' => 'projects',
         'model_slug_plural' => 'projects',
+        'model_snake' => 'project',
+        'model_snakes' => 'projects',
+        'model_studly' => 'Project',
+        'model_studlies' => 'Projects',
         'model_variable' => 'project',
+        'model_variables' => 'projects',
         'model_variable_plural' => 'projects',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
+        'module_labels' => 'Matrices',
         'module_route' => 'playground.matrix.api',
         'module_slug' => 'matrix',
+        'module_slugs' => 'matrices',
         'privilege' => 'playground-matrix-api:project',
         'table' => 'matrix_projects',
     ];
@@ -73,18 +83,17 @@ class ProjectTestCase extends TestCase
         'modified_by_id',
         'owned_by_id',
         'parent_id',
+        'matrix_id',
         'backlog_id',
         'board_id',
         'epic_id',
         'flow_id',
-        'matrix_id',
         'milestone_id',
         'note_id',
         'release_id',
         'roadmap_id',
         'source_id',
         'sprint_id',
-        'tag_id',
         'team_id',
         'ticket_id',
         'version_id',

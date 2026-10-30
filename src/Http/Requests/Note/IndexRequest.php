@@ -33,7 +33,7 @@ class IndexRequest extends BaseIndexRequest
         'closed' => ['column' => 'closed', 'label' => 'Closed', 'icon' => 'fa-solid fa-xmark'],
         'completed' => ['column' => 'completed', 'label' => 'Completed', 'icon' => 'fa-solid fa-check'],
         'cron' => ['column' => 'cron', 'label' => 'Cron', 'icon' => 'fa-regular fa-clock'],
-        'featured' => ['column' => 'featured', 'label' => 'Featured', 'icon' => 'fa-solid fa-star text-warning'],
+        'featured' => ['column' => 'featured', 'label' => 'Featured', 'icon' => 'fa-solid fa-star text-primary'],
         'flagged' => ['column' => 'flagged', 'label' => 'Flagged', 'icon' => 'fa-solid fa-flag'],
         'internal' => ['column' => 'internal', 'label' => 'Internal', 'icon' => 'fa-solid fa-server'],
         'locked' => ['column' => 'locked', 'label' => 'Locked', 'icon' => 'fa-solid fa-lock text-warning'],
@@ -55,12 +55,11 @@ class IndexRequest extends BaseIndexRequest
     protected array $paginationIds = [
         'id' => ['column' => 'id', 'label' => 'ID', 'type' => 'string', 'nullable' => true],
         'note_type' => ['column' => 'note_type', 'label' => 'Note Type', 'type' => 'string', 'nullable' => true],
-        'created_by_id' => ['column' => 'created_by_id', 'label' => 'Created by id', 'type' => 'uuid', 'nullable' => true],
-        'modified_by_id' => ['column' => 'modified_by_id', 'label' => 'Modified by id', 'type' => 'uuid', 'nullable' => true],
-        'owned_by_id' => ['column' => 'owned_by_id', 'label' => 'Owned by id', 'type' => 'uuid', 'nullable' => true],
+        'created_by_id' => ['column' => 'created_by_id', 'label' => 'Created by ID', 'type' => 'uuid', 'nullable' => true],
+        'modified_by_id' => ['column' => 'modified_by_id', 'label' => 'Modified by ID', 'type' => 'uuid', 'nullable' => true],
+        'owned_by_id' => ['column' => 'owned_by_id', 'label' => 'Owned by ID', 'type' => 'uuid', 'nullable' => true],
         'parent_id' => ['column' => 'parent_id', 'label' => 'Parent id', 'type' => 'uuid', 'nullable' => true],
         'matrix_id' => ['column' => 'matrix_id', 'label' => 'Matrix id', 'type' => 'uuid', 'nullable' => true],
-        'tag_id' => ['column' => 'tag_id', 'label' => 'Tag id', 'type' => 'uuid', 'nullable' => true],
     ];
 
     /**
@@ -85,12 +84,11 @@ class IndexRequest extends BaseIndexRequest
     protected array $sortable = [
         'id' => ['column' => 'id', 'label' => 'ID', 'type' => 'string'],
         'note_type' => ['column' => 'note_type', 'label' => 'Note Type', 'type' => 'string'],
-        'created_by_id' => ['column' => 'created_by_id', 'label' => 'Created by id', 'type' => 'string'],
-        'modified_by_id' => ['column' => 'modified_by_id', 'label' => 'Modified by id', 'type' => 'string'],
-        'owned_by_id' => ['column' => 'owned_by_id', 'label' => 'Owned by id', 'type' => 'string'],
+        'created_by_id' => ['column' => 'created_by_id', 'label' => 'Created by ID', 'type' => 'string'],
+        'modified_by_id' => ['column' => 'modified_by_id', 'label' => 'Modified by ID', 'type' => 'string'],
+        'owned_by_id' => ['column' => 'owned_by_id', 'label' => 'Owned by ID', 'type' => 'string'],
         'parent_id' => ['column' => 'parent_id', 'label' => 'Parent id', 'type' => 'string'],
         'matrix_id' => ['column' => 'matrix_id', 'label' => 'Matrix id', 'type' => 'string'],
-        'tag_id' => ['column' => 'tag_id', 'label' => 'Tag id', 'type' => 'string'],
         'created_at' => ['column' => 'created_at', 'label' => 'Created At', 'type' => 'string'],
         'updated_at' => ['column' => 'updated_at', 'label' => 'Updated At', 'type' => 'string'],
         'deleted_at' => ['column' => 'deleted_at', 'label' => 'Deleted At', 'type' => 'string'],

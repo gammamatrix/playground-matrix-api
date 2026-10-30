@@ -24,7 +24,6 @@ class EditRequest extends FormRequest
         'parent_id' => ['nullable', 'uuid'],
         'matrix_id' => ['nullable', 'uuid'],
         'note_id' => ['nullable', 'uuid'],
-        'tag_id' => ['nullable', 'uuid'],
         'team_id' => ['nullable', 'uuid'],
         'canceled_at' => ['nullable', 'string'],
         'closed_at' => ['nullable', 'string'],

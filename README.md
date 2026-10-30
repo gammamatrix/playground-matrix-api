@@ -26,19 +26,19 @@ This application provides OpenAPI documentation: [openapi.yaml](openapi.yaml).
 - Index endpoints support advanced query filtering.
 
 OpenAPI API Documentation is built with npm using Redocly.
-- npm is only needed to generate documentation and is not needed to operate the Playground: Matrix API API.
+- npm is only needed to generate documentation and is not needed to operate the Playground: Matrix API.
 
 See [package.json](package.json) requirements.
 
 Install npm.
 
-```sh
+```shell
 npm install
 ```
 
 Build the documentation to generate the [openapi.yaml](openapi.yaml) configuration.
 
-```sh
+```shell
 npm run docs
 ```
 
@@ -49,7 +49,7 @@ Documentation
 
 You can install the package via composer:
 
-```bash
+```shell
 composer require gammamatrix/playground-matrix-api
 ```
 
@@ -63,7 +63,7 @@ Playground provides information in the `artisan about` command.
 
 You can publish the config file with:
 
-```bash
+```shell
 php artisan vendor:publish --provider="Playground\Matrix\Api\ServiceProvider" --tag="playground-config"
 ```
 
@@ -72,7 +72,7 @@ All routes are enabled by default. They may be disabled via environment variable
 See the contents of the published config file: [config/playground-matrix-api.php](config/playground-matrix-api.php)
 
 You can publish the routes file with:
-```bash
+```shell
 php artisan vendor:publish --provider="Playground\Matrix\Api\ServiceProvider" --tag="playground-routes"
 ```
 - The routes while be published in a folder at `routes/playground-matrix-api`
@@ -90,28 +90,22 @@ This package requires the migrations in [playground-matrix](https://github.com/g
 
 ## Cloc
 
-```sh
+```shell
 composer cloc
 ```
 
-```
-➜  playground-matrix-api git:(develop) ✗ composer cloc
-    1141 text files.
-    1120 unique files.
-     249 files ignored.
-
-github.com/AlDanial/cloc v 2.06  T=0.33 s (3396.8 files/s, 335144.1 lines/s)
+```terminaloutput
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-JSON                           481              0              0          42797
-YAML                           164              5              0          37527
-PHP                            461           4303           5637          19462
-XML                             10              0              7            568
-Markdown                         3             55              1            126
+JSON                           493              0              0          40573
+YAML                           164              4              0          37497
+PHP                            473           4379           5824          20618
+XML                              3              0              7            215
+Markdown                         3             54              1            110
 INI                              1              3              0             12
 -------------------------------------------------------------------------------
-SUM:                          1120           4366           5645         100492
+SUM:                          1137           4440           5832          99025
 -------------------------------------------------------------------------------
 ```
 
@@ -124,30 +118,30 @@ Tests at level 10 on:
 - `tests/Feature/`
 - `tests/Unit/`
 
-```sh
+```shell
 composer analyse
 ```
 
 ## Coding Standards
 
-```sh
+```shell
 composer format
 ```
 
 ## Testing
 
 Run unit tests:
-```sh
+```shell
 composer test
 ```
 
 Run unit and feature tests:
-```sh
+```shell
 composer test-dev
 ```
 
 Run unit and feature tests in parallel:
-```sh
+```shell
 composer test-parallel
 ```
 

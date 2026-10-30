@@ -5,8 +5,10 @@
  */
 
 declare(strict_types=1);
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
+use Playground\Auth\Policies\Policy;
 use Playground\Matrix\Api\Policies\BacklogPolicy;
 use Playground\Matrix\Api\Policies\BoardPolicy;
 use Playground\Matrix\Api\Policies\EpicPolicy;
@@ -19,6 +21,7 @@ use Playground\Matrix\Api\Policies\ReleasePolicy;
 use Playground\Matrix\Api\Policies\RoadmapPolicy;
 use Playground\Matrix\Api\Policies\SourcePolicy;
 use Playground\Matrix\Api\Policies\SprintPolicy;
+use Playground\Matrix\Api\Policies\TaggedPolicy;
 use Playground\Matrix\Api\Policies\TagPolicy;
 use Playground\Matrix\Api\Policies\TeamPolicy;
 use Playground\Matrix\Api\Policies\TicketPolicy;
@@ -36,12 +39,60 @@ use Playground\Matrix\Models\Roadmap;
 use Playground\Matrix\Models\Source;
 use Playground\Matrix\Models\Sprint;
 use Playground\Matrix\Models\Tag;
+use Playground\Matrix\Models\Tagged;
 use Playground\Matrix\Models\Team;
 use Playground\Matrix\Models\Ticket;
 use Playground\Matrix\Models\Version;
 
 /**
  * Playground: Matrix API Configuration and Environment Variables
+ *
+ * @return array{
+ *       about: bool,
+ *       load: array{
+ *           policies: bool,
+ *           routes: bool,
+ *           translations: bool
+ *       },
+ *       matrix: array{
+ *           enabled: bool,
+ *       },
+ *       middleware: array{
+ *           default: string|string[],
+ *           auth: string|string[],
+ *           guest: string|string[]
+ *       },
+ *       policies: array<
+ *           class-string<Model>,
+ *           class-string<Policy>
+ *       >,
+ *       routes: array{
+ *           backlogs: bool,
+ *           boards: bool,
+ *           epics: bool,
+ *           flows: bool,
+ *           matrices: bool,
+ *           milestones: bool,
+ *           notes: bool,
+ *           projects: bool,
+ *           releases: bool,
+ *           roadmaps: bool,
+ *           sources: bool,
+ *           sprints: bool,
+ *           tags: bool,
+ *           tagged: bool,
+ *           teams: bool,
+ *           tickets: bool,
+ *           versions: bool,
+ *       },
+ *       abilities: array<string, string[]>,
+ *       sitemap: array{
+ *            enable: bool,
+ *            guest: bool,
+ *            user: bool,
+ *            view: string
+ *       }
+ *   }
  */
 return [
 
@@ -71,6 +122,18 @@ return [
         'policies' => (bool) env('PLAYGROUND_MATRIX_API_LOAD_POLICIES', true),
         'routes' => (bool) env('PLAYGROUND_MATRIX_API_LOAD_ROUTES', true),
         'translations' => (bool) env('PLAYGROUND_MATRIX_API_LOAD_TRANSLATIONS', true),
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Matrix
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
+    'matrix' => [
+        'enabled' => (bool) env('PLAYGROUND_MATRIX_API_MATRIX_ENABLED', false),
     ],
 
     /*
@@ -123,6 +186,7 @@ return [
         Source::class => SourcePolicy::class,
         Sprint::class => SprintPolicy::class,
         Tag::class => TagPolicy::class,
+        Tagged::class => TaggedPolicy::class,
         Team::class => TeamPolicy::class,
         Ticket::class => TicketPolicy::class,
         Version::class => VersionPolicy::class,
@@ -150,6 +214,7 @@ return [
         'sources' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_SOURCES', true),
         'sprints' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_SPRINTS', true),
         'tags' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_TAGS', true),
+        'tagged' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_TAGGED', true),
         'teams' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_TEAMS', true),
         'tickets' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_TICKETS', true),
         'versions' => (bool) env('PLAYGROUND_MATRIX_API_ROUTES_VERSIONS', true),
@@ -181,6 +246,7 @@ return [
             'playground-matrix-api:source:*',
             'playground-matrix-api:sprint:*',
             'playground-matrix-api:tag:*',
+            'playground-matrix-api:tagged:*',
             'playground-matrix-api:team:*',
             'playground-matrix-api:ticket:*',
             'playground-matrix-api:version:*',
@@ -212,6 +278,8 @@ return [
             'playground-matrix-api:sprint:viewAny',
             'playground-matrix-api:tag:view',
             'playground-matrix-api:tag:viewAny',
+            'playground-matrix-api:tagged:view',
+            'playground-matrix-api:tagged:viewAny',
             'playground-matrix-api:team:view',
             'playground-matrix-api:team:viewAny',
             'playground-matrix-api:ticket:view',

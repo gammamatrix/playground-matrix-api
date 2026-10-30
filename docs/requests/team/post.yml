@@ -15,6 +15,11 @@ properties:
     type: string
     format: uuid
     nullable: true
+  matrix_id:
+    description: 'Foreign key: links a matrix to this team.'
+    type: string
+    format: uuid
+    nullable: true
   backlog_id:
     description: 'Foreign key: links a backlog to this team.'
     type: string
@@ -32,11 +37,6 @@ properties:
     nullable: true
   flow_id:
     description: 'Foreign key: links a flow to this team.'
-    type: string
-    format: uuid
-    nullable: true
-  matrix_id:
-    description: 'Foreign key: links a matrix to this team.'
     type: string
     format: uuid
     nullable: true
@@ -72,11 +72,6 @@ properties:
     nullable: true
   sprint_id:
     description: 'Foreign key: links a sprint to this team.'
-    type: string
-    format: uuid
-    nullable: true
-  tag_id:
-    description: 'Foreign key: links a tag to this team.'
     type: string
     format: uuid
     nullable: true

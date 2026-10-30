@@ -13,7 +13,7 @@ use Playground\Matrix\Models\Source;
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\SourceTestCase
  */
-class SourceTestCase extends TestCase
+class SourceTestCase extends PlaygroundCase
 {
     public string $fqdn = Source::class;
 
@@ -29,12 +29,6 @@ class SourceTestCase extends TestCase
 
     protected int $status_code_json_guest_restore = 401;
 
-    protected int $status_code_json_guest_restore_revision = 401;
-
-    protected int $status_code_guest_json_revision = 401;
-
-    protected int $status_code_guest_json_revisions = 401;
-
     protected int $status_code_json_guest_show = 401;
 
     protected int $status_code_guest_json_store = 401;
@@ -48,17 +42,33 @@ class SourceTestCase extends TestCase
      */
     public array $packageInfo = [
         'model_attribute' => 'title',
+        'model_camel' => 'source',
+        'model_camels' => 'sources',
+        'model_kebab' => 'source',
+        'model_kebabs' => 'sources',
+        'model_lower' => 'source',
+        'model_lowers' => 'sources',
         'model_label' => 'Source',
         'model_label_plural' => 'Sources',
+        'model_labels' => 'Sources',
         'model_route' => 'playground.matrix.api.sources',
+        'model_route_param' => 'source',
         'model_slug' => 'source',
+        'model_slugs' => 'sources',
         'model_slug_plural' => 'sources',
+        'model_snake' => 'source',
+        'model_snakes' => 'sources',
+        'model_studly' => 'Source',
+        'model_studlies' => 'Sources',
         'model_variable' => 'source',
+        'model_variables' => 'sources',
         'model_variable_plural' => 'sources',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
+        'module_labels' => 'Matrices',
         'module_route' => 'playground.matrix.api',
         'module_slug' => 'matrix',
+        'module_slugs' => 'matrices',
         'privilege' => 'playground-matrix-api:source',
         'table' => 'matrix_sources',
     ];
@@ -75,7 +85,6 @@ class SourceTestCase extends TestCase
         'parent_id',
         'matrix_id',
         'note_id',
-        'tag_id',
         'team_id',
         'created_at',
         'updated_at',

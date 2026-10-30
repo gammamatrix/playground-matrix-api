@@ -20,6 +20,71 @@ properties:
     type: string
     format: uuid
     nullable: true
+  canceled_at:
+    description: 'The canceled at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  closed_at:
+    description: 'The closed at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  embargo_at:
+    description: 'The embargo at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_end_at:
+    description: 'The planned end at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  planned_start_at:
+    description: 'The planned start at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  postponed_at:
+    description: 'The postponed at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  published_at:
+    description: 'The published at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  released_at:
+    description: 'The released at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  resolved_at:
+    description: 'The resolved at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  resumed_at:
+    description: 'The resumed at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  suspended_at:
+    description: 'The suspended at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  timer_end_at:
+    description: 'The timer end at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
+  timer_start_at:
+    description: 'The timer start at date for this tag.'
+    type: string
+    format: date-time
+    nullable: true
   gids:
     description: 'Permissions: gids'
     type: integer
@@ -79,11 +144,23 @@ properties:
   active:
     description: 'Flags: active'
     type: boolean
+  canceled:
+    description: 'Flags: canceled'
+    type: boolean
+  closed:
+    description: 'Flags: closed'
+    type: boolean
+  completed:
+    description: 'Flags: completed'
+    type: boolean
   cron:
     description: 'Flags: cron'
     type: boolean
-  featured:
-    description: 'Flags: featured'
+  duplicate:
+    description: 'Flags: duplicate'
+    type: boolean
+  fixed:
+    description: 'Flags: fixed'
     type: boolean
   flagged:
     description: 'Flags: flagged'
@@ -94,11 +171,32 @@ properties:
   locked:
     description: 'Flags: locked'
     type: boolean
+  pending:
+    description: 'Flags: pending'
+    type: boolean
+  planned:
+    description: 'Flags: planned'
+    type: boolean
+  prioritized:
+    description: 'Flags: prioritized'
+    type: boolean
+  problem:
+    description: 'Flags: problem'
+    type: boolean
+  published:
+    description: 'Flags: published'
+    type: boolean
+  released:
+    description: 'Flags: released'
+    type: boolean
+  resolved:
+    description: 'Flags: resolved'
+    type: boolean
   retired:
     description: 'Flags: retired'
     type: boolean
-  special:
-    description: 'Flags: special'
+  suspended:
+    description: 'Flags: suspended'
     type: boolean
   unknown:
     description: 'Flags: unknown'

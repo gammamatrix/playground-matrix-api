@@ -13,7 +13,7 @@ use Playground\Matrix\Models\Backlog;
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\BacklogTestCase
  */
-class BacklogTestCase extends TestCase
+class BacklogTestCase extends PlaygroundCase
 {
     public string $fqdn = Backlog::class;
 
@@ -29,12 +29,6 @@ class BacklogTestCase extends TestCase
 
     protected int $status_code_json_guest_restore = 401;
 
-    protected int $status_code_json_guest_restore_revision = 401;
-
-    protected int $status_code_guest_json_revision = 401;
-
-    protected int $status_code_guest_json_revisions = 401;
-
     protected int $status_code_json_guest_show = 401;
 
     protected int $status_code_guest_json_store = 401;
@@ -48,17 +42,33 @@ class BacklogTestCase extends TestCase
      */
     public array $packageInfo = [
         'model_attribute' => 'title',
+        'model_camel' => 'backlog',
+        'model_camels' => 'backlogs',
+        'model_kebab' => 'backlog',
+        'model_kebabs' => 'backlogs',
+        'model_lower' => 'backlog',
+        'model_lowers' => 'backlogs',
         'model_label' => 'Backlog',
         'model_label_plural' => 'Backlogs',
+        'model_labels' => 'Backlogs',
         'model_route' => 'playground.matrix.api.backlogs',
+        'model_route_param' => 'backlog',
         'model_slug' => 'backlog',
+        'model_slugs' => 'backlogs',
         'model_slug_plural' => 'backlogs',
+        'model_snake' => 'backlog',
+        'model_snakes' => 'backlogs',
+        'model_studly' => 'Backlog',
+        'model_studlies' => 'Backlogs',
         'model_variable' => 'backlog',
+        'model_variables' => 'backlogs',
         'model_variable_plural' => 'backlogs',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
+        'module_labels' => 'Matrices',
         'module_route' => 'playground.matrix.api',
         'module_slug' => 'matrix',
+        'module_slugs' => 'matrices',
         'privilege' => 'playground-matrix-api:backlog',
         'table' => 'matrix_backlogs',
     ];
@@ -73,10 +83,10 @@ class BacklogTestCase extends TestCase
         'modified_by_id',
         'owned_by_id',
         'parent_id',
+        'matrix_id',
         'board_id',
         'epic_id',
         'flow_id',
-        'matrix_id',
         'milestone_id',
         'note_id',
         'project_id',
@@ -84,7 +94,6 @@ class BacklogTestCase extends TestCase
         'roadmap_id',
         'source_id',
         'sprint_id',
-        'tag_id',
         'team_id',
         'ticket_id',
         'version_id',

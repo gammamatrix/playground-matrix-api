@@ -13,7 +13,7 @@ use Playground\Matrix\Models\Version;
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\VersionTestCase
  */
-class VersionTestCase extends TestCase
+class VersionTestCase extends PlaygroundCase
 {
     public string $fqdn = Version::class;
 
@@ -29,12 +29,6 @@ class VersionTestCase extends TestCase
 
     protected int $status_code_json_guest_restore = 401;
 
-    protected int $status_code_json_guest_restore_revision = 401;
-
-    protected int $status_code_guest_json_revision = 401;
-
-    protected int $status_code_guest_json_revisions = 401;
-
     protected int $status_code_json_guest_show = 401;
 
     protected int $status_code_guest_json_store = 401;
@@ -48,17 +42,33 @@ class VersionTestCase extends TestCase
      */
     public array $packageInfo = [
         'model_attribute' => 'title',
+        'model_camel' => 'version',
+        'model_camels' => 'versions',
+        'model_kebab' => 'version',
+        'model_kebabs' => 'versions',
+        'model_lower' => 'version',
+        'model_lowers' => 'versions',
         'model_label' => 'Version',
         'model_label_plural' => 'Versions',
+        'model_labels' => 'Versions',
         'model_route' => 'playground.matrix.api.versions',
+        'model_route_param' => 'version',
         'model_slug' => 'version',
+        'model_slugs' => 'versions',
         'model_slug_plural' => 'versions',
+        'model_snake' => 'version',
+        'model_snakes' => 'versions',
+        'model_studly' => 'Version',
+        'model_studlies' => 'Versions',
         'model_variable' => 'version',
+        'model_variables' => 'versions',
         'model_variable_plural' => 'versions',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
+        'module_labels' => 'Matrices',
         'module_route' => 'playground.matrix.api',
         'module_slug' => 'matrix',
+        'module_slugs' => 'matrices',
         'privilege' => 'playground-matrix-api:version',
         'table' => 'matrix_versions',
     ];
@@ -75,7 +85,6 @@ class VersionTestCase extends TestCase
         'parent_id',
         'matrix_id',
         'project_id',
-        'tag_id',
         'team_id',
         'ticket_id',
         'created_at',

@@ -35,11 +35,6 @@ properties:
     type: string
     format: uuid
     nullable: true
-  tag_id:
-    description: 'Foreign key: links a tag to this note.'
-    type: string
-    format: uuid
-    nullable: true
   created_at:
     description: 'Denotes the date and time, the note was created.'
     type: string

@@ -20,11 +20,6 @@ properties:
     type: string
     format: uuid
     nullable: true
-  tag_id:
-    description: 'Foreign key: links a tag to this note.'
-    type: string
-    format: uuid
-    nullable: true
   gids:
     description: 'Permissions: gids'
     type: integer

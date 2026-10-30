@@ -15,6 +15,11 @@ properties:
     type: string
     format: uuid
     nullable: true
+  matrix_id:
+    description: 'Foreign key: links a matrix to this ticket.'
+    type: string
+    format: uuid
+    nullable: true
   backlog_id:
     description: 'Foreign key: links a backlog to this ticket.'
     type: string
@@ -32,11 +37,6 @@ properties:
     nullable: true
   flow_id:
     description: 'Foreign key: links a flow to this ticket.'
-    type: string
-    format: uuid
-    nullable: true
-  matrix_id:
-    description: 'Foreign key: links a matrix to this ticket.'
     type: string
     format: uuid
     nullable: true
@@ -72,11 +72,6 @@ properties:
     nullable: true
   sprint_id:
     description: 'Foreign key: links a sprint to this ticket.'
-    type: string
-    format: uuid
-    nullable: true
-  tag_id:
-    description: 'Foreign key: links a tag to this ticket.'
     type: string
     format: uuid
     nullable: true
@@ -152,6 +147,11 @@ properties:
     nullable: true
   published_at:
     description: 'The published at date for this ticket.'
+    type: string
+    format: date-time
+    nullable: true
+  released_at:
+    description: 'The released at date for this ticket.'
     type: string
     format: date-time
     nullable: true
@@ -390,23 +390,23 @@ properties:
     type: integer
     format: int64
   actual:
-    description: 'The actual of the ticket. Allows HTML.'
+    description: 'The actual of the ticket.'
     type: string
     nullable: true
   expected:
-    description: 'The expected of the ticket. Allows HTML.'
+    description: 'The expected of the ticket.'
     type: string
     nullable: true
   story:
-    description: 'The story of the ticket. Allows HTML.'
+    description: 'The story of the ticket.'
     type: string
     nullable: true
   steps:
-    description: 'The steps of the ticket. Allows HTML.'
+    description: 'The steps of the ticket.'
     type: string
     nullable: true
   criteria:
-    description: 'The criteria of the ticket. Allows HTML.'
+    description: 'The criteria of the ticket.'
     type: string
     nullable: true
   reproducibility:

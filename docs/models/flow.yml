@@ -40,11 +40,6 @@ properties:
     type: string
     format: uuid
     nullable: true
-  tag_id:
-    description: 'Foreign key: links a tag to this flow.'
-    type: string
-    format: uuid
-    nullable: true
   team_id:
     description: 'Foreign key: links a team to this flow.'
     type: string

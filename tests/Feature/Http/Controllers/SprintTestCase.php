@@ -13,7 +13,7 @@ use Playground\Matrix\Models\Sprint;
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\SprintTestCase
  */
-class SprintTestCase extends TestCase
+class SprintTestCase extends PlaygroundCase
 {
     public string $fqdn = Sprint::class;
 
@@ -29,12 +29,6 @@ class SprintTestCase extends TestCase
 
     protected int $status_code_json_guest_restore = 401;
 
-    protected int $status_code_json_guest_restore_revision = 401;
-
-    protected int $status_code_guest_json_revision = 401;
-
-    protected int $status_code_guest_json_revisions = 401;
-
     protected int $status_code_json_guest_show = 401;
 
     protected int $status_code_guest_json_store = 401;
@@ -48,17 +42,33 @@ class SprintTestCase extends TestCase
      */
     public array $packageInfo = [
         'model_attribute' => 'title',
+        'model_camel' => 'sprint',
+        'model_camels' => 'sprints',
+        'model_kebab' => 'sprint',
+        'model_kebabs' => 'sprints',
+        'model_lower' => 'sprint',
+        'model_lowers' => 'sprints',
         'model_label' => 'Sprint',
         'model_label_plural' => 'Sprints',
+        'model_labels' => 'Sprints',
         'model_route' => 'playground.matrix.api.sprints',
+        'model_route_param' => 'sprint',
         'model_slug' => 'sprint',
+        'model_slugs' => 'sprints',
         'model_slug_plural' => 'sprints',
+        'model_snake' => 'sprint',
+        'model_snakes' => 'sprints',
+        'model_studly' => 'Sprint',
+        'model_studlies' => 'Sprints',
         'model_variable' => 'sprint',
+        'model_variables' => 'sprints',
         'model_variable_plural' => 'sprints',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
+        'module_labels' => 'Matrices',
         'module_route' => 'playground.matrix.api',
         'module_slug' => 'matrix',
+        'module_slugs' => 'matrices',
         'privilege' => 'playground-matrix-api:sprint',
         'table' => 'matrix_sprints',
     ];
@@ -73,18 +83,17 @@ class SprintTestCase extends TestCase
         'modified_by_id',
         'owned_by_id',
         'parent_id',
+        'matrix_id',
         'backlog_id',
         'board_id',
         'epic_id',
         'flow_id',
-        'matrix_id',
         'milestone_id',
         'note_id',
         'project_id',
         'release_id',
         'roadmap_id',
         'source_id',
-        'tag_id',
         'team_id',
         'ticket_id',
         'version_id',

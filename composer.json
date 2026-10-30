@@ -2,13 +2,10 @@
     "name": "gammamatrix/playground-matrix-api",
     "description": "Playground: Provides an API, without a UI for interacting with Playground Matrix, a Project Management System for Laravel applications.",
     "keywords": [
-        "agile",
         "gammamatrix",
         "laravel",
         "matrix",
-        "playground",
-        "projects",
-        "sprints"
+        "playground"
     ],
     "homepage": "https://github.com/gammamatrix/playground-matrix-api",
     "license": "MIT",
@@ -62,7 +59,7 @@
     "prefer-stable": true,
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse --verbose --debug --level max",
-        "cloc": "cloc --exclude-dir=node_modules,output,vendor .",
+        "cloc": "cloc --exclude-ext=lock --exclude-dir=.git,.idea,.phpunit.cache,node_modules,output,vendor .",
         "format": "vendor/bin/pint",
         "test": "vendor/bin/testbench package:test",
         "test-dev": [

@@ -13,7 +13,7 @@ use Playground\Matrix\Models\Tag;
 /**
  * \Tests\Feature\Playground\Matrix\Api\Http\Controllers\TagTestCase
  */
-class TagTestCase extends TestCase
+class TagTestCase extends PlaygroundCase
 {
     public string $fqdn = Tag::class;
 
@@ -29,12 +29,6 @@ class TagTestCase extends TestCase
 
     protected int $status_code_json_guest_restore = 401;
 
-    protected int $status_code_json_guest_restore_revision = 401;
-
-    protected int $status_code_guest_json_revision = 401;
-
-    protected int $status_code_guest_json_revisions = 401;
-
     protected int $status_code_json_guest_show = 401;
 
     protected int $status_code_guest_json_store = 401;
@@ -48,17 +42,33 @@ class TagTestCase extends TestCase
      */
     public array $packageInfo = [
         'model_attribute' => 'title',
+        'model_camel' => 'tag',
+        'model_camels' => 'tags',
+        'model_kebab' => 'tag',
+        'model_kebabs' => 'tags',
+        'model_lower' => 'tag',
+        'model_lowers' => 'tags',
         'model_label' => 'Tag',
         'model_label_plural' => 'Tags',
+        'model_labels' => 'Tags',
         'model_route' => 'playground.matrix.api.tags',
+        'model_route_param' => 'tag',
         'model_slug' => 'tag',
+        'model_slugs' => 'tags',
         'model_slug_plural' => 'tags',
+        'model_snake' => 'tag',
+        'model_snakes' => 'tags',
+        'model_studly' => 'Tag',
+        'model_studlies' => 'Tags',
         'model_variable' => 'tag',
+        'model_variables' => 'tags',
         'model_variable_plural' => 'tags',
         'module_label' => 'Matrix',
         'module_label_plural' => 'Matrices',
+        'module_labels' => 'Matrices',
         'module_route' => 'playground.matrix.api',
         'module_slug' => 'matrix',
+        'module_slugs' => 'matrices',
         'privilege' => 'playground-matrix-api:tag',
         'table' => 'matrix_tags',
     ];
@@ -77,6 +87,19 @@ class TagTestCase extends TestCase
         'created_at',
         'updated_at',
         'deleted_at',
+        'canceled_at',
+        'closed_at',
+        'embargo_at',
+        'planned_end_at',
+        'planned_start_at',
+        'postponed_at',
+        'published_at',
+        'released_at',
+        'resolved_at',
+        'resumed_at',
+        'suspended_at',
+        'timer_end_at',
+        'timer_start_at',
         'gids',
         'po',
         'pg',
@@ -100,13 +123,24 @@ class TagTestCase extends TestCase
         'latitude',
         'longitude',
         'active',
+        'canceled',
+        'closed',
+        'completed',
         'cron',
-        'featured',
+        'duplicate',
+        'fixed',
         'flagged',
         'internal',
         'locked',
+        'pending',
+        'planned',
+        'prioritized',
+        'problem',
+        'published',
+        'released',
+        'resolved',
         'retired',
-        'special',
+        'suspended',
         'unknown',
         'locale',
         'label',

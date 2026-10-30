@@ -23,7 +23,6 @@ class StoreRequest extends BaseStoreRequest
         'owned_by_id' => ['nullable', 'uuid'],
         'parent_id' => ['nullable', 'uuid'],
         'matrix_id' => ['nullable', 'uuid'],
-        'tag_id' => ['nullable', 'uuid'],
         'gids' => ['integer'],
         'po' => ['integer'],
         'pg' => ['integer'],
