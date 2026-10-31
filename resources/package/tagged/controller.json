@@ -55,6 +55,7 @@
     "privilege": "playground-matrix-api",
     "route": "playground.matrix.api",
     "view": "playground-matrix-api",
+    "actions": [],
     "implements": [],
     "uses": [],
     "packageInfo": {

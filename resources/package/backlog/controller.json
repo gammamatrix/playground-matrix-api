@@ -55,6 +55,7 @@
     "privilege": "playground-matrix-api:backlog",
     "route": "playground.matrix.api",
     "view": "",
+    "actions": [],
     "implements": [],
     "uses": [],
     "packageInfo": {

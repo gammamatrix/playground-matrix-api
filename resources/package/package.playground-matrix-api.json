@@ -75,7 +75,9 @@
         "laravel/sanctum": "^4.0"
     },
     "package_suggest": [],
-    "controllers": [],
+    "controllers": {
+        "TicketController": "resources/configurations/playground-matrix-api/ticket/controller.json"
+    },
     "models": [],
     "policies": [],
     "requests": [],
